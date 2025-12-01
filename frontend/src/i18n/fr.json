@@ -1,0 +1,114 @@
+{
+  "navigation": {
+    "home": "Accueil",
+    "jobs": "Emplois",
+    "companies": "Entreprises",
+    "about": "À propos",
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "logout": "Déconnexion",
+    "profile": "Profil",
+    "dashboard": "Tableau de bord",
+    "admin": "Administration"
+  },
+  "auth": {
+    "welcomeBack": "Bon retour",
+    "signInToAccount": "Connectez-vous à votre compte",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "rememberMe": "Se souvenir de moi",
+    "forgotPassword": "Mot de passe oublié?",
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire",
+    "noAccount": "Pas de compte?",
+    "haveAccount": "Déjà un compte?",
+    "registerNow": "S'inscrire maintenant",
+    "login": {
+      "title": "Se connecter",
+      "subtitle": "Connectez-vous à votre compte",
+      "button": "Se connecter"
+    },
+    "register": {
+      "title": "S'inscrire",
+      "subtitle": "Créez votre compte gratuit",
+      "button": "Créer un compte",
+      "haveAccount": "Déjà un compte?",
+      "signInLink": "Connectez-vous ici",
+      "terms": {
+        "text": "En vous inscrivant, vous acceptez nos",
+        "termsLink": "Conditions d'utilisation",
+        "and": "et",
+        "privacyLink": "Politique de confidentialité"
+      }
+    },
+    "fields": {
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "displayName": "Nom d'affichage",
+      "accountType": "Type de compte"
+    },
+    "placeholders": {
+      "email": "votre.email@exemple.com",
+      "password": "Votre mot de passe sécurisé",
+      "confirmPassword": "Ressaisissez votre mot de passe",
+      "displayName": "Votre nom complet"
+    },
+    "roles": {
+      "candidate": {
+        "title": "Candidat",
+        "description": "Je recherche des emplois et des opportunités de carrière"
+      },
+      "employer": {
+        "title": "Employeur",
+        "description": "Je veux publier des offres d'emploi et trouver des talents"
+      }
+    }
+  },
+  "jobs": {
+    "findDreamJob": "Trouvez l'emploi de vos rêves",
+    "searchJobs": "Rechercher des emplois",
+    "filterJobs": "Filtrer les emplois",
+    "location": "Lieu",
+    "jobType": "Type d'emploi",
+    "salary": "Salaire",
+    "remote": "À distance",
+    "fullTime": "Temps plein",
+    "partTime": "Temps partiel",
+    "contract": "Contrat",
+    "internship": "Stage",
+    "applyNow": "Postuler maintenant",
+    "viewDetails": "Voir les détails",
+    "requirements": "Exigences",
+    "benefits": "Avantages",
+    "description": "Description"
+  },
+  "dashboard": {
+    "welcome": "Bienvenue",
+    "overview": "Aperçu",
+    "myJobs": "Mes emplois",
+    "applications": "Candidatures",
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "analytics": "Analytiques",
+    "users": "Utilisateurs",
+    "employers": "Employeurs"
+  },
+  "common": {
+    "appName": "CareerWave",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "create": "Créer",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "confirm": "Confirmer",
+    "yes": "Oui",
+    "no": "Non"
+  }
+}

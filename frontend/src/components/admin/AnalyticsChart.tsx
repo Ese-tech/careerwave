@@ -12,7 +12,14 @@ import {
     Tooltip,
     Legend,
 } from "chart.js";
+import type { ChartOptions } from "chart.js";
+// Mock-Implementierung des useTheme-Hooks, um den Importfehler in dieser einzelnen Datei zu beheben.
+// Da kein globaler Theme-Kontext verfügbar ist, wird der Standardwert 'light' angenommen.
+const useTheme = () => {
+    return { theme: 'light' };
+};
 
+// Registrierung der benötigten Chart.js-Module
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -25,37 +32,85 @@ ChartJS.register(
 
 interface AnalyticsChartProps {
   data: { labels: string[]; values: number[] };
+  title: string;
+  label: string;
 }
 
-const AnalyticsChart: React.FC<AnalyticsChartProps> = ({ data }) => {
+/**
+ * Eine wiederverwendbare Komponente zur Anzeige von Liniendiagrammen für Analysedaten.
+ */
+const AnalyticsChart: React.FC<AnalyticsChartProps> = ({ data, title, label }) => {
+  // Nutzung des gemockten Hooks
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+  
+  // Dynamische Farben basierend auf dem Theme
+  const chartColor = isDark ? 'rgba(78, 118, 255, 1)' : 'rgba(59, 130, 246, 1)';
+  const fontColor = isDark ? '#f3f4f6' : '#1f2937';
+  const gridColor = isDark ? 'rgba(107, 114, 128, 0.3)' : 'rgba(229, 231, 235, 1)';
+
   const chartData = {
     labels: data.labels,
     datasets: [
       {
-        label: "User Signups",
+        label: label,
         data: data.values,
-        borderColor: "rgba(75,192,192,1)",
-        backgroundColor: "rgba(75,192,192,0.2)",
+        borderColor: chartColor,
+        backgroundColor: chartColor.replace('1)', '0.1)'), // Leichte Füllung
         fill: true,
         tension: 0.4,
+        pointBackgroundColor: chartColor,
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: chartColor,
+        pointRadius: 4,
+        pointHoverRadius: 6,
       },
     ],
   };
 
-  const options = {
+  const options: ChartOptions<'line'> = {
     responsive: true,   
+    maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "top" as const,
+        position: 'top' as const,
+        labels: { color: fontColor },
       },
       title: {
         display: true,
-        text: "Monthly User Signups",
+        text: title,
+        color: fontColor,
+        font: { size: 16, weight: 'bold' as 'bold' },
+      },
+      tooltip: {
+        mode: 'index',
+        intersect: false,
+        backgroundColor: isDark ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.9)',
+        titleColor: fontColor,
+        bodyColor: fontColor,
+        borderColor: gridColor,
+        borderWidth: 1,
+      }
+    },
+    scales: {
+      x: {
+        ticks: { color: fontColor },
+        grid: { color: gridColor },
+      },
+      y: {
+        ticks: { color: fontColor },
+        grid: { color: gridColor },
+        beginAtZero: true,
       },
     },
   };
 
-  return <Line data={chartData} options={options} />;
+  return (
+    <div className={`p-6 rounded-xl shadow-lg transition-all duration-300 ${isDark ? 'bg-gray-800' : 'bg-white'}`} style={{ height: '400px' }}>
+        <Line data={chartData} options={options} />
+    </div>
+  );
 };
 
 export default AnalyticsChart;

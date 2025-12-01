@@ -1,0 +1,114 @@
+{
+  "navigation": {
+    "home": "Startseite",
+    "jobs": "Jobs",
+    "companies": "Unternehmen",
+    "about": "Über uns",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "logout": "Abmelden",
+    "profile": "Profil",
+    "dashboard": "Dashboard",
+    "admin": "Administration"
+  },
+  "auth": {
+    "welcomeBack": "Willkommen zurück",
+    "signInToAccount": "Melden Sie sich in Ihrem Konto an",
+    "email": "E-Mail-Adresse",
+    "password": "Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "rememberMe": "Angemeldet bleiben",
+    "forgotPassword": "Passwort vergessen?",
+    "signIn": "Anmelden",
+    "signUp": "Registrieren",
+    "noAccount": "Noch kein Konto?",
+    "haveAccount": "Bereits ein Konto?",
+    "registerNow": "Jetzt registrieren",
+    "login": {
+      "title": "Anmelden",
+      "subtitle": "Melden Sie sich bei Ihrem Konto an",
+      "button": "Anmelden"
+    },
+    "register": {
+      "title": "Registrieren",
+      "subtitle": "Erstellen Sie Ihr kostenloses Konto",
+      "button": "Konto erstellen",
+      "haveAccount": "Bereits ein Konto?",
+      "signInLink": "Hier anmelden",
+      "terms": {
+        "text": "Durch die Registrierung stimmen Sie unseren",
+        "termsLink": "Nutzungsbedingungen",
+        "and": "und",
+        "privacyLink": "Datenschutzrichtlinien"
+      }
+    },
+    "fields": {
+      "email": "E-Mail",
+      "password": "Passwort",
+      "confirmPassword": "Passwort bestätigen",
+      "displayName": "Anzeigename",
+      "accountType": "Kontotyp"
+    },
+    "placeholders": {
+      "email": "ihre.email@beispiel.de",
+      "password": "Ihr sicheres Passwort",
+      "confirmPassword": "Passwort erneut eingeben",
+      "displayName": "Ihr vollständiger Name"
+    },
+    "roles": {
+      "candidate": {
+        "title": "Bewerber",
+        "description": "Ich suche nach Jobs und Karrieremöglichkeiten"
+      },
+      "employer": {
+        "title": "Arbeitgeber",
+        "description": "Ich möchte Stellenanzeigen veröffentlichen und Talente finden"
+      }
+    }
+  },
+  "jobs": {
+    "findDreamJob": "Finden Sie Ihren Traumjob",
+    "searchJobs": "Jobs durchsuchen",
+    "filterJobs": "Jobs filtern",
+    "location": "Ort",
+    "jobType": "Jobtyp",
+    "salary": "Gehalt",
+    "remote": "Remote",
+    "fullTime": "Vollzeit",
+    "partTime": "Teilzeit",
+    "contract": "Vertrag",
+    "internship": "Praktikum",
+    "applyNow": "Jetzt bewerben",
+    "viewDetails": "Details ansehen",
+    "requirements": "Anforderungen",
+    "benefits": "Vorteile",
+    "description": "Beschreibung"
+  },
+  "dashboard": {
+    "welcome": "Willkommen",
+    "overview": "Übersicht",
+    "myJobs": "Meine Jobs",
+    "applications": "Bewerbungen",
+    "profile": "Profil",
+    "settings": "Einstellungen",
+    "analytics": "Analytik",
+    "users": "Benutzer",
+    "employers": "Arbeitgeber"
+  },
+  "common": {
+    "appName": "CareerWave",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "create": "Erstellen",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolgreich",
+    "confirm": "Bestätigen",
+    "yes": "Ja",
+    "no": "Nein"
+  }
+}

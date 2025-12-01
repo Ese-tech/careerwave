@@ -1,0 +1,114 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "jobs": "Trabajos",
+    "companies": "Empresas",
+    "about": "Acerca de",
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "logout": "Cerrar sesión",
+    "profile": "Perfil",
+    "dashboard": "Panel",
+    "admin": "Administración"
+  },
+  "auth": {
+    "welcomeBack": "Bienvenido de vuelta",
+    "signInToAccount": "Inicia sesión en tu cuenta",
+    "email": "Dirección de correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "rememberMe": "Recordarme",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "signIn": "Iniciar sesión",
+    "signUp": "Registrarse",
+    "noAccount": "¿No tienes una cuenta?",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "registerNow": "Regístrate ahora",
+    "login": {
+      "title": "Iniciar sesión",
+      "subtitle": "Inicia sesión en tu cuenta",
+      "button": "Iniciar sesión"
+    },
+    "register": {
+      "title": "Registrarse",
+      "subtitle": "Crea tu cuenta gratuita",
+      "button": "Crear cuenta",
+      "haveAccount": "¿Ya tienes una cuenta?",
+      "signInLink": "Inicia sesión aquí",
+      "terms": {
+        "text": "Al registrarte, aceptas nuestros",
+        "termsLink": "Términos de servicio",
+        "and": "y",
+        "privacyLink": "Política de privacidad"
+      }
+    },
+    "fields": {
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "displayName": "Nombre a mostrar",
+      "accountType": "Tipo de cuenta"
+    },
+    "placeholders": {
+      "email": "tu.correo@ejemplo.com",
+      "password": "Tu contraseña segura",
+      "confirmPassword": "Vuelve a ingresar tu contraseña",
+      "displayName": "Tu nombre completo"
+    },
+    "roles": {
+      "candidate": {
+        "title": "Candidato",
+        "description": "Estoy buscando empleos y oportunidades de carrera"
+      },
+      "employer": {
+        "title": "Empleador",
+        "description": "Quiero publicar empleos y encontrar talento"
+      }
+    }
+  },
+  "jobs": {
+    "findDreamJob": "Encuentra tu trabajo ideal",
+    "searchJobs": "Buscar trabajos",
+    "filterJobs": "Filtrar trabajos",
+    "location": "Ubicación",
+    "jobType": "Tipo de trabajo",
+    "salary": "Salario",
+    "remote": "Remoto",
+    "fullTime": "Tiempo completo",
+    "partTime": "Medio tiempo",
+    "contract": "Contrato",
+    "internship": "Prácticas",
+    "applyNow": "Aplicar ahora",
+    "viewDetails": "Ver detalles",
+    "requirements": "Requisitos",
+    "benefits": "Beneficios",
+    "description": "Descripción"
+  },
+  "dashboard": {
+    "welcome": "Bienvenido",
+    "overview": "Resumen",
+    "myJobs": "Mis trabajos",
+    "applications": "Aplicaciones",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "analytics": "Analíticas",
+    "users": "Usuarios",
+    "employers": "Empleadores"
+  },
+  "common": {
+    "appName": "CareerWave",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No"
+  }
+}

@@ -1,6 +1,6 @@
 // frontend/src/pages/Admin/Analytics.tsx
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getAnalytics } from '../../api/admin';
 import { StatWidget } from '../../components/admin/StatWidget';
 import { useUserStore } from '../../store/userStore';
@@ -25,6 +25,12 @@ function Analytics() {
 
   useEffect(() => {
     async function fetchAnalytics() {
+      if (!token) {
+        setError('No authentication token available');
+        setLoading(false);
+        return;
+      }
+      
       try {
         setLoading(true);
         const data = await getAnalytics(token);
@@ -48,13 +54,35 @@ function Analytics() {
       {analytics && (
         <>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-            <StatWidget title="Total Users" value={analytics.totalUsers} />
-            <StatWidget title="Total Employers" value={analytics.totalEmployers} />
-            <StatWidget title="Total Jobs" value={analytics.totalJobs} />
-            <StatWidget title="Total Applications" value={analytics.totalApplications} />
+            <StatWidget 
+              title="Total Users" 
+              value={analytics.totalUsers} 
+              icon="users" 
+              colorClass="text-teal-500" 
+            />
+            <StatWidget 
+              title="Total Employers" 
+              value={analytics.totalEmployers} 
+              icon="building" 
+              colorClass="text-orange-500" 
+            />
+            <StatWidget 
+              title="Total Jobs" 
+              value={analytics.totalJobs} 
+              icon="briefcase" 
+              colorClass="text-purple-500" 
+            />
+            <StatWidget 
+              title="Total Applications" 
+              value={analytics.totalApplications} 
+              icon="document" 
+              colorClass="text-green-500" 
+            />
           </div>
 
           <AnalyticsChart
+            title="Monthly Applications"
+            label="Applications"
             data={{
               labels: analytics.monthlyApplications.map(item => item.month),
               values: analytics.monthlyApplications.map(item => item.count),

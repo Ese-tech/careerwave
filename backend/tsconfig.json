@@ -2,12 +2,18 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "strict": true,
     "esModuleInterop": true,
-    "outDir": "dist",
     "skipLibCheck": true,
-    "ignoreDeprecations": "6.0"
+    "outDir": "dist",
+    "baseUrl": ".",
+
+    "ignoreDeprecations": "6.0",
+
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": ["src"]
 }

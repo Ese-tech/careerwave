@@ -1,0 +1,82 @@
+// Firebase Firestore Security Rules
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Users collection
+    match /users/{userId} {
+      // Users can read and write their own profile
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      // Admins can read all users
+      allow read: if request.auth != null && isAdmin();
+      // Allow user creation during registration
+      allow create: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Jobs collection
+    match /jobs/{jobId} {
+      // Anyone can read published jobs
+      allow read: if resource.data.status == 'published';
+      // Employers can create jobs
+      allow create: if request.auth != null && 
+        (hasRole('employer') || isAdmin()) &&
+        request.resource.data.employerId == request.auth.uid;
+      // Employers can update/delete their own jobs, admins can update any
+      allow update, delete: if request.auth != null && 
+        (resource.data.employerId == request.auth.uid || isAdmin());
+    }
+    
+    // Applications collection
+    match /applications/{applicationId} {
+      // Candidates can read their own applications
+      allow read: if request.auth != null && resource.data.candidateId == request.auth.uid;
+      // Employers can read applications for their jobs
+      allow read: if request.auth != null && 
+        hasRole('employer') &&
+        resource.data.jobId in getEmployerJobs();
+      // Candidates can create applications
+      allow create: if request.auth != null &&
+        hasRole('candidate') &&
+        request.resource.data.candidateId == request.auth.uid;
+      // Employers can update application status
+      allow update: if request.auth != null &&
+        (hasRole('employer') || isAdmin()) &&
+        resource.data.jobId in getEmployerJobs();
+      // Admins can read all applications
+      allow read, update: if request.auth != null && isAdmin();
+    }
+    
+    // Employers collection
+    match /employers/{employerId} {
+      // Employers can read and write their own profile
+      allow read, write: if request.auth != null && request.auth.uid == employerId;
+      // Anyone can read verified employers (for job listings)
+      allow read: if resource.data.verified == true;
+      // Admins can read and update all employers
+      allow read, update: if request.auth != null && isAdmin();
+    }
+    
+    // Admin config collection
+    match /adminConfig/{configId} {
+      // Only admins can read/write admin config
+      allow read, write: if request.auth != null && isAdmin();
+    }
+    
+    // Helper functions
+    function isAdmin() {
+      return getUserRole() == 'admin';
+    }
+    
+    function hasRole(role) {
+      return getUserRole() == role;
+    }
+    
+    function getUserRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+    
+    function getEmployerJobs() {
+      return get(/databases/$(database)/documents/employers/$(request.auth.uid)).data.jobIds;
+    }
+  }
+}

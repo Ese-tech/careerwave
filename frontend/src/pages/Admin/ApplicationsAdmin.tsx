@@ -26,7 +26,7 @@ function ApplicationsAdmin() {
     async function fetchApplications() {
         try {
             setLoading(true);
-            const data = await getApplications(token);
+            const data = await getApplications(token ?? undefined);
             setApps(data);
         } catch (err: any) {
             setError(err.message || 'Failed to load applications');

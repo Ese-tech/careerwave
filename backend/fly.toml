@@ -1,0 +1,37 @@
+# CareerWave Backend auf Fly.io
+app = "careerwave-backend"
+primary_region = "fra"
+
+[build]
+  image = "oven/bun:1-alpine"
+
+[env]
+  PORT = "8080"
+  NODE_ENV = "production"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[services]]
+  internal_port = 8080
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+    force_https = true
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+[deploy]
+  release_command = "bun install"
+
+[[statics]]
+  guest_path = "/app/public"
+  url_prefix = "/public"

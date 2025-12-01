@@ -27,7 +27,7 @@ function JobsAdmin() {
     async function fetchJobs() {
         try {
             setLoading(true);
-            const data = await getJobsAdmin(token);
+            const data = await getJobsAdmin(token ?? undefined);
             setJobs(data);
         } catch (err: any) {
             setError(err.message || 'Failed to load jobs');

@@ -1,0 +1,114 @@
+{
+  "navigation": {
+    "home": "Home",
+    "jobs": "Jobs",
+    "companies": "Companies",
+    "about": "About Us",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "profile": "Profile",
+    "dashboard": "Dashboard",
+    "admin": "Administration"
+  },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "signInToAccount": "Sign in to your account",
+    "email": "Email address",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "registerNow": "Register now",
+    "login": {
+      "title": "Sign In",
+      "subtitle": "Sign in to your account",
+      "button": "Sign In"
+    },
+    "register": {
+      "title": "Sign Up",
+      "subtitle": "Create your free account",
+      "button": "Create Account",
+      "haveAccount": "Already have an account?",
+      "signInLink": "Sign in here",
+      "terms": {
+        "text": "By signing up, you agree to our",
+        "termsLink": "Terms of Service",
+        "and": "and",
+        "privacyLink": "Privacy Policy"
+      }
+    },
+    "fields": {
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "displayName": "Display Name",
+      "accountType": "Account Type"
+    },
+    "placeholders": {
+      "email": "your.email@example.com",
+      "password": "Your secure password",
+      "confirmPassword": "Re-enter your password",
+      "displayName": "Your full name"
+    },
+    "roles": {
+      "candidate": {
+        "title": "Job Seeker",
+        "description": "I'm looking for jobs and career opportunities"
+      },
+      "employer": {
+        "title": "Employer",
+        "description": "I want to post jobs and find talent"
+      }
+    }
+  },
+  "jobs": {
+    "findDreamJob": "Find your dream job",
+    "searchJobs": "Search jobs",
+    "filterJobs": "Filter jobs",
+    "location": "Location",
+    "jobType": "Job type",
+    "salary": "Salary",
+    "remote": "Remote",
+    "fullTime": "Full-time",
+    "partTime": "Part-time",
+    "contract": "Contract",
+    "internship": "Internship",
+    "applyNow": "Apply now",
+    "viewDetails": "View details",
+    "requirements": "Requirements",
+    "benefits": "Benefits",
+    "description": "Description"
+  },
+  "dashboard": {
+    "welcome": "Welcome",
+    "overview": "Overview",
+    "myJobs": "My Jobs",
+    "applications": "Applications",
+    "profile": "Profile",
+    "settings": "Settings",
+    "analytics": "Analytics",
+    "users": "Users",
+    "employers": "Employers"
+  },
+  "common": {
+    "appName": "CareerWave",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "filter": "Filter",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  }
+}

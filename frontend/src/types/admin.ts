@@ -1,10 +1,12 @@
 // frontend/src/types/admin.ts
 
+export type UserRole = 'admin' | 'employer' | 'candidate';
+
 export type AdminUser = {
   uid: string;
   email: string;
   displayName?: string;
-  role?: 'admin' | 'employer' | 'candidate';
+  role?: UserRole; // Verwende den neuen exportierten Typ
   createdAt?: string;
   verified?: boolean;
 };
