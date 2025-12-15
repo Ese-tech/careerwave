@@ -4,7 +4,8 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import { arbeitsagenturService, type ArbeitsagenturJob } from '../../services/arbeitsagentur.service';
+import { arbeitsagenturService } from '../../services/arbeitsagentur.service';
+import type { JobDetails } from '../../types/arbeitsagentur';
 import { Layout } from '../../components/layout';
 
 const JobDetailPage: React.FC = () => {
@@ -12,7 +13,10 @@ const JobDetailPage: React.FC = () => {
   const { hashId } = useParams<{ hashId: string }>();
   const navigate = useNavigate();
   // ...existing code...
-  const [job, setJob] = useState<ArbeitsagenturJob | null>(null);
+  const [job, setJob] = useState<JobDetails | null>(null);
+  const [showApplyModal, setShowApplyModal] = useState(false);
+  const [application, setApplication] = useState({ name: '', email: '', message: '' });
+  const [applicationSuccess, setApplicationSuccess] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -26,8 +30,7 @@ const JobDetailPage: React.FC = () => {
     const loadJobDetails = async () => {
       try {
         setLoading(true);
-        const jobDetails = await arbeitsagenturService.getJobDetails(hashId);
-        
+        const jobDetails = await arbeitsagenturService.getJobDetails(hashId) as JobDetails;
         if (!jobDetails) {
           setError(t('jobDetail.error.notFound', 'Job nicht gefunden'));
         } else {
@@ -56,11 +59,10 @@ const JobDetailPage: React.FC = () => {
     }
   };
 
-  const formatLocation = (arbeitsorte?: Array<{ort?: string; plz?: string; region?: string}>) => {
+  const formatLocation = (arbeitsorte?: Array<{ort?: string; plz?: string; region?: string; land?: string;}>) => {
     if (!arbeitsorte || arbeitsorte.length === 0) return t('jobDetail.notSpecified', 'Nicht angegeben');
-    
     return arbeitsorte.map(ort => {
-      const parts = [ort.plz, ort.ort, ort.region].filter(Boolean);
+      const parts = [ort.plz, ort.ort, ort.region, ort.land].filter(Boolean);
       return parts.join(' ');
     }).join(', ');
   };
@@ -229,14 +231,41 @@ const JobDetailPage: React.FC = () => {
             <Card className="p-6">
               <div className="space-y-3">
                 <Button 
-                  className="w-full bg-teal-600 hover:bg-teal-700 text-white"
-                  onClick={() => {
-                    // TODO: Implement application functionality
-                    alert(t('jobDetail.applySoon', 'Bewerbungsfunktion wird bald verfügbar sein!'));
-                  }}
+                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-black"
+                  onClick={() => setShowApplyModal(true)}
                 >
-                  🚀 Jetzt bewerben
+                  🚀 {t('jobDetail.applyNow', 'Jetzt bewerben')}
                 </Button>
+                      {/* Application Modal */}
+                      {showApplyModal && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                          <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full relative">
+                            <button className="absolute top-2 right-2 text-gray-500 hover:text-black" onClick={() => setShowApplyModal(false)}>&times;</button>
+                            <h2 className="text-xl font-bold mb-4">{t('jobDetail.applyForJob', 'Für diesen Job bewerben')}</h2>
+                            {applicationSuccess ? (
+                              <div className="text-green-600 font-semibold text-center mb-4">{t('jobDetail.applicationSuccess', 'Bewerbung erfolgreich gesendet!')}</div>
+                            ) : (
+                              <form onSubmit={e => {
+                                e.preventDefault();
+                                setApplicationSuccess(true);
+                                setTimeout(() => {
+                                  setShowApplyModal(false);
+                                  setApplicationSuccess(false);
+                                  setApplication({ name: '', email: '', message: '' });
+                                }, 2000);
+                              }}>
+                                <label className="block mb-2 font-medium">{t('jobDetail.name', 'Name')}</label>
+                                <input className="admin-input mb-4" required value={application.name} onChange={e => setApplication(a => ({ ...a, name: e.target.value }))} />
+                                <label className="block mb-2 font-medium">{t('jobDetail.email', 'E-Mail')}</label>
+                                <input className="admin-input mb-4" type="email" required value={application.email} onChange={e => setApplication(a => ({ ...a, email: e.target.value }))} />
+                                <label className="block mb-2 font-medium">{t('jobDetail.message', 'Nachricht')}</label>
+                                <textarea className="admin-input mb-4" required rows={4} value={application.message} onChange={e => setApplication(a => ({ ...a, message: e.target.value }))} />
+                                <Button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black" type="submit">{t('jobDetail.sendApplication', 'Bewerbung senden')}</Button>
+                              </form>
+                            )}
+                          </div>
+                        </div>
+                      )}
                 
                 <Button 
                   className="w-full bg-orange-500 hover:bg-orange-600 text-white"
@@ -275,20 +304,46 @@ const JobDetailPage: React.FC = () => {
             </Card>
 
             {/* Company Info */}
-            {job.arbeitgeber && (
-              <Card className="p-6 mt-6">
-                <h3 className="text-lg font-semibold mb-3">{t('jobDetail.aboutCompany', 'Über das Unternehmen')}</h3>
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-2xl">🏢</span>
-                  </div>
-                  <p className="font-medium text-gray-800">{job.arbeitgeber}</p>
-                  <p className="text-sm text-gray-600 mt-2">
-                    {t('jobDetail.companyInfo', 'Weitere Informationen über das Unternehmen finden Sie in der Stellenausschreibung.')}
-                  </p>
+            {/* Company Info Expanded */}
+            <Card className="p-6 mt-6">
+              <h3 className="text-lg font-semibold mb-3">{t('jobDetail.aboutCompany', 'Über das Unternehmen')}</h3>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-2xl">🏢</span>
                 </div>
-              </Card>
-            )}
+                <p className="font-medium text-gray-800">{job.arbeitgeber}</p>
+                {job.arbeitgeberAdresse && (
+                  <p className="text-sm text-gray-600 mt-2">
+                    {job.arbeitgeberAdresse.strasse}, {job.arbeitgeberAdresse.plz} {job.arbeitgeberAdresse.ort}
+                  </p>
+                )}
+                {job.arbeitgeberdarstellung && (
+                  <p className="text-sm text-gray-600 mt-2">{job.arbeitgeberdarstellung}</p>
+                )}
+                {job.arbeitgeberdarstellungUrl && (
+                  <a href={job.arbeitgeberdarstellungUrl} target="_blank" rel="noopener noreferrer" className="text-yellow-600 underline mt-2 block">{t('jobDetail.companyWebsite', 'Zur Unternehmenswebseite')}</a>
+                )}
+              </div>
+            </Card>
+                    {/* More Job Details */}
+                    <Card className="p-6 mt-6">
+                      <h3 className="text-lg font-semibold mb-3">{t('jobDetail.moreDetails', 'Weitere Job-Details')}</h3>
+                      <ul className="text-sm text-gray-700 space-y-1">
+                        <li><strong>{t('jobDetail.jobType', 'Angebotsart')}:</strong> {job.angebotsart}</li>
+                        <li><strong>{t('jobDetail.branchGroup', 'Branchengruppe')}:</strong> {job.branchengruppe}</li>
+                        <li><strong>{t('jobDetail.profession', 'Beruf')}:</strong> {job.beruf}</li>
+                        <li><strong>{t('jobDetail.openPositions', 'Offene Stellen')}:</strong> {job.anzahlOffeneStellen}</li>
+                        <li><strong>{t('jobDetail.companySize', 'Betriebsgröße')}:</strong> {job.betriebsgroesse}</li>
+                        <li><strong>{t('jobDetail.suitableForRefugees', 'Für Flüchtlinge geeignet')}:</strong> {job.fuerFluechtlingeGeeignet ? t('jobDetail.yes', 'Ja') : t('jobDetail.no', 'Nein')}</li>
+                        <li><strong>{t('jobDetail.onlyForDisabled', 'Nur für Schwerbehinderte')}:</strong> {job.nurFuerSchwerbehinderte ? t('jobDetail.yes', 'Ja') : t('jobDetail.no', 'Nein')}</li>
+                        <li><strong>{t('jobDetail.limited', 'Befristung')}:</strong> {job.befristung}</li>
+                        <li><strong>{t('jobDetail.entryDate', 'Eintrittsdatum')}:</strong> {formatDate(job.eintrittsdatum)}</li>
+                        <li><strong>{t('jobDetail.firstPublished', 'Erste Veröffentlichung')}:</strong> {formatDate(job.ersteVeroeffentlichungsdatum)}</li>
+                        <li><strong>{t('jobDetail.currentPublished', 'Aktuelle Veröffentlichung')}:</strong> {formatDate(job.aktuelleVeroeffentlichungsdatum)}</li>
+                        <li><strong>{t('jobDetail.referenceNumber', 'Referenznummer')}:</strong> {job.refnr}</li>
+                        <li><strong>{t('jobDetail.alliancePartner', 'Allianzpartner')}:</strong> {job.allianzpartner} {job.allianzpartnerUrl && (<a href={job.allianzpartnerUrl} target="_blank" rel="noopener noreferrer" className="text-yellow-600 underline">{job.allianzpartnerUrl}</a>)}</li>
+                      </ul>
+                    </Card>
           </div>
         </div>
 

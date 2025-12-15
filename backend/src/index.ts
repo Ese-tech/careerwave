@@ -4,6 +4,7 @@ import { swagger } from '@elysiajs/swagger';
 import { authController } from './controllers/auth.controller';
 import { jobController } from './controllers/job.controller';
 import { arbeitsagenturController } from './controllers/arbeitsagentur.controller';
+import applicationRoutes from './routes/application.routes';
 
 const app = new Elysia()
   .use(cors({
@@ -50,6 +51,7 @@ const app = new Elysia()
     .use(authController)
     .use(jobController)
     .use(arbeitsagenturController)
+    .use(applicationRoutes)
   )
   .onError(({ error, set }) => {
     console.error('API Error:', error);
