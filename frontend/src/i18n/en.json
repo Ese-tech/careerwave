@@ -95,6 +95,49 @@
     "users": "Users",
     "employers": "Employers"
   },
+  "employer": {
+    "dashboard": {
+      "title": "Employer Dashboard",
+      "welcome": "Welcome to your employer dashboard",
+      "stats": {
+        "jobs": "Active Jobs",
+        "applications": "Applications",
+        "interviews": "Interviews"
+      },
+      "quickActions": "Quick Actions",
+      "actions": {
+        "postJob": "Post New Job",
+        "viewApplications": "View Applications",
+        "manageProfile": "Manage Company Profile"
+      }
+    }
+  },
+  "candidate": {
+    "dashboard": {
+      "title": "Candidate Dashboard",
+      "welcome": "Welcome to your candidate dashboard",
+      "stats": {
+        "applications": "Applications",
+        "interviews": "Interviews",
+        "saved": "Saved Jobs"
+      },
+      "quickActions": "Quick Actions",
+      "actions": {
+        "searchJobs": "Search Jobs",
+        "viewApplications": "My Applications",
+        "updateProfile": "Update Profile"
+      }
+    }
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "jobs": "Jobs",
+    "applications": "Applications",
+    "searchJobs": "Search Jobs",
+    "myApplications": "My Applications",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
   "common": {
     "appName": "CareerWave",
     "save": "Save",
@@ -109,6 +152,8 @@
     "success": "Success",
     "confirm": "Confirm",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "candidate": "Candidate",
+    "employer": "Employer"
   }
 }

@@ -2,7 +2,7 @@
 import type { UserRole } from './admin';
 
 export type User = {
-  [x: string]: string;
+  [x: string]: string | undefined;
   uid: string;
   email: string;
   role: UserRole;

@@ -95,6 +95,49 @@
     "users": "Benutzer",
     "employers": "Arbeitgeber"
   },
+  "employer": {
+    "dashboard": {
+      "title": "Arbeitgeber Dashboard",
+      "welcome": "Willkommen in Ihrem Arbeitgeber-Dashboard",
+      "stats": {
+        "jobs": "Aktive Jobs",
+        "applications": "Bewerbungen",
+        "interviews": "Interviews"
+      },
+      "quickActions": "Schnellaktionen",
+      "actions": {
+        "postJob": "Neue Stelle ausschreiben",
+        "viewApplications": "Bewerbungen anzeigen",
+        "manageProfile": "Unternehmensprofil verwalten"
+      }
+    }
+  },
+  "candidate": {
+    "dashboard": {
+      "title": "Bewerber Dashboard",
+      "welcome": "Willkommen in Ihrem Bewerber-Dashboard",
+      "stats": {
+        "applications": "Bewerbungen",
+        "interviews": "Interviews",
+        "saved": "Gespeicherte Jobs"
+      },
+      "quickActions": "Schnellaktionen",
+      "actions": {
+        "searchJobs": "Jobs suchen",
+        "viewApplications": "Meine Bewerbungen",
+        "updateProfile": "Profil aktualisieren"
+      }
+    }
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "jobs": "Jobs",
+    "applications": "Bewerbungen",
+    "searchJobs": "Jobs suchen",
+    "myApplications": "Meine Bewerbungen",
+    "profile": "Profil",
+    "logout": "Abmelden"
+  },
   "common": {
     "appName": "CareerWave",
     "save": "Speichern",
@@ -109,6 +152,8 @@
     "success": "Erfolgreich",
     "confirm": "Bestätigen",
     "yes": "Ja",
-    "no": "Nein"
+    "no": "Nein",
+    "candidate": "Bewerber",
+    "employer": "Arbeitgeber"
   }
 }

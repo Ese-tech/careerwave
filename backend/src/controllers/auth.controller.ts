@@ -4,6 +4,15 @@ import { AuthService } from '../services/auth.service';
 const authService = new AuthService();
 
 export const authController = new Elysia({ prefix: '/auth' })
+  .get('/', () => ({
+    message: 'Auth API is working',
+    endpoints: [
+      'POST /register - Register new user',
+      'POST /login - Login user', 
+      'POST /logout - Logout user',
+      'GET /me - Get current user'
+    ]
+  }))
   .post('/register', async ({ body, set }) => {
     try {
       // Convert displayName to firstName/lastName

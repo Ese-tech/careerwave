@@ -1,14 +1,17 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { authService } from '../services/auth';
 
 export interface User {
+  name: any;
   id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   role: 'viewer' | 'candidate' | 'employer' | 'admin';
   company?: string;
   avatar?: string;
-  createdAt: string;
+  createdAt?: string;
 }
 
 interface AuthState {
@@ -54,23 +57,26 @@ export const useAuthStore = create<AuthState>()(
         set({ isLoading: true, error: null });
         
         try {
-          const response = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-          });
+          const response = await authService.login({ email, password });
 
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Login fehlgeschlagen');
+          if (!response.success) {
+            throw new Error(response.error || 'Login fehlgeschlagen');
           }
 
-          const { user, token } = await response.json();
+          const { user, token } = response.data || {};
+          
+          if (!user || !token) {
+            throw new Error('Unvollständige Antwort vom Server');
+          }
+
+          // Ensure user has a name field for backward compatibility
+          const userWithName = {
+            ...user,
+            name: user.name || `${user.firstName || ''} ${user.lastName || ''}`.trim() || user.email
+          };
           
           set({ 
-            user, 
+            user: userWithName, 
             token, 
             isLoading: false, 
             error: null 
@@ -88,20 +94,17 @@ export const useAuthStore = create<AuthState>()(
         set({ isLoading: true, error: null });
         
         try {
-          const response = await fetch('/api/auth/register', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-          });
+          const response = await authService.register(userData);
 
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Registrierung fehlgeschlagen');
+          if (!response.success) {
+            throw new Error(response.error || 'Registrierung fehlgeschlagen');
           }
 
-          const { user, token } = await response.json();
+          const { user, token } = response.data || {};
+          
+          if (!user || !token) {
+            throw new Error('Unvollständige Antwort vom Server');
+          }
           
           set({ 
             user, 

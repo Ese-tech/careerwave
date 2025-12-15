@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+// frontend/src/components/layout/Header.tsx
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../ui';
 import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { ThemeSwitcher } from '../ui/ThemeSwitcher';
 import { useAuthStore } from '../../store/authStore';
+import { useState } from 'react';
 
 export function Header() {
   const { t } = useTranslation();
@@ -82,11 +83,11 @@ export function Header() {
                 >
                   <div className="w-8 h-8 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center">
                     <span className="text-primary-600 dark:text-primary-400 font-medium">
-                      {user.name.charAt(0).toUpperCase()}
+                      {((user.name || user.firstName || 'U') + '').charAt(0).toUpperCase()}
                     </span>
                   </div>
                   <span className="hidden md:block text-gray-700 dark:text-gray-300">
-                    {user.name}
+                    {user.name || `${user.firstName} ${user.lastName}`.trim() || user.email}
                   </span>
                 </button>
 

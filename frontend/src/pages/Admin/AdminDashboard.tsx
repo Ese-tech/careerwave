@@ -1,6 +1,5 @@
 // frontend/src/pages/Admin/AdminDashboard.tsx
 import React, { useEffect, useState } from 'react';
-import AdminLayout from '../../layouts/AdminLayout';
 import { getAnalytics } from '../../api/admin';
 import { StatWidget } from '../../components/admin/StatWidget';
 import { useUserStore } from '../../store/userStore';
@@ -31,7 +30,7 @@ const AdminDashboard: React.FC = () => {
   }, [token]);
 
   return (
-    <AdminLayout>
+    <div>
       <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
 
       {loading && <p>Loading analytics...</p>}
@@ -48,7 +47,7 @@ const AdminDashboard: React.FC = () => {
           <AnalyticsChart data={analytics.monthlyApplications ?? []} />
         </>
       )}
-    </AdminLayout>
+    </div>
   );
 };
 

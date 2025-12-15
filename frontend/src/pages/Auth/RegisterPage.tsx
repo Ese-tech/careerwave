@@ -78,8 +78,9 @@ export function RegisterPage() {
       const response = await authService.register({
         email: formData.email,
         password: formData.password,
-        displayName: formData.displayName,
-        role: formData.role
+        name: formData.displayName,
+        role: formData.role,
+        ...(formData.role === 'employer' && { company: formData.displayName }) // Use displayName as company name for now
       });
 
       if (response.success) {
@@ -106,7 +107,7 @@ export function RegisterPage() {
         {/* Header */}
         <div className="text-center">
           <Link to="/" className="flex justify-center items-center space-x-2 mb-6">
-            <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-linear-to-r from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-xl">C</span>
             </div>
             <span className="font-bold text-2xl text-gray-900 dark:text-white">

@@ -3,12 +3,14 @@ import { cors } from '@elysiajs/cors';
 import { swagger } from '@elysiajs/swagger';
 import { authController } from './controllers/auth.controller';
 import { jobController } from './controllers/job.controller';
+import { arbeitsagenturController } from './controllers/arbeitsagentur.controller';
 
 const app = new Elysia()
   .use(cors({
     origin: [
       'http://localhost:3000',
       'http://localhost:5173',
+      'http://localhost:5174',
       'https://careerwave-frontend.vercel.app'
     ],
     credentials: true
@@ -26,7 +28,8 @@ const app = new Elysia()
       ],
       tags: [
         { name: 'auth', description: 'Authentifizierung' },
-        { name: 'jobs', description: 'Job-Management' }
+        { name: 'jobs', description: 'Job-Management' },
+        { name: 'arbeitsagentur', description: 'Arbeitsagentur Job-Suche' }
       ]
     }
   }))
@@ -43,8 +46,11 @@ const app = new Elysia()
     uptime: process.uptime(),
     memory: process.memoryUsage()
   }))
-  .use(authController)
-  .use(jobController)
+  .group('/api/v1', app => app
+    .use(authController)
+    .use(jobController)
+    .use(arbeitsagenturController)
+  )
   .onError(({ error, set }) => {
     console.error('API Error:', error);
     
