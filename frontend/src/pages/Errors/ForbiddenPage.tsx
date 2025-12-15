@@ -1,11 +1,9 @@
 // frontend/src/pages/Errors/ForbiddenPage.tsx
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Layout } from '../../components/layout';
 
-const ForbiddenPage: React.FC = () => {
-  const { t } = useTranslation();
+const ForbiddenPage: React.FC = () => { 
 
   return (
     <Layout>

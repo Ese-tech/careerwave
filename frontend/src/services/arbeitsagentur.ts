@@ -1,5 +1,5 @@
 // frontend/src/services/arbeitsagentur.ts
-import { ArbeitsagenturJobSearchResponse, JobDetails, JobSearchParams } from '../types/arbeitsagentur';
+import type { ArbeitsagenturJobSearchResponse, JobDetails, JobSearchParams } from '../types/arbeitsagentur';
 
 const API_BASE_URL = import.meta.env.VITE_BA_API_URL;
 const API_KEY = import.meta.env.VITE_BA_API_KEY;
@@ -98,14 +98,18 @@ class ArbeitsagenturService {
       id: baJob.hashId,
       title: baJob.titel,
       company: baJob.arbeitgeber,
-      location: baJob.arbeitsorte.map(ort => `${ort.ort}, ${ort.plz}`).join('; '),
-      description: baJob.stellenbeschreibung,
-      type: this.mapJobType(baJob.arbeitszeitmodelle),
+      location: Array.isArray(baJob.arbeitsorte)
+        ? baJob.arbeitsorte.map(ort => `${ort.ort ?? ''}, ${ort.plz ?? ''}`).join('; ')
+        : '',
+      description: baJob.stellenbeschreibung || '',
+      type: this.mapJobType(Array.isArray(baJob.arbeitszeitmodelle) ? baJob.arbeitszeitmodelle : []),
       salary: baJob.verguetung || 'Not specified',
-      requirements: baJob.fertigkeiten.map(f => f.fertigkeitRoh),
+      requirements: Array.isArray(baJob.fertigkeiten)
+        ? baJob.fertigkeiten.map(f => f.fertigkeitRoh)
+        : [],
       benefits: [],
       remote: false, // Arbeitsagentur doesn't specify remote work explicitly
-      publishedAt: baJob.aktuelleVeroeffentlichungsdatum,
+      publishedAt: baJob.aktuelleVeroeffentlichungsdatum || '',
       expiresAt: null,
       isExternal: true,
       externalSource: 'Arbeitsagentur',

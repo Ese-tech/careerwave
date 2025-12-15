@@ -10,36 +10,39 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Primary Colors - Professional Teal/Ocean Blue
+        // Primary Colors - Yellow
         primary: {
-          50: '#ecfeff',
-          100: '#cffafe', 
-          200: '#a5f3fc',
-          300: '#67e8f9',
-          400: '#22d3ee',
-          500: '#06b6d4', // Main primary
-          600: '#0891b2',
-          700: '#0e7490',
-          800: '#155e75',
-          900: '#164e63',
-          950: '#083344',
-          DEFAULT: '#06b6d4'
+          50: '#fefce8',
+          100: '#fef9c3',
+          200: '#fef08a',
+          300: '#fde047',
+          400: '#facc15',
+          500: '#eab308', // Main primary (yellow)
+          600: '#ca8a04',
+          700: '#a16207',
+          800: '#854d0e',
+          900: '#713f12',
+          950: '#422006',
+          DEFAULT: '#eab308'
         },
-
-        // Secondary Colors - Warm Orange/Amber
+        // Secondary Colors - White
         secondary: {
-          50: '#fffbeb',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#fbbf24',
-          500: '#f59e0b', // Main secondary
-          600: '#d97706',
-          700: '#b45309',
-          800: '#92400e',
-          900: '#78350f',
-          950: '#451a03',
-          DEFAULT: '#f59e0b'
+          50: '#ffffff',
+          100: '#f9fafb',
+          200: '#f3f4f6',
+          300: '#e5e7eb',
+          400: '#d1d5db',
+          500: '#e5e7eb',
+          600: '#d1d5db',
+          700: '#9ca3af',
+          800: '#6b7280',
+          900: '#374151',
+          950: '#111827',
+          DEFAULT: '#ffffff'
+        },
+        // Text - Black
+        text: {
+          DEFAULT: '#000000',
         },
 
         // Accent Colors - Purple/Violet
@@ -139,11 +142,13 @@ const config: Config = {
       // Custom CSS variables
       backgroundColor: {
         'surface-light': '#ffffff',
-        'surface-card': '#fefefe',
+        'surface-card': '#ffffff',
         'surface-muted': '#f8fafc',
-        'surface-dark': '#0f172a',
+        'surface-dark': '#111827',
         'surface-dark-card': '#1e293b',
-        'surface-dark-muted': '#334155'
+        'surface-dark-muted': '#334155',
+        'primary': '#eab308',
+        'secondary': '#ffffff',
       },
 
       // Animations

@@ -8,16 +8,17 @@ import { arbeitsagenturService, type ArbeitsagenturJob } from '../../services/ar
 import { Layout } from '../../components/layout';
 
 const JobDetailPage: React.FC = () => {
+  const { t } = useTranslation();
   const { hashId } = useParams<{ hashId: string }>();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  // ...existing code...
   const [job, setJob] = useState<ArbeitsagenturJob | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!hashId || hashId === 'undefined') {
-      setError('Job ID fehlt');
+      setError(t('jobDetail.error.missingId', 'Job ID fehlt'));
       setLoading(false);
       return;
     }
@@ -28,12 +29,12 @@ const JobDetailPage: React.FC = () => {
         const jobDetails = await arbeitsagenturService.getJobDetails(hashId);
         
         if (!jobDetails) {
-          setError('Job nicht gefunden');
+          setError(t('jobDetail.error.notFound', 'Job nicht gefunden'));
         } else {
           setJob(jobDetails);
         }
       } catch (err: any) {
-        setError(err.message || 'Fehler beim Laden der Job-Details');
+        setError(err.message || t('jobDetail.error.load', 'Fehler beim Laden der Job-Details'));
       } finally {
         setLoading(false);
       }
@@ -43,7 +44,7 @@ const JobDetailPage: React.FC = () => {
   }, [hashId]);
 
   const formatDate = (dateString?: string) => {
-    if (!dateString) return 'Nicht angegeben';
+    if (!dateString) return t('jobDetail.notSpecified', 'Nicht angegeben');
     try {
       return new Date(dateString).toLocaleDateString('de-DE', {
         year: 'numeric',
@@ -56,7 +57,7 @@ const JobDetailPage: React.FC = () => {
   };
 
   const formatLocation = (arbeitsorte?: Array<{ort?: string; plz?: string; region?: string}>) => {
-    if (!arbeitsorte || arbeitsorte.length === 0) return 'Nicht angegeben';
+    if (!arbeitsorte || arbeitsorte.length === 0) return t('jobDetail.notSpecified', 'Nicht angegeben');
     
     return arbeitsorte.map(ort => {
       const parts = [ort.plz, ort.ort, ort.region].filter(Boolean);
@@ -85,21 +86,21 @@ const JobDetailPage: React.FC = () => {
         <div className="max-w-4xl mx-auto p-6">
           <Card className="p-8 text-center">
             <h1 className="text-2xl font-bold text-red-600 mb-4">
-              {error || 'Job nicht gefunden'}
+              {error || t('jobDetail.error.notFound', 'Job nicht gefunden')}
             </h1>
             <p className="text-gray-600 mb-6">
-              Der gewünschte Job konnte nicht gefunden werden.
+              {t('jobDetail.error.notFoundDesc', 'Der gewünschte Job konnte nicht gefunden werden.')}
             </p>
             <div className="space-x-4">
               <Button 
                 onClick={() => navigate(-1)}
                 className="bg-gray-500 hover:bg-gray-600"
               >
-                Zurück
+                {t('jobDetail.back', 'Zurück')}
               </Button>
               <Link to="/jobs">
                 <Button className="bg-teal-600 hover:bg-teal-700">
-                  Zur Jobsuche
+                  {t('jobDetail.toJobSearch', 'Zur Jobsuche')}
                 </Button>
               </Link>
             </div>
@@ -115,9 +116,9 @@ const JobDetailPage: React.FC = () => {
         {/* Header */}
         <div className="mb-6">
           <nav className="text-sm text-gray-600 mb-4">
-            <Link to="/jobs" className="hover:text-teal-600">Jobs</Link>
+            <Link to="/jobs" className="hover:text-teal-600">{t('jobDetail.breadcrumb.jobs', 'Jobs')}</Link>
             <span className="mx-2">›</span>
-            <span className="text-gray-800">Job-Details</span>
+            <span className="text-gray-800">{t('jobDetail.breadcrumb.details', 'Job-Details')}</span>
           </nav>
           
           <div className="flex justify-between items-start">
@@ -126,7 +127,7 @@ const JobDetailPage: React.FC = () => {
                 {job.titel}
               </h1>
               <p className="text-xl text-gray-600">
-                {job.arbeitgeber || 'Unbekannter Arbeitgeber'}
+                {job.arbeitgeber || t('jobDetail.unknownEmployer', 'Unbekannter Arbeitgeber')}
               </p>
             </div>
             
@@ -134,7 +135,7 @@ const JobDetailPage: React.FC = () => {
               onClick={() => navigate(-1)}
               className="bg-gray-500 hover:bg-gray-600 text-white"
             >
-              ← Zurück
+              ← {t('jobDetail.back', 'Zurück')}
             </Button>
           </div>
         </div>
@@ -145,7 +146,7 @@ const JobDetailPage: React.FC = () => {
             {/* Job Description */}
             {job.stellenbeschreibung && (
               <Card className="p-6 mb-6">
-                <h2 className="text-xl font-semibold mb-4">Stellenbeschreibung</h2>
+                <h2 className="text-xl font-semibold mb-4">{t('jobDetail.description', 'Stellenbeschreibung')}</h2>
                 <div 
                   className="prose max-w-none text-gray-700"
                   dangerouslySetInnerHTML={{ 
@@ -157,20 +158,20 @@ const JobDetailPage: React.FC = () => {
 
             {/* Requirements & Skills */}
             <Card className="p-6 mb-6">
-              <h2 className="text-xl font-semibold mb-4">Anforderungen</h2>
+              <h2 className="text-xl font-semibold mb-4">{t('jobDetail.requirements', 'Anforderungen')}</h2>
               <div className="text-gray-700">
                 <p className="mb-2">
-                  <strong>Branche:</strong> {job.branche || 'Nicht spezifiziert'}
+                  <strong>{t('jobDetail.industry', 'Branche')}:</strong> {job.branche || t('jobDetail.notSpecified', 'Nicht spezifiziert')}
                 </p>
                 
                 {job.arbeitszeitmodelle && job.arbeitszeitmodelle.length > 0 && (
                   <p className="mb-2">
-                    <strong>Arbeitszeit:</strong> {job.arbeitszeitmodelle.join(', ')}
+                    <strong>{t('jobDetail.workingTime', 'Arbeitszeit')}:</strong> {job.arbeitszeitmodelle.join(', ')}
                   </p>
                 )}
                 
                 <p className="mb-2">
-                  <strong>Befristung:</strong> {job.befristung || 'Nicht angegeben'}
+                  <strong>{t('jobDetail.limited', 'Befristung')}:</strong> {job.befristung || t('jobDetail.notSpecified', 'Nicht angegeben')}
                 </p>
               </div>
             </Card>
@@ -180,11 +181,11 @@ const JobDetailPage: React.FC = () => {
           <div className="lg:col-span-1">
             {/* Quick Info Card */}
             <Card className="p-6 mb-6">
-              <h3 className="text-lg font-semibold mb-4">Job-Informationen</h3>
+              <h3 className="text-lg font-semibold mb-4">{t('jobDetail.info', 'Job-Informationen')}</h3>
               
               <div className="space-y-3">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Standort</p>
+                  <p className="text-sm font-medium text-gray-600">{t('jobDetail.location', 'Standort')}</p>
                   <p className="text-gray-800">
                     📍 {formatLocation(job.arbeitsorte)}
                   </p>
@@ -192,7 +193,7 @@ const JobDetailPage: React.FC = () => {
 
                 {job.verguetung && (
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Vergütung</p>
+                    <p className="text-sm font-medium text-gray-600">{t('jobDetail.salary', 'Vergütung')}</p>
                     <p className="text-green-600 font-semibold">
                       💰 {job.verguetung}
                     </p>
@@ -200,14 +201,14 @@ const JobDetailPage: React.FC = () => {
                 )}
 
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Eintrittsdatum</p>
+                  <p className="text-sm font-medium text-gray-600">{t('jobDetail.entryDate', 'Eintrittsdatum')}</p>
                   <p className="text-gray-800">
                     📅 {formatDate(job.eintrittsdatum)}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Veröffentlicht</p>
+                  <p className="text-sm font-medium text-gray-600">{t('jobDetail.published', 'Veröffentlicht')}</p>
                   <p className="text-gray-800">
                     🕒 {formatDate(job.modifikationsTimestamp)}
                   </p>
@@ -215,7 +216,7 @@ const JobDetailPage: React.FC = () => {
 
                 {job.befristung && (
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Befristung</p>
+                    <p className="text-sm font-medium text-gray-600">{t('jobDetail.limited', 'Befristung')}</p>
                     <p className="text-gray-800">
                       ⏰ {job.befristung}
                     </p>
@@ -231,7 +232,7 @@ const JobDetailPage: React.FC = () => {
                   className="w-full bg-teal-600 hover:bg-teal-700 text-white"
                   onClick={() => {
                     // TODO: Implement application functionality
-                    alert('Bewerbungsfunktion wird bald verfügbar sein!');
+                    alert(t('jobDetail.applySoon', 'Bewerbungsfunktion wird bald verfügbar sein!'));
                   }}
                 >
                   🚀 Jetzt bewerben
@@ -241,7 +242,7 @@ const JobDetailPage: React.FC = () => {
                   className="w-full bg-orange-500 hover:bg-orange-600 text-white"
                   onClick={() => {
                     // TODO: Implement save functionality
-                    alert('Job gespeichert!');
+                    alert(t('jobDetail.saved', 'Job gespeichert!'));
                   }}
                 >
                   ⭐ Job speichern
@@ -258,7 +259,7 @@ const JobDetailPage: React.FC = () => {
                       });
                     } else {
                       navigator.clipboard.writeText(window.location.href);
-                      alert('Link kopiert!');
+                      alert(t('jobDetail.linkCopied', 'Link kopiert!'));
                     }
                   }}
                 >
@@ -268,7 +269,7 @@ const JobDetailPage: React.FC = () => {
 
               <div className="mt-6 pt-4 border-t">
                 <p className="text-xs text-gray-500 text-center">
-                  Job-ID: {job.hashId}
+                  {t('jobDetail.jobId', 'Job-ID')}: {job.hashId}
                 </p>
               </div>
             </Card>
@@ -276,14 +277,14 @@ const JobDetailPage: React.FC = () => {
             {/* Company Info */}
             {job.arbeitgeber && (
               <Card className="p-6 mt-6">
-                <h3 className="text-lg font-semibold mb-3">Über das Unternehmen</h3>
+                <h3 className="text-lg font-semibold mb-3">{t('jobDetail.aboutCompany', 'Über das Unternehmen')}</h3>
                 <div className="text-center">
                   <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-3">
                     <span className="text-2xl">🏢</span>
                   </div>
                   <p className="font-medium text-gray-800">{job.arbeitgeber}</p>
                   <p className="text-sm text-gray-600 mt-2">
-                    Weitere Informationen über das Unternehmen finden Sie in der Stellenausschreibung.
+                    {t('jobDetail.companyInfo', 'Weitere Informationen über das Unternehmen finden Sie in der Stellenausschreibung.')}
                   </p>
                 </div>
               </Card>
@@ -293,9 +294,9 @@ const JobDetailPage: React.FC = () => {
 
         {/* Related Jobs Section */}
         <Card className="p-6 mt-8">
-          <h2 className="text-xl font-semibold mb-4">Ähnliche Jobs</h2>
+          <h2 className="text-xl font-semibold mb-4">{t('jobDetail.relatedJobs', 'Ähnliche Jobs')}</h2>
           <p className="text-gray-600 text-center py-8">
-            Ähnliche Jobs werden bald verfügbar sein.
+            {t('jobDetail.relatedSoon', 'Ähnliche Jobs werden bald verfügbar sein.')}
           </p>
         </Card>
       </div>

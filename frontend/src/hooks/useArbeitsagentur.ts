@@ -1,7 +1,7 @@
 // frontend/src/hooks/useArbeitsagentur.ts
 import { useState, useCallback } from 'react';
 import { arbeitsagenturService } from '../services/arbeitsagentur';
-import { ArbeitsagenturJobSearchResponse, JobDetails, JobSearchParams } from '../types/arbeitsagentur';
+import type { JobDetails, JobSearchParams } from '../types/arbeitsagentur';
 
 interface UseArbeitsagenturReturn {
   jobs: JobDetails[];

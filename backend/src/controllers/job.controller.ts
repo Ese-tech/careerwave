@@ -70,13 +70,29 @@ export const jobController = new Elysia({ prefix: '/jobs' })
         };
       }
 
-      const jobData = {
-        ...body,
-        employerId: user.id,
-        company: user.company || body.company
+      // Pass body and user.uid as required by JobService
+      // Ensure required fields for CreateJobInput
+      // Explicitly construct jobInput with all required fields and defaults
+      const jobInput = {
+        title: typeof body.title === 'string' ? body.title : 'Untitled',
+        description: typeof body.description === 'string' ? body.description : '',
+        company: typeof body.company === 'string' && body.company.trim() !== ''
+          ? body.company
+          : (typeof user.company === 'string' && user.company.trim() !== '' ? user.company : 'Unknown Company'),
+        location: typeof body.location === 'string' ? body.location : '',
+        type: body.type || 'full-time',
+        level: body.level || 'entry',
+        category: typeof body.category === 'string' ? body.category : 'General',
+        salary: body.salary || { min: 0, max: 0, currency: 'EUR' },
+        requirements: Array.isArray(body.requirements) ? body.requirements : [],
+        benefits: Array.isArray(body.benefits) ? body.benefits : [],
+        remote: typeof body.remote === 'boolean' ? body.remote : false,
+        skills: Array.isArray(body.skills) ? body.skills : [],
+        deadline: typeof body.deadline === 'string' ? body.deadline : undefined,
+        tags: Array.isArray(body.tags) ? body.tags : [],
+        expiresAt: typeof body.expiresAt === 'string' ? body.expiresAt : '',
       };
-
-      const job = await jobService.createJob(jobData);
+      const job = await jobService.createJob(jobInput, user.uid);
       return {
         success: true,
         message: 'Job erfolgreich erstellt',
@@ -116,23 +132,33 @@ export const jobController = new Elysia({ prefix: '/jobs' })
       benefits: t.Optional(t.Array(t.String())),
       remote: t.Boolean(),
       tags: t.Array(t.String()),
-      expiresAt: t.String()
+      expiresAt: t.String(),
+      category: t.String(),
+      skills: t.Array(t.String()),
+      deadline: t.Optional(t.String()),
     })
   })
   .put('/:id', async ({ params, body, headers, set }) => {
     try {
       const { user } = await authMiddleware({ headers, set });
-      
       const existingJob = await jobService.getJobById(params.id);
-      if (existingJob.employerId !== user.id && user.role !== 'admin') {
+      if (!existingJob) {
+        set.status = 404;
+        return {
+          success: false,
+          message: 'Job nicht gefunden'
+        };
+      }
+      if (existingJob.employerId !== user.uid && user.role !== 'admin') {
         set.status = 403;
         return {
           success: false,
           message: 'Keine Berechtigung zum Bearbeiten dieses Jobs'
         };
       }
-
-      const job = await jobService.updateJob(params.id, body);
+      // Ensure body is typed as UpdateJobInput
+      const updateData = body as import('../schemas/job.schema').UpdateJobInput;
+      const job = await jobService.updateJob(params.id, updateData, user.uid);
       return {
         success: true,
         message: 'Job erfolgreich aktualisiert',
@@ -149,17 +175,22 @@ export const jobController = new Elysia({ prefix: '/jobs' })
   .delete('/:id', async ({ params, headers, set }) => {
     try {
       const { user } = await authMiddleware({ headers, set });
-      
       const existingJob = await jobService.getJobById(params.id);
-      if (existingJob.employerId !== user.id && user.role !== 'admin') {
+      if (!existingJob) {
+        set.status = 404;
+        return {
+          success: false,
+          message: 'Job nicht gefunden'
+        };
+      }
+      if (existingJob.employerId !== user.uid && user.role !== 'admin') {
         set.status = 403;
         return {
           success: false,
           message: 'Keine Berechtigung zum Löschen dieses Jobs'
         };
       }
-
-      await jobService.deleteJob(params.id);
+      await jobService.deleteJob(params.id, user.uid);
       return {
         success: true,
         message: 'Job erfolgreich gelöscht'
@@ -174,11 +205,16 @@ export const jobController = new Elysia({ prefix: '/jobs' })
   })
   .post('/search', async ({ body }) => {
     try {
-      const result = await jobService.searchJobs(body);
+      // Ensure page and limit are numbers and set defaults if missing
+      const { page = 1, limit = 20, ...rest } = body || {};
+      const searchParams = { page, limit, ...rest } as import('../schemas/job.schema').JobFilterInput;
+      const result = await jobService.getJobs(searchParams);
       return {
         success: true,
         jobs: result.jobs,
-        total: result.total
+        total: result.total,
+        page: result.page,
+        limit: result.limit
       };
     } catch (error) {
       throw new Error('Fehler bei der Jobsuche');
@@ -200,7 +236,6 @@ export const jobController = new Elysia({ prefix: '/jobs' })
   .post('/:id/apply', async ({ params, headers, set }) => {
     try {
       const { user } = await authMiddleware({ headers, set });
-      
       if (user.role !== 'candidate') {
         set.status = 403;
         return {
@@ -208,11 +243,12 @@ export const jobController = new Elysia({ prefix: '/jobs' })
           message: 'Nur Kandidaten können sich bewerben'
         };
       }
-
-      await jobService.applyToJob(params.id, user.id);
+      // Use applyForJob and pass jobId and candidateId
+      const application = await jobService.applyForJob({ jobId: params.id }, user.uid);
       return {
         success: true,
-        message: 'Bewerbung erfolgreich eingereicht'
+        message: 'Bewerbung erfolgreich eingereicht',
+        application
       };
     } catch (error) {
       set.status = 400;

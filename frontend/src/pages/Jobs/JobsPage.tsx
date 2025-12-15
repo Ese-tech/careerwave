@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useArbeitsagentur } from '../../hooks/useArbeitsagentur';
-import { arbeitsagenturService } from '../../services/arbeitsagentur';
-import { JobSearchParams } from '../../types/arbeitsagentur';
+import type { JobSearchParams } from '../../types/arbeitsagentur';
 
 const JobsPage: React.FC = () => {
   const { t } = useTranslation();
@@ -16,8 +15,7 @@ const JobsPage: React.FC = () => {
     error,
     searchJobs,
     searchMore,
-    clearResults,
-    facets
+    clearResults
   } = useArbeitsagentur();
 
   const [searchParams, setSearchParams] = useState<JobSearchParams>({
@@ -222,8 +220,6 @@ const JobsPage: React.FC = () => {
         {/* Job Results */}
         <div className="space-y-6">
           {jobs.map((job) => {
-            const convertedJob = arbeitsagenturService.convertToInternalJob(job);
-            
             return (
               <div key={job.hashId} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
                 <div className="flex justify-between items-start mb-4">

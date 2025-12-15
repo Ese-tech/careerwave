@@ -1,6 +1,5 @@
 // frontend/src/components/admin/ConfirmDialog.tsx
 
-import React from 'react';
 
 interface ConfirmDialogProps {
     open: boolean;
