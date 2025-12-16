@@ -1,5 +1,6 @@
 //backend/src/routes/user.routes.ts
 import { Elysia, t } from "elysia";
+import { db } from "../config/firebase";
 import { authGuard } from "../middleware/auth.middleware";
 
 export default new Elysia({ prefix: "/users" })
@@ -59,21 +60,19 @@ export default new Elysia({ prefix: "/users" })
     // Get user applications
     .get('/applications', async ({ user, set }) => {
         try {
-            // Mock applications data
-            const applications = [
-                {
-                    id: '1',
-                    jobId: 'job1',
-                    status: 'pending',
-                    appliedAt: new Date().toISOString(),
-                    job: {
-                        title: 'Software Developer',
-                        companyName: 'Tech Corp',
-                        location: 'Berlin'
-                    }
-                }
-            ];
-            
+            if (!user || !user.uid) {
+                set.status = 401;
+                return {
+                    success: false,
+                    error: 'Nicht autorisiert'
+                };
+            }
+            // Fetch applications for the current user from Firestore
+            const snapshot = await db.collection('applications').where('userId', '==', user.uid).get();
+            const applications = snapshot.docs.map((doc: any) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
             return {
                 success: true,
                 data: applications

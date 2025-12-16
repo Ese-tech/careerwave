@@ -12,7 +12,7 @@ const Home: React.FC = () => {
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-6">
             <div className="text-center">
-                <h1 className="text-5xl font-extrabold text-blue-600 mb-4">
+                <h1 className="text-5xl font-extrabold text-yellow-600 mb-4">
                     Welcome to CareerWave
                 </h1>
                 <p className="text-xl text-gray-700 mb-8">
@@ -40,10 +40,10 @@ const Home: React.FC = () => {
                     </div>
                 ) : (
                     <div className="space-x-4">
-                        <Link to="/login" className="admin-button">
+                        <Link to="/login" className="admin-button bg-yellow-600 hover:bg-yellow-700">
                             Login
                         </Link>
-                        <Link to="/register" className="admin-button bg-gray-500 hover:bg-gray-600">
+                        <Link to="/register" className="admin-button bg-yellow-600 hover:bg-yellow-700">
                             Register
                         </Link>
                     </div>

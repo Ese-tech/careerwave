@@ -22,8 +22,7 @@ const JobDetailPage: React.FC = () => {
 
   useEffect(() => {
     if (!hashId || hashId === 'undefined') {
-      setError(t('jobDetail.error.missingId', 'Job ID fehlt'));
-      setLoading(false);
+      navigate('/jobs', { replace: true });
       return;
     }
 
@@ -44,7 +43,7 @@ const JobDetailPage: React.FC = () => {
     };
 
     loadJobDetails();
-  }, [hashId]);
+  }, [hashId, navigate, t]);
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return t('jobDetail.notSpecified', 'Nicht angegeben');

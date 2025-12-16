@@ -1,11 +1,16 @@
 // backend/src/routes/admin.routes.ts
 import { Elysia, t } from "elysia";
 import { adminAuthGuard } from "../middleware/auth.middleware";
-import { 
-    getUsersController, 
-    getEmployersController, 
+import {
+    getUsersController,
+    getEmployersController,
     getJobsAdminController,
-    verifyEmployerController
+    getApplicationsController,
+    verifyEmployerController,
+    getAnalyticsController,
+    deleteUserController,
+    deleteJobController,
+    deleteApplicationController
 } from '../controllers/admin.controller';
 
 export default new Elysia({ prefix: "/admin" })
@@ -19,6 +24,10 @@ export default new Elysia({ prefix: "/admin" })
     .get("/users", getUsersController, {
         detail: { tags: ['Admin'], summary: 'Get all users' }
     })
+    .delete("/users/:id", deleteUserController, {
+        params: t.Object({ id: t.String() }),
+        detail: { tags: ['Admin'], summary: 'Delete user' }
+    })
     
     // Employer management
     .get("/employers", getEmployersController, {
@@ -28,79 +37,30 @@ export default new Elysia({ prefix: "/admin" })
         params: t.Object({ id: t.String() }),
         body: t.Object({
             verified: t.Boolean(),
-            notes: t.Optional(t.String())
         }),
-        detail: { tags: ['Admin'], summary: 'Verify an employer' }
+        detail: { tags: ['Admin'], summary: 'Verify employer' }
     })
     
     // Job management
     .get("/jobs", getJobsAdminController, {
         detail: { tags: ['Admin'], summary: 'Get all jobs' }
     })
-
-    // Application management
-    .get("/applications", async ({ set }) => {
-        try {
-            // Mock applications data for now
-            return {
-                success: true,
-                data: [
-                    {
-                        id: '1',
-                        jobId: 'job1',
-                        candidateId: 'user1',
-                        status: 'pending',
-                        appliedAt: new Date().toISOString(),
-                        job: {
-                            title: 'Software Developer',
-                            companyName: 'Tech Corp'
-                        },
-                        candidate: {
-                            displayName: 'John Doe',
-                            email: 'john@example.com'
-                        }
-                    }
-                ]
-            };
-        } catch (error: any) {
-            set.status = 500;
-            return {
-                success: false,
-                error: error.message
-            };
-        }
-    }, {
-        detail: { tags: ['Admin'], summary: 'Get all job applications' }
+    .delete("/jobs/:id", deleteJobController, {
+        params: t.Object({ id: t.String() }),
+        detail: { tags: ['Admin'], summary: 'Delete job' }
     })
-
+    
+    // Application management
+    .get("/applications", getApplicationsController, {
+        detail: { tags: ['Admin'], summary: 'Get all applications' }
+    })
+    .delete("/applications/:id", deleteApplicationController, {
+        params: t.Object({ id: t.String() }),
+        detail: { tags: ['Admin'], summary: 'Delete application' }
+    })
+    
     // Analytics
-    .get("/stats", async ({ set }) => {
-        try {
-            // Mock analytics data
-            return {
-                success: true,
-                data: {
-                    totalUsers: 150,
-                    totalEmployers: 25,
-                    totalJobs: 45,
-                    totalApplications: 320,
-                    monthlyApplications: [
-                        { month: 'Jan', count: 45 },
-                        { month: 'Feb', count: 52 },
-                        { month: 'Mar', count: 48 },
-                        { month: 'Apr', count: 61 },
-                        { month: 'May', count: 55 },
-                        { month: 'Jun', count: 67 }
-                    ]
-                }
-            };
-        } catch (error: any) {
-            set.status = 500;
-            return {
-                success: false,
-                error: error.message
-            };
-        }
-    }, {
-        detail: { tags: ['Admin'], summary: 'Get site analytics' }
+    .get("/analytics", getAnalyticsController, {
+        detail: { tags: ['Admin'], summary: 'Get analytics overview' }
     });
+    

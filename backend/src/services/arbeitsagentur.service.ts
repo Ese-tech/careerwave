@@ -37,8 +37,8 @@ interface ArbeitsagenturApiResponse {
 }
 
 class ArbeitsagenturService {
-  private baseUrl: string;
-  private apiKey: string;
+  public baseUrl: string;
+  public apiKey: string;
 
   constructor() {
     this.baseUrl = process.env.BA_API_URL || 'https://rest.arbeitsagentur.de/jobboerse/jobsuche-service';

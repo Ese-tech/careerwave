@@ -47,12 +47,25 @@ export const JobsPage: React.FC = () => {
     }
   };
 
+  const handleJobClick = async (jobId: string) => {
+    setIsLoading(true);
+    try {
+      const job = await fetchJobDetails(jobId);
+      setSelectedJob(job);
+      setApplicationStatus(null);
+    } catch {
+      setError('Fehler beim Laden der Jobdetails.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-3xl font-bold mb-6">Stellenangebote</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <JobList jobs={jobs} />
+          <JobList jobs={jobs} onJobClick={job => handleJobClick(job.hashId)} />
         </div>
         <div>
           {selectedJob ? (

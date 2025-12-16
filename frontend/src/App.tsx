@@ -9,6 +9,26 @@ import EmployerDashboard from './pages/Employer/EmployerDashboard';
 import CandidateDashboard from './pages/Candidate/CandidateDashboard';
 import JobSearchPage from './pages/Jobs/JobSearchPage';
 import JobDetailPage from './pages/Jobs/JobDetailPage';
+import Applications from './pages/Applications';
+import Profile from './pages/Profile';
+import Settings from './pages/Settings';
+import CareerTips from './pages/CareerTips';
+import PostJob from './pages/PostJob';
+import FindCandidates from './pages/FindCandidates';
+import Pricing from './pages/Pricing';
+import CompanyProfile from './pages/CompanyProfile';
+import Help from './pages/Help';
+import Contact from './pages/Contact';
+import FAQ from './pages/FAQ';
+import Community from './pages/Community';
+import About from './pages/About';
+import Blog from './pages/Blog';
+import Careers from './pages/Careers';
+import Press from './pages/Press';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
+import Imprint from './pages/Imprint';
+import Cookies from './pages/Cookies';
 import AdminRoute from './routes/AdminRoute';
 import EmployerRoute from './routes/EmployerRoute';
 import CandidateRoute from './routes/CandidateRoute';
@@ -72,8 +92,27 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/jobs" element={<JobSearchPage />} />
                 <Route path="/jobs/:hashId" element={<JobDetailPage />} />
-                <Route path="/companies" element={<div className="p-8"><h1 className="text-2xl font-bold">Companies Page - Coming Soon</h1></div>} />
-                <Route path="/about" element={<div className="p-8"><h1 className="text-2xl font-bold">About Page - Coming Soon</h1></div>} />
+                <Route path="/applications" element={<Applications />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/career-tips" element={<CareerTips />} />
+                <Route path="/post-job" element={<PostJob />} />
+                <Route path="/find-candidates" element={<FindCandidates />} />
+                <Route path="/pricing" element={<Pricing />} />
+                <Route path="/company-profile" element={<CompanyProfile />} />
+                <Route path="/help" element={<Help />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/community" element={<Community />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/careers" element={<Careers />} />
+                <Route path="/press" element={<Press />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/imprint" element={<Imprint />} />
+                <Route path="/cookies" element={<Cookies />} />
+                <Route path="/companies" element={<CompanyProfile />} />
                 <Route path="/forbidden" element={<ForbiddenPage />} />
               </Routes>
             </Layout>

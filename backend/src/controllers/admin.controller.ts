@@ -1,3 +1,47 @@
+/**
+ * Löscht einen Benutzer (User) aus Firestore und Auth
+ */
+export const deleteUserController = async ({ params, set }: any) => {
+    try {
+        const { id } = params;
+        // Lösche aus Auth
+        await auth.deleteUser(id);
+        // Lösche aus Firestore
+        await db.collection('users').doc(id).delete();
+        return { success: true, message: `User ${id} deleted.` };
+    } catch (err: any) {
+        set.status = 500;
+        return { success: false, error: err.message };
+    }
+};
+
+/**
+ * Löscht einen Job aus Firestore
+ */
+export const deleteJobController = async ({ params, set }: any) => {
+    try {
+        const { id } = params;
+        await db.collection('jobs').doc(id).delete();
+        return { success: true, message: `Job ${id} deleted.` };
+    } catch (err: any) {
+        set.status = 500;
+        return { success: false, error: err.message };
+    }
+};
+
+/**
+ * Löscht eine Bewerbung aus Firestore
+ */
+export const deleteApplicationController = async ({ params, set }: any) => {
+    try {
+        const { id } = params;
+        await db.collection('applications').doc(id).delete();
+        return { success: true, message: `Application ${id} deleted.` };
+    } catch (err: any) {
+        set.status = 500;
+        return { success: false, error: err.message };
+    }
+};
 // backend/src/controllers/admin.controller.ts
 
 import { db, auth } from "@/config/firebase";
@@ -116,26 +160,53 @@ export const getApplicationsController = async ({ set }: any) => {
  * Holt Analytikdaten (Mocked)
  */
 export const getAnalyticsController = async () => {
-    // Generiert Mock-Daten für die Übersicht
-    const monthlyApplications = Array.from({ length: 6 }).map((_, i) => {
-        const date = new Date();
-        date.setMonth(date.getMonth() - i);
-        return {
-            month: date.toLocaleString('en-US', { month: 'short', year: 'numeric' }),
-            count: Math.floor(Math.random() * 50) + 50,
-        };
-    }).reverse(); // Vom ältesten zum neuesten
+    try {
+        // Count users
+        const usersSnap = await db.collection('users').get();
+        const totalUsers = usersSnap.size;
 
-    return {
-        totalUsers: 1250,
-        totalEmployers: 85,
-        totalJobs: 340,
-        totalApplications: 6780,
-        monthlyApplications: {
-            labels: monthlyApplications.map(m => m.month),
-            values: monthlyApplications.map(m => m.count)
+        // Count employers
+        const employersSnap = await db.collection('employers').get();
+        const totalEmployers = employersSnap.size;
+
+        // Count jobs
+        const jobsSnap = await db.collection('jobs').get();
+        const totalJobs = jobsSnap.size;
+
+        // Count applications
+        const applicationsSnap = await db.collection('applications').get();
+        const totalApplications = applicationsSnap.size;
+
+        // Monthly applications (last 6 months)
+        const now = new Date();
+        const monthlyApplications = [];
+        for (let i = 5; i >= 0; i--) {
+            const start = new Date(now.getFullYear(), now.getMonth() - i, 1);
+            const end = new Date(now.getFullYear(), now.getMonth() - i + 1, 1);
+            const monthSnap = await db.collection('applications')
+                .where('createdAt', '>=', start)
+                .where('createdAt', '<', end)
+                .get();
+            monthlyApplications.push({
+                month: start.toLocaleString('en-US', { month: 'short', year: 'numeric' }),
+                count: monthSnap.size
+            });
         }
-    };
+
+        return {
+            totalUsers,
+            totalEmployers,
+            totalJobs,
+            totalApplications,
+            monthlyApplications: {
+                labels: monthlyApplications.map(m => m.month),
+                values: monthlyApplications.map(m => m.count)
+            }
+        };
+    } catch (err) {
+        console.error('Admin: Failed to fetch analytics:', err);
+        return { error: 'Failed to fetch analytics' };
+    }
 };
 
 /**
