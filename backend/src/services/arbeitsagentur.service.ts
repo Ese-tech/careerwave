@@ -74,6 +74,15 @@ class ArbeitsagenturService {
       }
 
       const data = await response.json();
+      // Defensive Mapping: Stelle sicher, dass jedes Job-Objekt ein Feld 'hashId' hat
+      if (data && Array.isArray(data.stellenangebote)) {
+        data.stellenangebote = data.stellenangebote
+          .map((job: any) => ({
+            ...job,
+            hashId: job.hashId || job.refnr || job.id || undefined
+          }))
+          .filter((job: any) => !!job.hashId);
+      }
       return data as ArbeitsagenturApiResponse;
     } catch (error) {
       console.error('Error fetching jobs from Arbeitsagentur:', error);
@@ -93,7 +102,8 @@ class ArbeitsagenturService {
       });
 
       if (!response.ok) {
-        if (response.status === 404) {
+        if (response.status === 404 || response.status === 403) {
+          // Arbeitsagentur gibt 403 für viele nicht verfügbare Details zurück
           return null;
         }
         throw new Error(`Arbeitsagentur API error: ${response.status} ${response.statusText}`);

@@ -3,6 +3,25 @@
 import { Elysia, t } from "elysia";
 import { auth, db } from "@/config/firebase";
 import { UserRole } from "@/models/user.model";
+import jwt from 'jsonwebtoken';
+
+// Verify JWT token (from our login system)
+async function verifyJWT(token: string) {
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
+      userId: string;
+      email: string;
+      role: UserRole;
+    };
+    return {
+      uid: decoded.userId,
+      email: decoded.email,
+      role: decoded.role
+    };
+  } catch (error) {
+    return null;
+  }
+}
 
 // Firebase ID Token verification
 async function verifyFirebaseIdToken(idToken: string) {
@@ -41,18 +60,48 @@ export interface AuthenticatedUser {
  */
 export const authGuard = (requiredRole?: UserRole) => (app: Elysia) =>
     app.derive(async ({ headers, set }) => {
-        const token = headers['authorization'];
+        let token = headers['authorization'];
 
         if (!token) {
             set.status = 401;
-            return { user: null, error: 'Authentication required' };
+            throw new Error('Authentication required');
         }
 
-        const decodedToken = await verifyFirebaseIdToken(token);
+        // Remove "Bearer " prefix if present
+        if (token.startsWith('Bearer ')) {
+            token = token.substring(7);
+        }
+
+        // Try JWT first (our own auth system)
+        const jwtUser = await verifyJWT(token);
+        if (jwtUser) {
+            const user: AuthenticatedUser = {
+                uid: jwtUser.uid,
+                email: jwtUser.email,
+                role: jwtUser.role,
+            };
+
+            // Check required role
+            if (requiredRole && jwtUser.role !== requiredRole) {
+                set.status = 403;
+                throw new Error('Forbidden access: Insufficient privileges');
+            }
+
+            return { user };
+        }
+
+        // Try Firebase ID Token as fallback
+        let decodedToken;
+        try {
+            decodedToken = await verifyFirebaseIdToken(token);
+        } catch (error) {
+            set.status = 401;
+            throw new Error('Invalid or expired token');
+        }
 
         if (!decodedToken) {
             set.status = 401;
-            return { user: null, error: 'Invalid or expired token' };
+            throw new Error('Invalid or expired token');
         }
 
         // Holen der Rolle aus der Datenbank (alternativ könnte man Custom Claims verwenden)
@@ -60,7 +109,7 @@ export const authGuard = (requiredRole?: UserRole) => (app: Elysia) =>
 
         if (!role) {
             set.status = 403;
-            return { user: null, error: 'User role not found' };
+            throw new Error('User role not found');
         }
 
         const user: AuthenticatedUser = {
@@ -72,11 +121,11 @@ export const authGuard = (requiredRole?: UserRole) => (app: Elysia) =>
         // Prüfen, ob die erforderliche Rolle erfüllt ist
         if (requiredRole && role !== requiredRole) {
             set.status = 403;
-            return { user: null, error: 'Forbidden access: Insufficient privileges' };
+            throw new Error('Forbidden access: Insufficient privileges');
         }
 
         // Benutzer im Kontext speichern
-        return { user, error: null };
+        return { user };
     });
 
 /**

@@ -5,30 +5,30 @@ import { useNavigate } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Input } from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
-import { arbeitsagenturService, type ArbeitsagenturJob } from '../../services/arbeitsagentur.service';
+import { fetchJobs } from '../../services/jobService';
+import type { JobDetails } from '../../types/arbeitsagentur';
 
 const JobSearchPage: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [jobs, setJobs] = useState<ArbeitsagenturJob[]>([]);
+  const [jobs, setJobs] = useState<JobDetails[]>([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [location, setLocation] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSearch = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     setLoading(true);
     setError(null);
-    
     try {
-      const result = await arbeitsagenturService.searchJobs({
-        was: searchTerm || undefined,
-        wo: location || undefined,
-        size: 20
+      const { jobs: fetchedJobs } = await fetchJobs({
+        q: searchTerm || undefined,
+        location: location || undefined,
+        page: 1,
+        limit: 20
       });
-      
-      setJobs(result.stellenangebote || []);
+      setJobs(fetchedJobs || []);
     } catch (err: any) {
       setError(err.message || 'Fehler beim Laden der Jobs');
     } finally {
@@ -36,9 +36,14 @@ const JobSearchPage: React.FC = () => {
     }
   };
 
+  const handleReset = () => {
+    setSearchTerm('');
+    setLocation('');
+  };
+
   // Load initial jobs on component mount
   useEffect(() => {
-    handleSearch({ preventDefault: () => {} } as React.FormEvent);
+    handleSearch();
   }, []);
 
   const formatDate = (dateString?: string) => {
@@ -51,145 +56,212 @@ const JobSearchPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-gray-800 mb-8">
-        {t('jobs.searchJobs')} - Arbeitsagentur
-      </h1>
-
-      {/* Search Form */}
-      <Card className="mb-8 p-6">
-        <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1">
-            <Input
-              type="text"
-              placeholder="Was? (z.B. Developer, Designer...)"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          <div className="flex-1">
-            <Input
-              type="text"
-              placeholder="Wo? (z.B. Berlin, München...)"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-            />
-          </div>
-          <Button 
-            type="submit" 
-            disabled={loading}
-            className="bg-teal-600 hover:bg-teal-700 text-white px-8"
-          >
-            {loading ? 'Suche...' : 'Suchen'}
-          </Button>
-        </form>
-      </Card>
-
-      {/* Error Message */}
-      {error && (
-        <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-          {error}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Hero Section */}
+        <div className="text-center mb-12">
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">
+            {t('jobs.searchJobs')}
+          </h1>
+          <p className="text-xl text-gray-600">
+            Finde deinen Traumjob aus tausenden aktuellen Stellenangeboten
+          </p>
         </div>
-      )}
 
-      {/* Results */}
-      <div className="grid gap-6">
-        {jobs.length === 0 && !loading && (
-          <Card className="p-6 text-center text-gray-500">
-            {searchTerm || location ? 'Keine Jobs gefunden.' : 'Starten Sie eine Suche um Jobs zu finden.'}
-          </Card>
+        {/* Search Form */}
+        <Card className="mb-12 p-8 shadow-xl border border-gray-100 rounded-2xl bg-white">
+          <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              <Input
+                type="text"
+                placeholder="Was? (z.B. Developer, Designer...)"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="h-14 text-lg px-6 rounded-xl border-2 border-gray-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all"
+              />
+            </div>
+            <div className="flex-1">
+              <Input
+                type="text"
+                placeholder="Wo? (z.B. Berlin, München...)"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                className="h-14 text-lg px-6 rounded-xl border-2 border-gray-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all"
+              />
+            </div>
+            <Button 
+              type="submit" 
+              disabled={loading}
+              className="h-14 bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+            >
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <span className="animate-spin">🔄</span> Suche...
+                </span>
+              ) : (
+                <span className="flex items-center gap-2">
+                  🔍 Suchen
+                </span>
+              )}
+            </Button>
+            <Button 
+              type="button"
+              onClick={handleReset}
+              disabled={loading}
+              className="h-14 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-8 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
+            >
+              Zurücksetzen
+            </Button>
+          </form>
+        </Card>
+
+        {/* Error Message */}
+        {error && (
+          <div className="mb-8 p-6 bg-red-50 border-2 border-red-200 text-red-700 rounded-2xl shadow-md">
+            <div className="flex items-center gap-3">
+              <span className="text-3xl">⚠️</span>
+              <div>
+                <p className="font-bold text-lg">Fehler</p>
+                <p>{error}</p>
+              </div>
+            </div>
+          </div>
         )}
 
+        {/* Results Count */}
+        {jobs.length > 0 && !loading && (
+          <div className="mb-6">
+            <p className="text-lg text-gray-700">
+              <span className="font-bold text-teal-600">{jobs.length}</span> Jobs gefunden
+            </p>
+          </div>
+        )}
+
+        {/* Results */}
+        <div className="grid gap-6">
+          {jobs.length === 0 && !loading && (
+            <Card className="p-12 text-center rounded-2xl border border-gray-200 bg-white shadow-lg">
+              <div className="text-6xl mb-4">🔍</div>
+              <p className="text-xl text-gray-600">
+                {searchTerm || location ? 'Keine Jobs gefunden.' : 'Starten Sie eine Suche um Jobs zu finden.'}
+              </p>
+            </Card>
+          )}
+
         {jobs.map((job) => (
-          <Card key={job.hashId} className="p-6 hover:shadow-lg transition-shadow">
-            <div className="flex justify-between items-start mb-4">
+          <Card key={job.id || job.hashId} className="p-8 hover:shadow-2xl transition-all transform hover:scale-[1.02] rounded-2xl border border-gray-100 bg-white">
+            <div className="flex justify-between items-start gap-6">
               <div className="flex-1">
-                <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                  {job.titel}
+                {/* Job Title */}
+                <h2 className="text-3xl font-bold text-gray-900 mb-4 hover:text-teal-600 transition-colors cursor-pointer"
+                    onClick={() => navigate(`/jobs/${job.id || job.hashId}`)}>
+                  {job.title || job.titel}
                 </h2>
-                <p className="text-gray-600 mb-2">
-                  <strong>Arbeitgeber:</strong> {job.arbeitgeber || 'Nicht angegeben'}
-                </p>
-                
-                {job.arbeitsorte && job.arbeitsorte.length > 0 && (
-                  <p className="text-gray-600 mb-2">
-                    <strong>Ort:</strong> {job.arbeitsorte.map(ort => 
-                      [ort.plz, ort.ort].filter(Boolean).join(' ')
-                    ).join(', ')}
-                  </p>
-                )}
 
-                {job.branche && (
-                  <p className="text-gray-600 mb-2">
-                    <strong>Branche:</strong> {job.branche}
-                  </p>
-                )}
+                {/* Company Info */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-pink-500 rounded-xl flex items-center justify-center shadow-md">
+                    <span className="text-2xl">🏢</span>
+                  </div>
+                  <div>
+                    <p className="text-lg font-semibold text-gray-800">
+                      {job.company?.display_name || job.arbeitgeber || 'Nicht angegeben'}
+                    </p>
+                  </div>
+                </div>
 
-                {job.verguetung && (
-                  <p className="text-green-600 font-semibold mb-2">
-                    💰 {job.verguetung}
-                  </p>
-                )}
+                {/* Tags */}
+                <div className="flex flex-wrap gap-3 mb-4">
+                  {/* Location */}
+                  {(job.location?.display_name || (job.arbeitsorte && job.arbeitsorte.length > 0)) && (
+                    <span className="inline-flex items-center px-4 py-2 bg-teal-100 text-teal-800 rounded-full text-sm font-medium">
+                      📍 {job.location?.display_name || job.arbeitsorte?.map((ort, idx) => 
+                        [ort.plz, ort.ort].filter(Boolean).join(' ')
+                      ).join(', ')}
+                    </span>
+                  )}
 
-                {job.befristung && (
-                  <p className="text-gray-600 mb-2">
-                    <strong>Befristung:</strong> {job.befristung}
-                  </p>
-                )}
+                  {/* Salary */}
+                  {(job.salary_min || job.salary_max || job.verguetung) && (
+                    <span className="inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                      💰 {job.verguetung || (job.salary_min && job.salary_max 
+                        ? `€${job.salary_min.toLocaleString()} - €${job.salary_max.toLocaleString()}`
+                        : job.salary_min 
+                          ? `ab €${job.salary_min.toLocaleString()}`
+                          : `bis €${job.salary_max?.toLocaleString()}`
+                      )}
+                    </span>
+                  )}
 
-                {job.eintrittsdatum && (
-                  <p className="text-gray-600 mb-2">
-                    <strong>Eintrittsdatum:</strong> {formatDate(job.eintrittsdatum)}
-                  </p>
-                )}
+                  {/* Category/Branch */}
+                  {(job.category?.label || job.branche) && (
+                    <span className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                      🏭 {job.category?.label || job.branche}
+                    </span>
+                  )}
 
-                {job.arbeitszeitmodelle && job.arbeitszeitmodelle.length > 0 && (
-                  <p className="text-gray-600 mb-2">
-                    <strong>Arbeitszeit:</strong> {job.arbeitszeitmodelle.join(', ')}
-                  </p>
+                  {/* Contract Type */}
+                  {(job.contract_type || job.befristung) && (
+                    <span className="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
+                      📋 {job.contract_type === 'permanent' ? 'Festanstellung' : job.contract_type || job.befristung}
+                    </span>
+                  )}
+
+                  {/* Working Time */}
+                  {job.arbeitszeitmodelle && job.arbeitszeitmodelle.length > 0 && (
+                    <span className="inline-flex items-center px-4 py-2 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium">
+                      ⏰ {job.arbeitszeitmodelle.join(', ')}
+                    </span>
+                  )}
+                </div>
+
+                {/* Description Preview */}
+                {(job.description || job.stellenbeschreibung) && (
+                  <div className="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-100">
+                    <p className="text-gray-700 line-clamp-2 leading-relaxed">
+                      {(job.description || job.stellenbeschreibung || '').substring(0, 200)}...
+                    </p>
+                  </div>
                 )}
               </div>
               
-              <div className="ml-4 text-right">
-                <p className="text-sm text-gray-500 mb-2">
-                  {formatDate(job.modifikationsTimestamp)}
-                </p>
+              {/* Right Side - Date & Button */}
+              <div className="flex flex-col items-end gap-4">
+                <div className="text-right">
+                  <p className="text-sm text-gray-500 mb-1">Veröffentlicht</p>
+                  <p className="text-lg font-semibold text-gray-700">
+                    {formatDate(job.created || job.modifikationsTimestamp)}
+                  </p>
+                </div>
                 <Button 
-                  onClick={() => {
-                    navigate(`/jobs/${job.hashId}`);
-                  }}
-                  className="bg-orange-500 hover:bg-orange-600 text-white"
+                  onClick={() => navigate(`/jobs/${job.id || job.hashId}`)}
+                  className="bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                 >
-                  Details ansehen
+                  Details ansehen →
                 </Button>
               </div>
             </div>
-
-            {job.stellenbeschreibung && (
-              <div className="border-t pt-4">
-                <p className="text-gray-700 line-clamp-3">
-                  {job.stellenbeschreibung.substring(0, 200)}...
-                </p>
-              </div>
-            )}
           </Card>
         ))}
       </div>
 
       {/* Load More Button */}
       {jobs.length > 0 && (
-        <div className="text-center mt-8">
+        <div className="text-center mt-12">
           <Button 
             onClick={() => {
               // TODO: Implement pagination
               console.log('Load more jobs');
             }}
-            className="bg-purple-600 hover:bg-purple-700 text-white px-8"
+            className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white px-12 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
           >
-            Mehr Jobs laden
+            <span className="flex items-center gap-2">
+              📄 Mehr Jobs laden
+            </span>
           </Button>
         </div>
       )}
+      </div>
     </div>
   );
 };

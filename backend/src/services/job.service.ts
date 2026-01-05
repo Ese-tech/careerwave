@@ -2,6 +2,7 @@
 import { db } from '../config/firebase';
 import { nanoid } from 'nanoid';
 import type { CreateJobInput, UpdateJobInput, JobFilterInput, ApplicationInput } from '../schemas/job.schema';
+import { adzunaService } from './adzuna.service';
 
 export class JobService {
   async createJob(jobData: CreateJobInput, employerId: string) {
@@ -27,65 +28,63 @@ export class JobService {
 
   async getJobs(filters: JobFilterInput) {
     try {
-      let query: any = db.collection('jobs');
+      // Serve jobs from DB, fallback to Adzuna if DB is empty
+      const page = filters.page || 1;
+      const limit = filters.limit || 10;
+      console.log('[JobService] Fetching jobs with filters:', { page, limit });
+      
+      // 1. Try to get jobs from DB (adzuna_jobs collection)
+      let jobs = await adzunaService.getJobsFromDB(page, limit);
+      let total = await adzunaService.countJobsInDB();
+      console.log('[JobService] DB results:', { jobsCount: jobs.length, total });
 
-      // Apply filters
-      if (filters.search) {
-        query = query.where('title', '>=', filters.search)
-                    .where('title', '<=', filters.search + '\uf8ff');
+      // 2. If DB is empty, fetch 100-150 jobs from Adzuna, cache, and serve
+      if (total === 0) {
+        console.log('[JobService] DB empty, fetching from Adzuna...');
+        // Fetch 3 pages of 50 jobs each (max 150)
+        let allJobs: any[] = [];
+        for (let p = 1; p <= 3; p++) {
+          const adzunaData = await adzunaService.fetchJobs(p, 50);
+          if (adzunaData.results && adzunaData.results.length > 0) {
+            allJobs = allJobs.concat(adzunaData.results);
+          }
+          if (allJobs.length >= 150) break;
+        }
+        // Limit to 150
+        allJobs = allJobs.slice(0, 150);
+        console.log('[JobService] Fetched from Adzuna:', allJobs.length, 'jobs');
+        await adzunaService.cacheJobsToDB(allJobs);
+        jobs = await adzunaService.getJobsFromDB(page, limit);
+        total = await adzunaService.countJobsInDB();
       }
-      
-      if (filters.location) {
-        query = query.where('location', '==', filters.location);
-      }
-      
-      if (filters.type) {
-        query = query.where('type', '==', filters.type);
-      }
-      
-      if (filters.level) {
-        query = query.where('level', '==', filters.level);
-      }
-      
-      if (filters.category) {
-        query = query.where('category', '==', filters.category);
-      }
-      
-      if (filters.remote !== undefined) {
-        query = query.where('remote', '==', filters.remote);
-      }
-
-      // Only show active jobs
-      query = query.where('status', '==', 'active');
-      
-      // Pagination
-      query = query.orderBy('createdAt', 'desc').limit(filters.limit);
-
-      const snapshot = await query.get();
-      const jobs = snapshot.docs.map((doc: any) => doc.data());
 
       return {
         jobs,
-        page: filters.page,
-        limit: filters.limit,
-        total: jobs.length,
+        page,
+        limit,
+        total,
       };
     } catch (error) {
+      console.error('[JobService] Error in getJobs:', error);
       throw error;
     }
   }
 
   async getJobById(jobId: string) {
+    // Try to get job from DB (adzuna_jobs)
+    let job = await adzunaService.findJobInDBById(jobId);
+    if (job) return job;
+    // If not found, fetch from Adzuna, cache, and return
     try {
-      const jobDoc = await db.collection('jobs').doc(jobId).get();
-      
-      if (!jobDoc.exists) {
-        throw new Error('Job not found');
+      const adzunaData = await adzunaService.fetchJobs(1, 1, { id: jobId });
+      if (adzunaData.results && adzunaData.results.length > 0) {
+        const adzunaJob = adzunaData.results[0];
+        await adzunaService.cacheJobsToDB([adzunaJob]);
+        return adzunaJob;
       }
-
-      return jobDoc.data();
+      throw new Error('Job not found');
     } catch (error) {
-      throw error;
+      throw new Error('Job not found');
     }
   }
 

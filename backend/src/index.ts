@@ -5,6 +5,7 @@ import { authController } from './controllers/auth.controller';
 import { jobController } from './controllers/job.controller';
 import { arbeitsagenturController } from './controllers/arbeitsagentur.controller';
 import applicationRoutes from './routes/application.routes';
+import userRoutes from './routes/user.routes';
 
 const app = new Elysia()
   .use(cors({
@@ -52,9 +53,11 @@ const app = new Elysia()
     .use(jobController)
     .use(arbeitsagenturController)
     .use(applicationRoutes)
+    .use(userRoutes)
   )
   .onError(({ error, set }) => {
     console.error('API Error:', error);
+    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace');
     
     const errorMessage = error instanceof Error ? error.message : String(error);
     

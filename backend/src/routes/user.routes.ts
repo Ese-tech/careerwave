@@ -9,6 +9,14 @@ export default new Elysia({ prefix: "/users" })
     // Get user profile
     .get('/profile', async ({ user, set }) => {
         try {
+            if (!user) {
+                set.status = 401;
+                return {
+                    success: false,
+                    error: 'Nicht authentifiziert'
+                };
+            }
+            
             return {
                 success: true,
                 data: user

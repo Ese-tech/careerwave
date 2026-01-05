@@ -29,9 +29,8 @@ export const jobController = new Elysia({ prefix: '/jobs' })
   .get('/', async ({ query }) => {
     try {
       const page = parseInt(query.page as string) || 1;
-      const limit = parseInt(query.limit as string) || 20;
+      const limit = parseInt(query.limit as string) || 10; // Default: 10 per page
       const result = await jobService.getJobs({ page, limit });
-      
       return {
         success: true,
         jobs: result.jobs,
@@ -40,7 +39,8 @@ export const jobController = new Elysia({ prefix: '/jobs' })
         limit
       };
     } catch (error) {
-      throw new Error('Fehler beim Laden der Jobs');
+      console.error('Error fetching jobs:', error);
+      throw new Error('Fehler beim Laden der Jobs (inkl. Adzuna)');
     }
   })
   .get('/:id', async ({ params, set }) => {

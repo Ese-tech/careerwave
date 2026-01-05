@@ -1,5 +1,5 @@
-declare const process: {
-  env: {
+declare namespace NodeJS {
+  interface ProcessEnv {
     PORT: string;
     JWT_SECRET: string;
     FIREBASE_API_KEY: string;

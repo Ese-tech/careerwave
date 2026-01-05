@@ -22,10 +22,9 @@ export const arbeitsagenturController = new Elysia({ prefix: '/arbeitsagentur' }
       });
 
       const result = await arbeitsagenturService.searchJobs(searchParams);
-      
       return {
         success: true,
-        data: result,
+        jobs: result.stellenangebote || [],
         message: 'Jobs erfolgreich abgerufen'
       };
     } catch (error: any) {
@@ -56,12 +55,12 @@ export const arbeitsagenturController = new Elysia({ prefix: '/arbeitsagentur' }
     try {
       const { hashId } = params;
       const jobDetails = await arbeitsagenturService.getJobDetails(hashId);
-      
+
       if (!jobDetails) {
         set.status = 404;
         return {
           success: false,
-          error: 'Job nicht gefunden',
+          error: 'Der gewünschte Job konnte nicht gefunden werden oder ist nicht mehr verfügbar.',
           data: null
         };
       }
@@ -72,6 +71,7 @@ export const arbeitsagenturController = new Elysia({ prefix: '/arbeitsagentur' }
         message: 'Job-Details erfolgreich abgerufen'
       };
     } catch (error: any) {
+      // Wenn der Service trotzdem einen Fehler wirft, gib 500 zurück
       console.error('Error in arbeitsagentur job details endpoint:', error);
       set.status = 500;
       return {
