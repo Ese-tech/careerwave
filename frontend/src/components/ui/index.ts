@@ -5,3 +5,4 @@ export { Card, CardHeader, CardTitle, CardContent } from './Card';
 export { Badge } from './Badge';
 export { LanguageSwitcher } from './LanguageSwitcher';
 export { ThemeSwitcher } from './ThemeSwitcher';
+export { Pagination } from './Pagination';

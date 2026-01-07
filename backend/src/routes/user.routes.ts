@@ -17,11 +17,34 @@ export default new Elysia({ prefix: "/users" })
                 };
             }
             
+            // Fetch complete profile data from Firestore
+            const userDoc = await db.collection('users').doc(user.uid).get();
+            
+            if (!userDoc.exists) {
+                // Return basic user data if document doesn't exist
+                return {
+                    success: true,
+                    data: user
+                };
+            }
+            
+            // Merge auth data with Firestore data
+            const firestoreData = userDoc.data();
+            const completeProfile = {
+                uid: user.uid,
+                email: user.email,
+                role: user.role,
+                ...firestoreData
+            };
+            
+            console.log('📦 Sending profile data:', completeProfile);
+            
             return {
                 success: true,
-                data: user
+                data: completeProfile
             };
         } catch (error: any) {
+            console.error('Error fetching profile:', error);
             set.status = 500;
             return {
                 success: false,

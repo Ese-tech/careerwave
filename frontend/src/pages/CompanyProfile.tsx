@@ -4,8 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { Card } from '../components/ui/Card';
 import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
+import { Pagination } from '../components/ui/Pagination';
 import { fetchJobs } from '../services/jobService';
 import type { JobDetails } from '../types/arbeitsagentur';
+
+const ITEMS_PER_PAGE = 10;
 
 interface Company {
   name: string;
@@ -22,6 +25,18 @@ const CompanyProfile: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredCompanies, setFilteredCompanies] = useState<Company[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Calculate pagination
+  const totalPages = Math.ceil(filteredCompanies.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const displayedCompanies = filteredCompanies.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     const loadCompanies = async () => {
@@ -74,6 +89,7 @@ const CompanyProfile: React.FC = () => {
           company.location?.toLowerCase().includes(searchTerm.toLowerCase())
         )
       );
+      setCurrentPage(1); // Reset to first page on search
     } else {
       setFilteredCompanies(companies);
     }
@@ -135,17 +151,28 @@ const CompanyProfile: React.FC = () => {
         </Card>
 
         {/* Stats */}
-        <div className="mb-8">
+        <div className="mb-8 flex justify-between items-center">
           <p className="text-lg text-gray-700">
             <span className="font-bold text-teal-600">{filteredCompanies.length}</span> Unternehmen gefunden
             <span className="mx-2">•</span>
             <span className="font-bold text-purple-600">{filteredCompanies.reduce((sum, c) => sum + c.jobCount, 0)}</span> offene Stellen
+            {totalPages > 1 && (
+              <>
+                <span className="mx-2">•</span>
+                <span className="text-gray-500">
+                  Seite {currentPage} von {totalPages}
+                </span>
+              </>
+            )}
+          </p>
+          <p className="text-sm text-gray-500">
+            Zeige {startIndex + 1} - {Math.min(endIndex, filteredCompanies.length)} von {filteredCompanies.length}
           </p>
         </div>
 
         {/* Companies Grid */}
         <div className="grid gap-6">
-          {filteredCompanies.map((company, index) => (
+          {displayedCompanies.map((company, index) => (
             <Card 
               key={index} 
               className="p-8 hover:shadow-2xl transition-all transform hover:scale-[1.02] rounded-2xl border border-gray-100 bg-white"
@@ -224,6 +251,17 @@ const CompanyProfile: React.FC = () => {
             </Card>
           ))}
         </div>
+
+        {/* Pagination */}
+        {filteredCompanies.length > 0 && totalPages > 1 && (
+          <div className="mt-12">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          </div>
+        )}
 
         {/* No Results */}
         {filteredCompanies.length === 0 && !loading && (

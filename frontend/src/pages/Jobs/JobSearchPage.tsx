@@ -5,30 +5,41 @@ import { useNavigate } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Input } from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
+import { Pagination } from '../../components/ui/Pagination';
 import { fetchJobs } from '../../services/jobService';
 import type { JobDetails } from '../../types/arbeitsagentur';
+
+const ITEMS_PER_PAGE = 10;
 
 const JobSearchPage: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [jobs, setJobs] = useState<JobDetails[]>([]);
+  const [allJobs, setAllJobs] = useState<JobDetails[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [location, setLocation] = useState('');
   const [error, setError] = useState<string | null>(null);
 
+  // Calculate pagination
+  const totalPages = Math.ceil(allJobs.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const jobs = allJobs.slice(startIndex, endIndex);
+
   const handleSearch = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setLoading(true);
     setError(null);
+    setCurrentPage(1); // Reset to first page on new search
     try {
       const { jobs: fetchedJobs } = await fetchJobs({
         q: searchTerm || undefined,
         location: location || undefined,
         page: 1,
-        limit: 20
+        limit: 100 // Fetch more jobs for pagination
       });
-      setJobs(fetchedJobs || []);
+      setAllJobs(fetchedJobs || []);
     } catch (err: any) {
       setError(err.message || 'Fehler beim Laden der Jobs');
     } finally {
@@ -39,6 +50,12 @@ const JobSearchPage: React.FC = () => {
   const handleReset = () => {
     setSearchTerm('');
     setLocation('');
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Load initial jobs on component mount
@@ -129,17 +146,25 @@ const JobSearchPage: React.FC = () => {
         )}
 
         {/* Results Count */}
-        {jobs.length > 0 && !loading && (
-          <div className="mb-6">
+        {allJobs.length > 0 && !loading && (
+          <div className="mb-6 flex justify-between items-center">
             <p className="text-lg text-gray-700">
-              <span className="font-bold text-teal-600">{jobs.length}</span> Jobs gefunden
+              <span className="font-bold text-teal-600">{allJobs.length}</span> Jobs gefunden
+              {totalPages > 1 && (
+                <span className="text-gray-500 ml-2">
+                  • Seite {currentPage} von {totalPages}
+                </span>
+              )}
+            </p>
+            <p className="text-sm text-gray-500">
+              Zeige {startIndex + 1} - {Math.min(endIndex, allJobs.length)} von {allJobs.length}
             </p>
           </div>
         )}
 
         {/* Results */}
         <div className="grid gap-6">
-          {jobs.length === 0 && !loading && (
+          {allJobs.length === 0 && !loading && (
             <Card className="p-12 text-center rounded-2xl border border-gray-200 bg-white shadow-lg">
               <div className="text-6xl mb-4">🔍</div>
               <p className="text-xl text-gray-600">
@@ -245,20 +270,14 @@ const JobSearchPage: React.FC = () => {
         ))}
       </div>
 
-      {/* Load More Button */}
-      {jobs.length > 0 && (
-        <div className="text-center mt-12">
-          <Button 
-            onClick={() => {
-              // TODO: Implement pagination
-              console.log('Load more jobs');
-            }}
-            className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white px-12 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
-          >
-            <span className="flex items-center gap-2">
-              📄 Mehr Jobs laden
-            </span>
-          </Button>
+      {/* Pagination */}
+      {allJobs.length > 0 && totalPages > 1 && (
+        <div className="mt-12">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         </div>
       )}
       </div>

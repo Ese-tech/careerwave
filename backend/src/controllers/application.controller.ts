@@ -1,5 +1,6 @@
 // backend/src/controllers/application.controller.ts
 import { db } from '../config/firebase';
+import { emailService } from '../services/email.service';
 import type { CreateApplicationPayload, Application } from '../types/application';
 
 export const createApplicationController = async ({ body }: { body: CreateApplicationPayload }) => {
@@ -13,8 +14,38 @@ export const createApplicationController = async ({ body }: { body: CreateApplic
     };
     const docRef = await db.collection('applications').add({
       ...newApp,
-      createdAt: new Date()
+      createdAt: new Date(),
+      status: 'applied'
     });
+    
+    // Get job details for email
+    const jobDoc = await db.collection('jobs').doc(body.jobId).get();
+    if (jobDoc.exists) {
+      const jobData = jobDoc.data();
+      
+      // Send confirmation email to candidate
+      await emailService.sendApplicationConfirmation(
+        body.email,
+        body.name,
+        jobData?.title || 'Position',
+        jobData?.company?.display_name || jobData?.arbeitgeber || 'Unternehmen'
+      );
+      
+      // Send notification to employer
+      if (jobData?.employerId) {
+        const employerDoc = await db.collection('users').doc(jobData.employerId).get();
+        if (employerDoc.exists) {
+          const employerData = employerDoc.data();
+          await emailService.sendNewApplicationNotification(
+            employerData?.email || '',
+            employerData?.firstName || 'Arbeitgeber',
+            body.name,
+            jobData?.title || 'Position'
+          );
+        }
+      }
+    }
+    
     return {
       success: true,
       id: docRef.id

@@ -5,14 +5,36 @@ import { Button } from '../ui';
 import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { ThemeSwitcher } from '../ui/ThemeSwitcher';
 import { useAuthStore } from '../../store/authStore';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { api } from '../../services/api';
 
 export function Header() {
   const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const location = useLocation();
-  const { user, logout } = useAuthStore();
+  const { user, logout, token } = useAuthStore();
+
+  // Fetch user profile with avatar
+  useEffect(() => {
+    if (user && token) {
+      api.get('/users/profile', token)
+        .then((res: any) => {
+          if (res.success && res.data) {
+            const profileData = res.data.data || res.data;
+            // Check both flat and nested avatar locations
+            const avatar = profileData.avatar || profileData.profile?.avatar;
+            if (avatar) {
+              setAvatarUrl(avatar);
+            }
+          }
+        })
+        .catch((err) => {
+          console.error('Failed to fetch profile:', err);
+        });
+    }
+  }, [user, token]);
 
   const navigation = [
     { name: t('navigation.jobs'), href: '/jobs' },
@@ -21,8 +43,8 @@ export function Header() {
   ];
 
   const userNavigation = [
-    { name: t('navigation.profile'), href: '/profile' },
-    { name: t('dashboard.applications'), href: '/applications' },
+    { name: t('navigation.profile'), href: user?.role === 'candidate' ? '/candidate/profile' : '/profile' },
+    { name: t('dashboard.applications'), href: user?.role === 'candidate' ? '/candidate/applications' : '/applications' },
     { name: t('dashboard.settings'), href: '/settings' },
   ];
 
@@ -81,10 +103,18 @@ export function Header() {
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
                   className="flex items-center space-x-3 text-sm bg-white dark:bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-500"
                 >
-                  <div className="w-8 h-8 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center">
-                    <span className="text-primary-600 dark:text-primary-400 font-medium">
-                      {((user.name || user.firstName || 'U') + '').charAt(0).toUpperCase()}
-                    </span>
+                  <div className="w-8 h-8 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center overflow-hidden">
+                    {avatarUrl ? (
+                      <img 
+                        src={avatarUrl} 
+                        alt="Avatar" 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-primary-600 dark:text-primary-400 font-medium">
+                        {((user.name || user.firstName || 'U') + '').charAt(0).toUpperCase()}
+                      </span>
+                    )}
                   </div>
                   <span className="hidden md:block text-gray-700 dark:text-gray-300">
                     {user.name || `${user.firstName} ${user.lastName}`.trim() || user.email}

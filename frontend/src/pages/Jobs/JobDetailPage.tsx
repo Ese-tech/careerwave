@@ -1,10 +1,11 @@
 // frontend/src/pages/Jobs/JobDetailPage.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, useLocation, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { fetchJobDetails } from '../../services/jobService';
+import { useAuthStore } from '../../store/authStore';
 import type { JobDetails } from '../../types/arbeitsagentur';
 
 const JobDetailPage: React.FC = () => {
@@ -34,6 +35,70 @@ const JobDetailPage: React.FC = () => {
   const [applicationSuccess, setApplicationSuccess] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [uploadingCV, setUploadingCV] = useState(false);
+  const [cvFile, setCvFile] = useState<File | null>(null);
+  const [cvError, setCvError] = useState<string | null>(null);
+  const [docCategory, setDocCategory] = useState<'cv' | 'coverLetter' | 'certificates' | 'other'>('cv');
+  const cvInputRef = useRef<HTMLInputElement>(null);
+  const token = useAuthStore((state) => state.token);
+
+  // Handle CV File Selection
+  const handleCVFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (file.type !== 'application/pdf') {
+      setCvError('Nur PDF Dateien sind erlaubt.');
+      setCvFile(null);
+      return;
+    }
+
+    // Validate file size (10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      setCvError('Datei ist zu groß. Maximale Größe: 10MB.');
+      setCvFile(null);
+      return;
+    }
+
+    setCvError(null);
+    setCvFile(file);
+  };
+
+  // Upload CV to Cloudinary
+  const uploadCV = async (): Promise<string | null> => {
+    if (!cvFile || !token) return null;
+
+    setUploadingCV(true);
+    setCvError(null);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', cvFile);
+
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001'}/upload/cv`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.success && result.data?.url) {
+        return result.data.url;
+      } else {
+        setCvError(result.error || 'CV Upload fehlgeschlagen');
+        return null;
+      }
+    } catch (err: any) {
+      setCvError(err.message || 'CV Upload fehlgeschlagen');
+      return null;
+    } finally {
+      setUploadingCV(false);
+    }
+  };
 
   useEffect(() => {
     if (!hashId || hashId === 'undefined') {
@@ -322,7 +387,7 @@ const JobDetailPage: React.FC = () => {
                 </Button>
                 {/* Application Modal */}
                 {showApplyModal && (
-                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+                  <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
                     <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative animate-fade-in">
                       <button 
                         className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-black hover:bg-gray-100 rounded-full transition-colors" 
@@ -337,13 +402,29 @@ const JobDetailPage: React.FC = () => {
                           <div className="text-green-600 font-bold text-xl">{t('jobDetail.applicationSuccess', 'Bewerbung erfolgreich gesendet!')}</div>
                         </div>
                       ) : (
-                        <form onSubmit={e => {
+                        <form onSubmit={async (e) => {
                           e.preventDefault();
+                          
+                          // Upload CV first if file is selected
+                          let cvUrl = null;
+                          if (cvFile) {
+                            cvUrl = await uploadCV();
+                            if (!cvUrl) {
+                              // Upload failed, don't submit
+                              return;
+                            }
+                          }
+                          
+                          // TODO: Send application with CV URL to backend
+                          console.log('Application submitted with CV:', cvUrl);
+                          
                           setApplicationSuccess(true);
                           setTimeout(() => {
                             setShowApplyModal(false);
                             setApplicationSuccess(false);
                             setApplication({ name: '', email: '', message: '' });
+                            setCvFile(null);
+                            setCvError(null);
                           }, 2000);
                         }} className="space-y-4">
                           <div>
@@ -365,6 +446,91 @@ const JobDetailPage: React.FC = () => {
                               onChange={e => setApplication(a => ({ ...a, email: e.target.value }))} 
                             />
                           </div>
+                          
+                          {/* Dokument Upload Section mit Kategorie-Auswahl */}
+                          <div>
+                            <label className="block mb-2 font-semibold text-gray-700">📎 Dokumente hochladen (Optional)</label>
+                            
+                            {/* Kategorie Dropdown */}
+                            <div className="mb-3">
+                              <select
+                                value={docCategory}
+                                onChange={(e) => setDocCategory(e.target.value as any)}
+                                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white font-medium text-gray-700"
+                              >
+                                <option value="cv">📄 Lebenslauf (CV)</option>
+                                <option value="coverLetter">✉️ Anschreiben</option>
+                                <option value="certificates">🎓 Zeugnisse & Zertifikate</option>
+                                <option value="other">📎 Weitere Dokumente</option>
+                              </select>
+                            </div>
+
+                            <input
+                              ref={cvInputRef}
+                              type="file"
+                              accept="application/pdf"
+                              onChange={handleCVFileChange}
+                              className="hidden"
+                            />
+                            {cvFile ? (
+                              <div className="p-3 bg-green-50 border-2 border-green-400 rounded-xl flex items-center justify-between shadow-sm">
+                                <div className="flex items-center gap-2 flex-1 min-w-0">
+                                  <span className="text-2xl">✅</span>
+                                  <div className="flex-1 min-w-0">
+                                    <span className="text-xs text-green-600 font-medium block">
+                                      {docCategory === 'cv' && '📄 Lebenslauf'}
+                                      {docCategory === 'coverLetter' && '✉️ Anschreiben'}
+                                      {docCategory === 'certificates' && '🎓 Zeugnisse'}
+                                      {docCategory === 'other' && '📎 Weitere'}
+                                    </span>
+                                    <span className="text-sm text-green-700 font-medium truncate block">{cvFile.name}</span>
+                                  </div>
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setCvFile(null);
+                                    setCvError(null);
+                                    if (cvInputRef.current) cvInputRef.current.value = '';
+                                  }}
+                                  className="text-red-500 hover:text-red-700 font-bold text-lg ml-2 flex-shrink-0"
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => cvInputRef.current?.click()}
+                                className="w-full py-3 px-4 border-2 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
+                                style={{
+                                  backgroundColor: docCategory === 'cv' ? '#eff6ff' : 
+                                                   docCategory === 'coverLetter' ? '#f0fdf4' : 
+                                                   docCategory === 'certificates' ? '#fff7ed' : '#fdf2f8',
+                                  borderColor: docCategory === 'cv' ? '#3b82f6' : 
+                                              docCategory === 'coverLetter' ? '#10b981' : 
+                                              docCategory === 'certificates' ? '#f97316' : '#ec4899',
+                                  color: docCategory === 'cv' ? '#1e40af' : 
+                                        docCategory === 'coverLetter' ? '#047857' : 
+                                        docCategory === 'certificates' ? '#c2410c' : '#be185d'
+                                }}
+                              >
+                                <span className="text-xl mr-2">
+                                  {docCategory === 'cv' && '📄'}
+                                  {docCategory === 'coverLetter' && '✉️'}
+                                  {docCategory === 'certificates' && '🎓'}
+                                  {docCategory === 'other' && '📎'}
+                                </span>
+                                PDF auswählen (max 10MB)
+                              </button>
+                            )}
+                            {cvError && (
+                              <div className="mt-2 p-2 bg-red-50 border border-red-300 rounded-lg">
+                                <p className="text-red-600 text-sm font-medium">⚠️ {cvError}</p>
+                              </div>
+                            )}
+                          </div>
+
                           <div>
                             <label className="block mb-2 font-semibold text-gray-700">{t('jobDetail.message', 'Nachricht')}</label>
                             <textarea 
@@ -375,11 +541,21 @@ const JobDetailPage: React.FC = () => {
                               onChange={e => setApplication(a => ({ ...a, message: e.target.value }))} 
                             />
                           </div>
+                          
                           <Button 
-                            className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-4 rounded-xl shadow-lg" 
+                            className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-4 rounded-xl shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" 
                             type="submit"
+                            disabled={uploadingCV}
+                            
                           >
-                            {t('jobDetail.sendApplication', 'Bewerbung senden')}
+                            {uploadingCV ? (
+                              <span className="flex items-center justify-center gap-2">
+                                <span className="animate-spin">⏳</span>
+                                CV wird hochgeladen...
+                              </span>
+                            ) : (
+                              t('jobDetail.sendApplication', 'Bewerbung senden')
+                            )}
                           </Button>
                         </form>
                       )}

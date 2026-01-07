@@ -6,6 +6,7 @@ import { jobController } from './controllers/job.controller';
 import { arbeitsagenturController } from './controllers/arbeitsagentur.controller';
 import applicationRoutes from './routes/application.routes';
 import userRoutes from './routes/user.routes';
+import uploadRoutes from './routes/upload.routes';
 
 const app = new Elysia()
   .use(cors({
@@ -54,6 +55,7 @@ const app = new Elysia()
     .use(arbeitsagenturController)
     .use(applicationRoutes)
     .use(userRoutes)
+    .use(uploadRoutes)
   )
   .onError(({ error, set }) => {
     console.error('API Error:', error);

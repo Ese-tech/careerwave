@@ -6,6 +6,9 @@ import LoginPage from './pages/Auth/LoginPage';
 import { RegisterPage } from './pages/Auth/RegisterPage';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import EmployerDashboard from './pages/Employer/EmployerDashboard';
+import EmployerJobs from './pages/Employer/EmployerJobs';
+import CreateJob from './pages/Employer/CreateJob';
+import EmployerApplications from './pages/Employer/EmployerApplications';
 import CandidateDashboard from './pages/Candidate/CandidateDashboard';
 import JobSearchPage from './pages/Jobs/JobSearchPage';
 import JobDetailPage from './pages/Jobs/JobDetailPage';
@@ -70,6 +73,8 @@ function App() {
             <CandidateRoute>
               <Routes>
                 <Route path="dashboard" element={<CandidateDashboard />} />
+                <Route path="applications" element={<Applications />} />
+                <Route path="profile" element={<Profile />} />
                 <Route path="*" element={<Navigate to="/candidate/dashboard" replace />} />
               </Routes>
             </CandidateRoute>
@@ -80,6 +85,11 @@ function App() {
             <EmployerRoute>
               <Routes>
                 <Route path="dashboard" element={<EmployerDashboard />} />
+                <Route path="jobs" element={<EmployerJobs />} />
+                <Route path="jobs/create" element={<CreateJob />} />
+                <Route path="jobs/:jobId/edit" element={<CreateJob />} />
+                <Route path="jobs/:jobId/applications" element={<EmployerApplications />} />
+                <Route path="applications" element={<EmployerApplications />} />
                 <Route path="*" element={<Navigate to="/employer/dashboard" replace />} />
               </Routes>
             </EmployerRoute>

@@ -1,14 +1,16 @@
 // frontend/src/pages/Candidate/CandidateDashboard.tsx
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
 
 const CandidateDashboard: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const user = useAuthStore(state => state.user);
 
   return (
-    <div className="p-6">
+    <div className="px-4 sm:px-0">
       <h1 className="text-3xl font-bold text-teal-800 mb-6">
         {t('candidate.dashboard.title')}
       </h1>
@@ -47,13 +49,22 @@ const CandidateDashboard: React.FC = () => {
           {t('candidate.dashboard.quickActions')}
         </h2>
         <div className="space-y-2">
-          <button className="block w-full text-left px-4 py-2 bg-teal-100 hover:bg-teal-200 rounded transition-colors">
+          <button 
+            onClick={() => navigate('/jobs')}
+            className="block w-full text-left px-4 py-2 bg-teal-100 hover:bg-teal-200 rounded transition-colors"
+          >
             {t('candidate.dashboard.actions.searchJobs')}
           </button>
-          <button className="block w-full text-left px-4 py-2 bg-orange-100 hover:bg-orange-200 rounded transition-colors">
+          <button 
+            onClick={() => navigate('/candidate/applications')}
+            className="block w-full text-left px-4 py-2 bg-orange-100 hover:bg-orange-200 rounded transition-colors"
+          >
             {t('candidate.dashboard.actions.viewApplications')}
           </button>
-          <button className="block w-full text-left px-4 py-2 bg-purple-100 hover:bg-purple-200 rounded transition-colors">
+          <button 
+            onClick={() => navigate('/candidate/profile')}
+            className="block w-full text-left px-4 py-2 bg-purple-100 hover:bg-purple-200 rounded transition-colors"
+          >
             {t('candidate.dashboard.actions.updateProfile')}
           </button>
         </div>
