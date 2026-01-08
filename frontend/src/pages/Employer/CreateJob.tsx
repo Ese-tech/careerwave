@@ -73,24 +73,25 @@ const CreateJob: React.FC = () => {
     setError(null);
 
     try {
-      // Upload image to Cloudinary if provided
+      // Upload image to backend if provided
       let imageUrl = '';
       if (imageFile) {
-        const cloudinaryFormData = new FormData();
-        cloudinaryFormData.append('file', imageFile);
-        cloudinaryFormData.append('upload_preset', 'job_images'); // You need to create this preset in Cloudinary
+        const uploadFormData = new FormData();
+        uploadFormData.append('file', imageFile);
         
-        const cloudinaryResponse = await fetch(
-          `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
-          {
-            method: 'POST',
-            body: cloudinaryFormData,
-          }
-        );
+        const uploadResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/upload/job-image`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${useAuthStore.getState().token}`,
+          },
+          body: uploadFormData,
+        });
         
-        if (cloudinaryResponse.ok) {
-          const cloudinaryData = await cloudinaryResponse.json();
-          imageUrl = cloudinaryData.secure_url;
+        if (uploadResponse.ok) {
+          const uploadData = await uploadResponse.json();
+          imageUrl = uploadData.imageUrl || uploadData.url;
+        } else {
+          throw new Error('Bild-Upload fehlgeschlagen');
         }
       }
 

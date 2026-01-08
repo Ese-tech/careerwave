@@ -8,9 +8,8 @@ const ALLOWED_CV_TYPES = ['application/pdf'];
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 // Upload CV Controller
-export const uploadCVController = async (ctx: any) => {
+export const uploadCVController = async ({ user, body }: any) => {
   try {
-    const { user, body } = ctx;
     const file = body?.file;
     
     if (!file) {
@@ -59,9 +58,8 @@ export const uploadCVController = async (ctx: any) => {
 };
 
 // Upload Avatar Controller
-export const uploadAvatarController = async (ctx: any) => {
+export const uploadAvatarController = async ({ user, body }: any) => {
   try {
-    const { user, body } = ctx;
     const file = body?.file;
     
     console.log('📸 Avatar Upload Request:', { 
@@ -134,9 +132,8 @@ export const uploadAvatarController = async (ctx: any) => {
 };
 
 // Upload Company Logo Controller
-export const uploadCompanyLogoController = async (ctx: any) => {
+export const uploadCompanyLogoController = async ({ user, body }: any) => {
   try {
-    const { user, body } = ctx;
     const file = body?.file;
     
     if (!file) {
@@ -176,6 +173,54 @@ export const uploadCompanyLogoController = async (ctx: any) => {
     return { success: true, logoUrl: url, publicId };
   } catch (error: any) {
     console.error('Logo upload error:', error);
+    return { success: false, error: error.message || 'Upload failed' };
+  }
+};
+
+// Upload Job Image Controller
+export const uploadJobImageController = async ({ user, body }: any) => {
+  try {
+    const file = body?.file;
+    
+    if (!file) {
+      return { success: false, error: 'No file uploaded' };
+    }
+
+    // Validate file type
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      return { success: false, error: 'Invalid file type. Only JPEG, PNG, and WebP images are allowed.' };
+    }
+
+    // Validate file size
+    if (file.size > MAX_FILE_SIZE) {
+      return { success: false, error: 'File too large. Maximum size is 10MB.' };
+    }
+
+    // Only employers can upload job images
+    if (user.role !== 'employer') {
+      return { success: false, error: 'Unauthorized. Only employers can upload job images.' };
+    }
+
+    // Convert file to buffer
+    const buffer = Buffer.from(await file.arrayBuffer());
+
+    // Upload to Cloudinary
+    const { url, publicId } = await cloudinaryService.uploadJobImage(buffer, user.uid);
+
+    // Track upload in uploads collection
+    await db.collection('uploads').add({
+      userId: user.uid,
+      fileUrl: url,
+      publicId,
+      type: 'job_image',
+      fileName: file.name,
+      fileSize: file.size,
+      createdAt: new Date(),
+    });
+
+    return { success: true, imageUrl: url, publicId };
+  } catch (error: any) {
+    console.error('Job image upload error:', error);
     return { success: false, error: error.message || 'Upload failed' };
   }
 };

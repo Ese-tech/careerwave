@@ -10,6 +10,7 @@ import EmployerJobs from './pages/Employer/EmployerJobs';
 import CreateJob from './pages/Employer/CreateJob';
 import EmployerApplications from './pages/Employer/EmployerApplications';
 import CandidateDashboard from './pages/Candidate/CandidateDashboard';
+import CandidateApplications from './pages/Candidate/CandidateApplications';
 import JobSearchPage from './pages/Jobs/JobSearchPage';
 import JobDetailPage from './pages/Jobs/JobDetailPage';
 import Applications from './pages/Applications';
@@ -73,7 +74,7 @@ function App() {
             <CandidateRoute>
               <Routes>
                 <Route path="dashboard" element={<CandidateDashboard />} />
-                <Route path="applications" element={<Applications />} />
+                <Route path="applications" element={<CandidateApplications />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="*" element={<Navigate to="/candidate/dashboard" replace />} />
               </Routes>

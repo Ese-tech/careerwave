@@ -5,29 +5,60 @@ import { StatWidget } from '../../components/admin/StatWidget';
 import { useUserStore } from '../../store/userStore';
 import { useAdminGuard } from '../../hooks/useAdmin';
 import AnalyticsChart from '../../components/admin/AnalyticsChart';
+import { api } from '../../services/api';
 
 const AdminDashboard: React.FC = () => {
   useAdminGuard();
   const token = useUserStore(state => state.token);
 
   const [analytics, setAnalytics] = useState<any>(null);
+  const [stats, setStats] = useState({
+    totalUsers: 0,
+    totalEmployers: 0,
+    totalJobs: 0,
+    totalApplications: 0,
+    activeJobs: 0
+  });
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchAnalytics() {
+    fetchData();
+  }, [token]);
+
+  async function fetchData() {
+    try {
+      setLoading(true);
+      
+      // Fetch analytics from existing endpoint
       try {
-        setLoading(true);
         const data = await getAnalytics(token || '');
         setAnalytics(data);
-      } catch (err: any) {
-        setError(err.message || 'Failed to load analytics');
-      } finally {
-        setLoading(false);
+      } catch (analyticsErr) {
+        console.error('Analytics endpoint error:', analyticsErr);
       }
+
+      // Fetch additional stats from application endpoint
+      try {
+        const applicationsResponse = await api.get('/applications/all');
+        if (applicationsResponse.success) {
+          const applications = applicationsResponse.applications || [];
+          setStats(prev => ({
+            ...prev,
+            totalApplications: applications.length
+          }));
+        }
+      } catch (appErr) {
+        console.error('Applications error:', appErr);
+      }
+
+      setError(null);
+    } catch (err: any) {
+      setError(err.message || 'Failed to load data');
+    } finally {
+      setLoading(false);
     }
-    fetchAnalytics();
-  }, [token]);
+  }
 
   return (
     <div>
@@ -38,7 +69,7 @@ const AdminDashboard: React.FC = () => {
 
       {analytics && (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
             <StatWidget
               title="Total Users"
               value={analytics.totalUsers ?? 0}
@@ -56,6 +87,12 @@ const AdminDashboard: React.FC = () => {
               value={analytics.totalJobs ?? 0}
               icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 17v-2a4 4 0 018 0v2m-4-4a4 4 0 100-8 4 4 0 000 8zm6 4v2a2 2 0 01-2 2H7a2 2 0 01-2-2v-2a2 2 0 012-2h8a2 2 0 012 2z" /></svg>}
               colorClass="text-purple-500"
+            />
+            <StatWidget
+              title="Bewerbungen"
+              value={stats.totalApplications}
+              icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>}
+              colorClass="text-orange-500"
             />
           </div>
 

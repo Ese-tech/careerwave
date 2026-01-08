@@ -103,6 +103,24 @@ export class CloudinaryService {
   }
 
   /**
+   * Upload job image
+   * @param buffer File buffer
+   * @param userId User ID for folder organization
+   * @returns Upload result
+   */
+  async uploadJobImage(buffer: Buffer, userId: string): Promise<{ url: string; publicId: string }> {
+    const result = await this.uploadFile(buffer, {
+      folder: `careerwave/jobs/${userId}`,
+      resource_type: 'image',
+      transformation: [
+        { width: 1200, height: 630, crop: 'fill' },
+        { quality: 'auto', fetch_format: 'auto' }
+      ]
+    });
+    return { url: result.url, publicId: result.publicId };
+  }
+
+  /**
    * Delete file from Cloudinary
    * @param publicId Public ID of the file
    * @param resourceType Resource type (image, raw, video)

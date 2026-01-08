@@ -1,13 +1,39 @@
 // frontend/src/pages/Candidate/CandidateDashboard.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
+import { api } from '../../services/api';
 
 const CandidateDashboard: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const user = useAuthStore(state => state.user);
+  const [stats, setStats] = useState({
+    applications: 0,
+    interviews: 0,
+    saved: 0
+  });
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
+  const fetchStats = async () => {
+    try {
+      const response = await api.get('/applications/my-applications');
+      if (response.success && response.applications) {
+        const applications = response.applications;
+        setStats({
+          applications: applications.length,
+          interviews: applications.filter((app: any) => app.status === 'interview').length,
+          saved: 0 // TODO: Implement favorites
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+    }
+  };
 
   return (
     <div className="px-4 sm:px-0">
@@ -25,21 +51,21 @@ const CandidateDashboard: React.FC = () => {
             <h3 className="font-semibold text-teal-800">
               {t('candidate.dashboard.stats.applications')}
             </h3>
-            <p className="text-2xl font-bold text-teal-600">0</p>
+            <p className="text-2xl font-bold text-teal-600">{stats.applications}</p>
           </div>
           
           <div className="bg-orange-50 p-4 rounded-lg">
             <h3 className="font-semibold text-orange-800">
               {t('candidate.dashboard.stats.interviews')}
             </h3>
-            <p className="text-2xl font-bold text-orange-600">0</p>
+            <p className="text-2xl font-bold text-orange-600">{stats.interviews}</p>
           </div>
           
           <div className="bg-purple-50 p-4 rounded-lg">
             <h3 className="font-semibold text-purple-800">
               {t('candidate.dashboard.stats.saved')}
             </h3>
-            <p className="text-2xl font-bold text-purple-600">0</p>
+            <p className="text-2xl font-bold text-purple-600">{stats.saved}</p>
           </div>
         </div>
       </div>

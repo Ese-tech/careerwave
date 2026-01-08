@@ -3,8 +3,7 @@
 import { db } from '@/config/firebase';
 import { emailService } from '../services/email.service';
 
-export const createJobController = async (ctx: any) => {
-  const { user, body } = ctx;
+export const createJobController = async ({ user, body }: any) => {
   if (user.role !== 'employer') return { success: false, error: 'Unauthorized' };
   const jobData = { ...body, employerId: user.uid, postedAt: new Date(), updatedAt: new Date() };
   const jobRef = await db.collection('jobs').add(jobData);
@@ -12,8 +11,7 @@ export const createJobController = async (ctx: any) => {
   return { success: true, job };
 };
 
-export const updateJobController = async (ctx: any) => {
-  const { user, params, body } = ctx;
+export const updateJobController = async ({ user, params, body }: any) => {
   if (user.role !== 'employer') return { success: false, error: 'Unauthorized' };
   const jobDoc = await db.collection('jobs').doc(params.id).get();
   if (!jobDoc.exists) return { success: false, error: 'Not found' };
@@ -24,8 +22,7 @@ export const updateJobController = async (ctx: any) => {
   return { success: true, job: { id: params.id, ...updatedJob } };
 };
 
-export const deleteJobController = async (ctx: any) => {
-  const { user, params } = ctx;
+export const deleteJobController = async ({ user, params }: any) => {
   if (user.role !== 'employer') return { success: false, error: 'Unauthorized' };
   const jobDoc = await db.collection('jobs').doc(params.id).get();
   if (!jobDoc.exists) return { success: false, error: 'Not found' };
@@ -35,16 +32,14 @@ export const deleteJobController = async (ctx: any) => {
   return { success: true };
 };
 
-export const getOwnJobsController = async (ctx: any) => {
-  const { user } = ctx;
+export const getOwnJobsController = async ({ user }: any) => {
   if (user.role !== 'employer') return { success: false, error: 'Unauthorized' };
   const snapshot = await db.collection('jobs').where('employerId', '==', user.uid).get();
   const jobs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   return { success: true, jobs };
 };
 
-export const getJobApplicationsController = async (ctx: any) => {
-  const { user, params } = ctx;
+export const getJobApplicationsController = async ({ user, params }: any) => {
   if (user.role !== 'employer') return { success: false, error: 'Unauthorized' };
   const jobDoc = await db.collection('jobs').doc(params.id).get();
   if (!jobDoc.exists) return { success: false, error: 'Not found' };
@@ -83,8 +78,7 @@ export const getJobApplicationsController = async (ctx: any) => {
 /**
  * Get all applications for employer (across all jobs)
  */
-export const getAllEmployerApplicationsController = async (ctx: any) => {
-  const { user } = ctx;
+export const getAllEmployerApplicationsController = async ({ user }: any) => {
   if (user.role !== 'employer') return { success: false, error: 'Unauthorized' };
   
   // Get all jobs for this employer
@@ -135,8 +129,7 @@ export const getAllEmployerApplicationsController = async (ctx: any) => {
 /**
  * Update application status
  */
-export const updateApplicationStatusController = async (ctx: any) => {
-  const { user, params, body } = ctx;
+export const updateApplicationStatusController = async ({ user, params, body }: any) => {
   if (user.role !== 'employer') return { success: false, error: 'Unauthorized' };
   
   const appDoc = await db.collection('applications').doc(params.id).get();

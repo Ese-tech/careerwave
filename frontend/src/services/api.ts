@@ -6,6 +6,10 @@ export interface ApiResponse<T = any> {
   data?: T;
   error?: string;
   message?: string;
+  // Backend returns these directly
+  jobs?: any[];
+  applications?: any[];
+  [key: string]: any; // Allow other dynamic properties
 }
 
 export interface ApiRequestConfig {
@@ -16,13 +20,29 @@ export interface ApiRequestConfig {
 }
 
 class ApiService {
+  private getToken(): string | null {
+    // Get token from localStorage (where zustand persists it)
+    try {
+      const authStorage = localStorage.getItem('auth-storage');
+      if (authStorage) {
+        const parsed = JSON.parse(authStorage);
+        return parsed?.state?.token || null;
+      }
+    } catch (error) {
+      console.error('Error reading token from storage:', error);
+    }
+    return null;
+  }
+
   private getHeaders(token?: string): Record<string, string> {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     };
     
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
+    // Use provided token or get from storage
+    const authToken = token || this.getToken();
+    if (authToken) {
+      headers['Authorization'] = `Bearer ${authToken}`;
     }
     
     return headers;

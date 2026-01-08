@@ -4,7 +4,8 @@ import { authGuard } from '../middleware/auth.middleware';
 import { 
   uploadCVController, 
   uploadAvatarController, 
-  uploadCompanyLogoController 
+  uploadCompanyLogoController,
+  uploadJobImageController
 } from '../controllers/upload.controller';
 
 export default new Elysia({ prefix: '/upload' })
@@ -37,5 +38,14 @@ export default new Elysia({ prefix: '/upload' })
       tags: ['Upload'],
       summary: 'Upload Company Logo',
       description: 'Upload company logo (JPEG, PNG, WebP) to Cloudinary (Employers only)'
+    }
+  })
+
+  // Upload Job Image (Employers only)
+  .post('/job-image', uploadJobImageController, {
+    detail: {
+      tags: ['Upload'],
+      summary: 'Upload Job Image',
+      description: 'Upload job listing image (JPEG, PNG, WebP) to Cloudinary (Employers only)'
     }
   });

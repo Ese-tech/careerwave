@@ -1,13 +1,49 @@
 // frontend/src/pages/Employer/EmployerDashboard.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../../store/authStore';
+import { api } from '../../services/api';
 
 const EmployerDashboard: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const user = useAuthStore(state => state.user);
+  const [stats, setStats] = useState({
+    jobs: 0,
+    applications: 0,
+    interviews: 0
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
+  const fetchStats = async () => {
+    try {
+      setLoading(true);
+      // Fetch jobs
+      const jobsResponse = await api.get('/employer/jobs');
+      const jobs = jobsResponse.success ? (jobsResponse.jobs || []) : [];
+      const activeJobs = jobs.filter((job: any) => job.published);
+
+      // Fetch applications
+      const applicationsResponse = await api.get('/employer/applications');
+      const applications = applicationsResponse.success ? (applicationsResponse.applications || []) : [];
+      const interviews = applications.filter((app: any) => app.status === 'interview');
+
+      setStats({
+        jobs: activeJobs.length,
+        applications: applications.length,
+        interviews: interviews.length
+      });
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="p-6">
@@ -25,21 +61,30 @@ const EmployerDashboard: React.FC = () => {
             <h3 className="font-semibold text-teal-800">
               {t('employer.dashboard.stats.jobs')}
             </h3>
-            <p className="text-2xl font-bold text-teal-600">0</p>
+            <p className="text-2xl font-bold text-teal-600">
+              {loading ? '...' : stats.jobs}
+            </p>
+            <p className="text-sm text-gray-600 mt-1">Aktive Jobs</p>
           </div>
           
           <div className="bg-orange-50 p-4 rounded-lg">
             <h3 className="font-semibold text-orange-800">
               {t('employer.dashboard.stats.applications')}
             </h3>
-            <p className="text-2xl font-bold text-orange-600">0</p>
+            <p className="text-2xl font-bold text-orange-600">
+              {loading ? '...' : stats.applications}
+            </p>
+            <p className="text-sm text-gray-600 mt-1">Alle Bewerbungen</p>
           </div>
           
           <div className="bg-purple-50 p-4 rounded-lg">
             <h3 className="font-semibold text-purple-800">
               {t('employer.dashboard.stats.interviews')}
             </h3>
-            <p className="text-2xl font-bold text-purple-600">0</p>
+            <p className="text-2xl font-bold text-purple-600">
+              {loading ? '...' : stats.interviews}
+            </p>
+            <p className="text-sm text-gray-600 mt-1">Interviews geplant</p>
           </div>
         </div>
       </div>

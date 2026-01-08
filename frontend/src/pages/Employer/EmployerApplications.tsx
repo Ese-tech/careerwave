@@ -1,7 +1,6 @@
 // frontend/src/pages/Employer/EmployerApplications.tsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { api } from '../../services/api';
@@ -36,7 +35,6 @@ const ITEMS_PER_PAGE = 10;
 const EmployerApplications: React.FC = () => {
   const { jobId } = useParams<{ jobId: string }>();
   const navigate = useNavigate();
-  const { t } = useTranslation();
   
   const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
@@ -57,8 +55,8 @@ const EmployerApplications: React.FC = () => {
         : '/employer/applications';
       
       const response = await api.get(endpoint);
-      if (response.success && response.data) {
-        setApplications(response.data.applications || []);
+      if (response.success) {
+        setApplications(response.applications || []);
       } else {
         setError(response.error || 'Fehler beim Laden der Bewerbungen');
       }

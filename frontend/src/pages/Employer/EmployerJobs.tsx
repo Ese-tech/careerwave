@@ -1,11 +1,9 @@
 // frontend/src/pages/Employer/EmployerJobs.tsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { api } from '../../services/api';
-import { useAuthStore } from '../../store/authStore';
 
 interface Job {
   id: string;
@@ -24,7 +22,6 @@ interface Job {
 }
 
 const EmployerJobs: React.FC = () => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
@@ -39,8 +36,8 @@ const EmployerJobs: React.FC = () => {
     setError(null);
     try {
       const response = await api.get('/employer/jobs');
-      if (response.success && response.data) {
-        setJobs(response.data.jobs || []);
+      if (response.success) {
+        setJobs(response.jobs || []);
       } else {
         setError(response.error || 'Fehler beim Laden der Jobs');
       }

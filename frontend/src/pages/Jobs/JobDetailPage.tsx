@@ -41,6 +41,7 @@ const JobDetailPage: React.FC = () => {
   const [docCategory, setDocCategory] = useState<'cv' | 'coverLetter' | 'certificates' | 'other'>('cv');
   const cvInputRef = useRef<HTMLInputElement>(null);
   const token = useAuthStore((state) => state.token);
+  const user = useAuthStore((state) => state.user);
 
   // Handle CV File Selection
   const handleCVFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,8 +87,8 @@ const JobDetailPage: React.FC = () => {
 
       const result = await response.json();
 
-      if (result.success && result.data?.url) {
-        return result.data.url;
+      if (result.success && result.resumeUrl) {
+        return result.resumeUrl;
       } else {
         setCvError(result.error || 'CV Upload fehlgeschlagen');
         return null;
@@ -380,7 +381,17 @@ const JobDetailPage: React.FC = () => {
               <div className="space-y-3">
                 <Button 
                   className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
-                  onClick={() => setShowApplyModal(true)}
+                  onClick={() => {
+                    // Pre-fill user data if logged in
+                    if (user) {
+                      setApplication({
+                        name: `${user.firstName || ''} ${user.lastName || ''}`.trim() || user.name || '',
+                        email: user.email || '',
+                        message: ''
+                      });
+                    }
+                    setShowApplyModal(true);
+                  }}
                 >
                   <span className="text-xl mr-2">🚀</span>
                   {t('jobDetail.applyNow', 'Jetzt bewerben')}
@@ -415,17 +426,41 @@ const JobDetailPage: React.FC = () => {
                             }
                           }
                           
-                          // TODO: Send application with CV URL to backend
-                          console.log('Application submitted with CV:', cvUrl);
-                          
-                          setApplicationSuccess(true);
-                          setTimeout(() => {
-                            setShowApplyModal(false);
-                            setApplicationSuccess(false);
-                            setApplication({ name: '', email: '', message: '' });
-                            setCvFile(null);
-                            setCvError(null);
-                          }, 2000);
+                          // Send application to backend
+                          try {
+                            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001'}/applications`, {
+                              method: 'POST',
+                              headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`,
+                              },
+                              body: JSON.stringify({
+                                jobId: job.hashId || job.id || hashId,
+                                name: application.name,
+                                email: application.email,
+                                nachricht: application.message,
+                                telefon: '',
+                                resumeUrl: cvUrl || ''
+                              }),
+                            });
+
+                            const result = await response.json();
+
+                            if (result.success) {
+                              setApplicationSuccess(true);
+                              setTimeout(() => {
+                                setShowApplyModal(false);
+                                setApplicationSuccess(false);
+                                setApplication({ name: '', email: '', message: '' });
+                                setCvFile(null);
+                                setCvError(null);
+                              }, 2000);
+                            } else {
+                              setCvError(result.error || 'Bewerbung fehlgeschlagen');
+                            }
+                          } catch (err: any) {
+                            setCvError(err.message || 'Bewerbung fehlgeschlagen');
+                          }
                         }} className="space-y-4">
                           <div>
                             <label className="block mb-2 font-semibold text-gray-700">{t('jobDetail.name', 'Name')}</label>
