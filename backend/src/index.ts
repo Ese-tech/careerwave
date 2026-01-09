@@ -8,6 +8,7 @@ import applicationRoutes from './routes/application.routes';
 import userRoutes from './routes/user.routes';
 import uploadRoutes from './routes/upload.routes';
 import employerRoutes from './routes/employer.routes';
+import { schedulerService } from './services/scheduler.service';
 
 const app = new Elysia()
   .use(cors({
@@ -109,3 +110,19 @@ const app = new Elysia()
 console.log('🚀 CareerWave API läuft auf http://localhost:3001');
 console.log('📖 API-Dokumentation: http://localhost:3001/swagger');
 console.log('🔧 Environment:', process.env.NODE_ENV || 'development');
+
+// Start the job synchronization scheduler
+schedulerService.start();
+
+// Graceful shutdown
+process.on('SIGINT', () => {
+  console.log('\n🛑 Shutting down gracefully...');
+  schedulerService.stop();
+  process.exit(0);
+});
+
+process.on('SIGTERM', () => {
+  console.log('\n🛑 Shutting down gracefully...');
+  schedulerService.stop();
+  process.exit(0);
+});

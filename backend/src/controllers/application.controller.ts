@@ -6,6 +6,12 @@ import type { CreateApplicationPayload, Application } from '../types/application
 // Create new application (public or authenticated)
 export const createApplicationController = async ({ user, body }: any) => {
   try {
+    console.log('📝 Creating application:', {
+      userId: user?.uid,
+      jobId: body.jobId,
+      email: body.email
+    });
+
     const newApp: any = {
       jobId: body.jobId,
       candidateId: user?.uid || null, // Optional: user ID if logged in
@@ -19,7 +25,11 @@ export const createApplicationController = async ({ user, body }: any) => {
       updatedAt: new Date()
     };
     
+    console.log('💾 Saving application to database:', newApp);
+    
     const docRef = await db.collection('applications').add(newApp);
+    
+    console.log('✅ Application saved with ID:', docRef.id);
     
     // Get job details for email
     const jobDoc = await db.collection('jobs').doc(body.jobId).get();
@@ -96,16 +106,20 @@ export const getCandidateApplicationsController = async ({ user }: any) => {
       return { success: false, error: 'Authentication required' };
     }
 
+    console.log('📋 Fetching applications for user:', user.uid);
+
     const snapshot = await db.collection('applications')
       .where('candidateId', '==', user.uid)
       .get();
+    
+    console.log('📋 Found applications:', snapshot.size);
     
     const applications: any[] = [];
     
     for (const doc of snapshot.docs) {
       const data = doc.data();
       
-      // Get job details
+      // Get job details if exists in our database
       let jobData = null;
       if (data.jobId) {
         const jobDoc = await db.collection('jobs').doc(data.jobId).get();
@@ -115,6 +129,14 @@ export const getCandidateApplicationsController = async ({ user }: any) => {
             title: jobDoc.data()?.title,
             company: jobDoc.data()?.company,
             location: jobDoc.data()?.location
+          };
+        } else {
+          // External job (e.g., from Arbeitsagentur) - use placeholder
+          jobData = {
+            id: data.jobId,
+            title: 'Externe Stellenanzeige',
+            company: 'Unternehmen',
+            location: 'Standort'
           };
         }
       }

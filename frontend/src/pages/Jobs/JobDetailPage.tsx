@@ -36,48 +36,69 @@ const JobDetailPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [uploadingCV, setUploadingCV] = useState(false);
+  
+  // Separate states for each document type
   const [cvFile, setCvFile] = useState<File | null>(null);
-  const [cvError, setCvError] = useState<string | null>(null);
+  const [coverLetterFile, setCoverLetterFile] = useState<File | null>(null);
+  const [certificatesFile, setCertificatesFile] = useState<File | null>(null);
+  const [otherFile, setOtherFile] = useState<File | null>(null);
+  
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const [docCategory, setDocCategory] = useState<'cv' | 'coverLetter' | 'certificates' | 'other'>('cv');
+  
   const cvInputRef = useRef<HTMLInputElement>(null);
+  const coverLetterInputRef = useRef<HTMLInputElement>(null);
+  const certificatesInputRef = useRef<HTMLInputElement>(null);
+  const otherInputRef = useRef<HTMLInputElement>(null);
+  
   const token = useAuthStore((state) => state.token);
   const user = useAuthStore((state) => state.user);
 
-  // Handle CV File Selection
-  const handleCVFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Handle File Selection for different document types
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, type: 'cv' | 'coverLetter' | 'certificates' | 'other') => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     // Validate file type
     if (file.type !== 'application/pdf') {
-      setCvError('Nur PDF Dateien sind erlaubt.');
-      setCvFile(null);
+      setUploadError('Nur PDF Dateien sind erlaubt.');
       return;
     }
 
     // Validate file size (10MB)
     if (file.size > 10 * 1024 * 1024) {
-      setCvError('Datei ist zu groß. Maximale Größe: 10MB.');
-      setCvFile(null);
+      setUploadError('Datei ist zu groß. Maximale Größe: 10MB.');
       return;
     }
 
-    setCvError(null);
-    setCvFile(file);
+    setUploadError(null);
+    
+    // Set file based on type
+    switch(type) {
+      case 'cv':
+        setCvFile(file);
+        break;
+      case 'coverLetter':
+        setCoverLetterFile(file);
+        break;
+      case 'certificates':
+        setCertificatesFile(file);
+        break;
+      case 'other':
+        setOtherFile(file);
+        break;
+    }
   };
 
-  // Upload CV to Cloudinary
-  const uploadCV = async (): Promise<string | null> => {
-    if (!cvFile || !token) return null;
-
-    setUploadingCV(true);
-    setCvError(null);
+  // Upload file to Cloudinary
+  const uploadFile = async (file: File): Promise<string | null> => {
+    if (!file || !token) return null;
 
     try {
       const formData = new FormData();
-      formData.append('file', cvFile);
+      formData.append('file', file);
 
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001'}/upload/cv`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api/v1'}/upload/cv`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -90,14 +111,12 @@ const JobDetailPage: React.FC = () => {
       if (result.success && result.resumeUrl) {
         return result.resumeUrl;
       } else {
-        setCvError(result.error || 'CV Upload fehlgeschlagen');
+        setUploadError(result.error || 'Upload fehlgeschlagen');
         return null;
       }
     } catch (err: any) {
-      setCvError(err.message || 'CV Upload fehlgeschlagen');
+      setUploadError(err.message || 'Upload fehlgeschlagen');
       return null;
-    } finally {
-      setUploadingCV(false);
     }
   };
 
@@ -415,20 +434,31 @@ const JobDetailPage: React.FC = () => {
                       ) : (
                         <form onSubmit={async (e) => {
                           e.preventDefault();
+                          setUploadingCV(true);
+                          setUploadError(null);
                           
-                          // Upload CV first if file is selected
-                          let cvUrl = null;
-                          if (cvFile) {
-                            cvUrl = await uploadCV();
-                            if (!cvUrl) {
-                              // Upload failed, don't submit
-                              return;
-                            }
-                          }
-                          
-                          // Send application to backend
                           try {
-                            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001'}/applications`, {
+                            // Upload all documents in parallel
+                            const uploadPromises = [];
+                            
+                            if (cvFile) uploadPromises.push(uploadFile(cvFile));
+                            if (coverLetterFile) uploadPromises.push(uploadFile(coverLetterFile));
+                            if (certificatesFile) uploadPromises.push(uploadFile(certificatesFile));
+                            if (otherFile) uploadPromises.push(uploadFile(otherFile));
+                            
+                            const uploadedUrls = await Promise.all(uploadPromises);
+                            
+                            // Check if any upload failed
+                            if (uploadedUrls.some(url => url === null)) {
+                              setUploadingCV(false);
+                              return; // Error was already set in uploadFile
+                            }
+                            
+                            // Get the first CV URL (primary resume)
+                            const mainResumeUrl = uploadedUrls[0] || '';
+                            
+                            // Send application to backend
+                            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api/v1'}/applications`, {
                               method: 'POST',
                               headers: {
                                 'Content-Type': 'application/json',
@@ -440,7 +470,7 @@ const JobDetailPage: React.FC = () => {
                                 email: application.email,
                                 nachricht: application.message,
                                 telefon: '',
-                                resumeUrl: cvUrl || ''
+                                resumeUrl: mainResumeUrl
                               }),
                             });
 
@@ -453,13 +483,18 @@ const JobDetailPage: React.FC = () => {
                                 setApplicationSuccess(false);
                                 setApplication({ name: '', email: '', message: '' });
                                 setCvFile(null);
-                                setCvError(null);
+                                setCoverLetterFile(null);
+                                setCertificatesFile(null);
+                                setOtherFile(null);
+                                setUploadError(null);
                               }, 2000);
                             } else {
-                              setCvError(result.error || 'Bewerbung fehlgeschlagen');
+                              setUploadError(result.error || 'Bewerbung fehlgeschlagen');
                             }
                           } catch (err: any) {
-                            setCvError(err.message || 'Bewerbung fehlgeschlagen');
+                            setUploadError(err.message || 'Bewerbung fehlgeschlagen');
+                          } finally {
+                            setUploadingCV(false);
                           }
                         }} className="space-y-4">
                           <div>
@@ -482,86 +517,177 @@ const JobDetailPage: React.FC = () => {
                             />
                           </div>
                           
-                          {/* Dokument Upload Section mit Kategorie-Auswahl */}
-                          <div>
+                          {/* Documents Upload Section - All 4 types visible */}
+                          <div className="space-y-3">
                             <label className="block mb-2 font-semibold text-gray-700">📎 Dokumente hochladen (Optional)</label>
                             
-                            {/* Kategorie Dropdown */}
-                            <div className="mb-3">
-                              <select
-                                value={docCategory}
-                                onChange={(e) => setDocCategory(e.target.value as any)}
-                                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white font-medium text-gray-700"
-                              >
-                                <option value="cv">📄 Lebenslauf (CV)</option>
-                                <option value="coverLetter">✉️ Anschreiben</option>
-                                <option value="certificates">🎓 Zeugnisse & Zertifikate</option>
-                                <option value="other">📎 Weitere Dokumente</option>
-                              </select>
-                            </div>
-
-                            <input
-                              ref={cvInputRef}
-                              type="file"
-                              accept="application/pdf"
-                              onChange={handleCVFileChange}
-                              className="hidden"
-                            />
-                            {cvFile ? (
-                              <div className="p-3 bg-green-50 border-2 border-green-400 rounded-xl flex items-center justify-between shadow-sm">
-                                <div className="flex items-center gap-2 flex-1 min-w-0">
-                                  <span className="text-2xl">✅</span>
-                                  <div className="flex-1 min-w-0">
-                                    <span className="text-xs text-green-600 font-medium block">
-                                      {docCategory === 'cv' && '📄 Lebenslauf'}
-                                      {docCategory === 'coverLetter' && '✉️ Anschreiben'}
-                                      {docCategory === 'certificates' && '🎓 Zeugnisse'}
-                                      {docCategory === 'other' && '📎 Weitere'}
-                                    </span>
-                                    <span className="text-sm text-green-700 font-medium truncate block">{cvFile.name}</span>
+                            {/* CV Upload */}
+                            <div className="p-3 bg-blue-50 rounded-xl border border-blue-200">
+                              <input
+                                ref={cvInputRef}
+                                type="file"
+                                accept="application/pdf"
+                                onChange={(e) => handleFileChange(e, 'cv')}
+                                className="hidden"
+                              />
+                              {cvFile ? (
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                                    <span className="text-xl">✅</span>
+                                    <div className="flex-1 min-w-0">
+                                      <span className="text-xs text-blue-600 font-medium block">📄 Lebenslauf</span>
+                                      <span className="text-sm text-blue-800 font-medium truncate block">{cvFile.name}</span>
+                                    </div>
                                   </div>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setCvFile(null);
+                                      if (cvInputRef.current) cvInputRef.current.value = '';
+                                    }}
+                                    className="text-red-500 hover:text-red-700 font-bold text-lg ml-2"
+                                  >
+                                    ✕
+                                  </button>
                                 </div>
+                              ) : (
                                 <button
                                   type="button"
-                                  onClick={() => {
-                                    setCvFile(null);
-                                    setCvError(null);
-                                    if (cvInputRef.current) cvInputRef.current.value = '';
-                                  }}
-                                  className="text-red-500 hover:text-red-700 font-bold text-lg ml-2 flex-shrink-0"
+                                  onClick={() => cvInputRef.current?.click()}
+                                  className="w-full py-2 px-3 bg-blue-100 border-2 border-blue-300 text-blue-700 rounded-lg font-semibold hover:bg-blue-200 transition-all"
                                 >
-                                  ✕
+                                  <span className="text-lg mr-2">📄</span>
+                                  Lebenslauf hochladen
                                 </button>
-                              </div>
-                            ) : (
-                              <button
-                                type="button"
-                                onClick={() => cvInputRef.current?.click()}
-                                className="w-full py-3 px-4 border-2 rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
-                                style={{
-                                  backgroundColor: docCategory === 'cv' ? '#eff6ff' : 
-                                                   docCategory === 'coverLetter' ? '#f0fdf4' : 
-                                                   docCategory === 'certificates' ? '#fff7ed' : '#fdf2f8',
-                                  borderColor: docCategory === 'cv' ? '#3b82f6' : 
-                                              docCategory === 'coverLetter' ? '#10b981' : 
-                                              docCategory === 'certificates' ? '#f97316' : '#ec4899',
-                                  color: docCategory === 'cv' ? '#1e40af' : 
-                                        docCategory === 'coverLetter' ? '#047857' : 
-                                        docCategory === 'certificates' ? '#c2410c' : '#be185d'
-                                }}
-                              >
-                                <span className="text-xl mr-2">
-                                  {docCategory === 'cv' && '📄'}
-                                  {docCategory === 'coverLetter' && '✉️'}
-                                  {docCategory === 'certificates' && '🎓'}
-                                  {docCategory === 'other' && '📎'}
-                                </span>
-                                PDF auswählen (max 10MB)
-                              </button>
-                            )}
-                            {cvError && (
-                              <div className="mt-2 p-2 bg-red-50 border border-red-300 rounded-lg">
-                                <p className="text-red-600 text-sm font-medium">⚠️ {cvError}</p>
+                              )}
+                            </div>
+
+                            {/* Cover Letter Upload */}
+                            <div className="p-3 bg-green-50 rounded-xl border border-green-200">
+                              <input
+                                ref={coverLetterInputRef}
+                                type="file"
+                                accept="application/pdf"
+                                onChange={(e) => handleFileChange(e, 'coverLetter')}
+                                className="hidden"
+                              />
+                              {coverLetterFile ? (
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                                    <span className="text-xl">✅</span>
+                                    <div className="flex-1 min-w-0">
+                                      <span className="text-xs text-green-600 font-medium block">✉️ Anschreiben</span>
+                                      <span className="text-sm text-green-800 font-medium truncate block">{coverLetterFile.name}</span>
+                                    </div>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setCoverLetterFile(null);
+                                      if (coverLetterInputRef.current) coverLetterInputRef.current.value = '';
+                                    }}
+                                    className="text-red-500 hover:text-red-700 font-bold text-lg ml-2"
+                                  >
+                                    ✕
+                                  </button>
+                                </div>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => coverLetterInputRef.current?.click()}
+                                  className="w-full py-2 px-3 bg-green-100 border-2 border-green-300 text-green-700 rounded-lg font-semibold hover:bg-green-200 transition-all"
+                                >
+                                  <span className="text-lg mr-2">✉️</span>
+                                  Anschreiben hochladen
+                                </button>
+                              )}
+                            </div>
+
+                            {/* Certificates Upload */}
+                            <div className="p-3 bg-orange-50 rounded-xl border border-orange-200">
+                              <input
+                                ref={certificatesInputRef}
+                                type="file"
+                                accept="application/pdf"
+                                onChange={(e) => handleFileChange(e, 'certificates')}
+                                className="hidden"
+                              />
+                              {certificatesFile ? (
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                                    <span className="text-xl">✅</span>
+                                    <div className="flex-1 min-w-0">
+                                      <span className="text-xs text-orange-600 font-medium block">🎓 Zeugnisse</span>
+                                      <span className="text-sm text-orange-800 font-medium truncate block">{certificatesFile.name}</span>
+                                    </div>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setCertificatesFile(null);
+                                      if (certificatesInputRef.current) certificatesInputRef.current.value = '';
+                                    }}
+                                    className="text-red-500 hover:text-red-700 font-bold text-lg ml-2"
+                                  >
+                                    ✕
+                                  </button>
+                                </div>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => certificatesInputRef.current?.click()}
+                                  className="w-full py-2 px-3 bg-orange-100 border-2 border-orange-300 text-orange-700 rounded-lg font-semibold hover:bg-orange-200 transition-all"
+                                >
+                                  <span className="text-lg mr-2">🎓</span>
+                                  Zeugnisse hochladen
+                                </button>
+                              )}
+                            </div>
+
+                            {/* Other Documents Upload */}
+                            <div className="p-3 bg-pink-50 rounded-xl border border-pink-200">
+                              <input
+                                ref={otherInputRef}
+                                type="file"
+                                accept="application/pdf"
+                                onChange={(e) => handleFileChange(e, 'other')}
+                                className="hidden"
+                              />
+                              {otherFile ? (
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                                    <span className="text-xl">✅</span>
+                                    <div className="flex-1 min-w-0">
+                                      <span className="text-xs text-pink-600 font-medium block">📎 Weitere</span>
+                                      <span className="text-sm text-pink-800 font-medium truncate block">{otherFile.name}</span>
+                                    </div>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setOtherFile(null);
+                                      if (otherInputRef.current) otherInputRef.current.value = '';
+                                    }}
+                                    className="text-red-500 hover:text-red-700 font-bold text-lg ml-2"
+                                  >
+                                    ✕
+                                  </button>
+                                </div>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => otherInputRef.current?.click()}
+                                  className="w-full py-2 px-3 bg-pink-100 border-2 border-pink-300 text-pink-700 rounded-lg font-semibold hover:bg-pink-200 transition-all"
+                                >
+                                  <span className="text-lg mr-2">📎</span>
+                                  Weitere Dokumente
+                                </button>
+                              )}
+                            </div>
+
+                            {uploadError && (
+                              <div className="mt-2 p-3 bg-red-50 border border-red-300 rounded-lg">
+                                <p className="text-red-600 text-sm font-medium">⚠️ {uploadError}</p>
                               </div>
                             )}
                           </div>

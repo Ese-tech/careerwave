@@ -28,34 +28,35 @@ export class JobService {
 
   async getJobs(filters: JobFilterInput) {
     try {
-      // Serve jobs from DB, fallback to Adzuna if DB is empty
       const page = filters.page || 1;
       const limit = filters.limit || 10;
       console.log('[JobService] Fetching jobs with filters:', { page, limit });
       
-      // 1. Try to get jobs from DB (adzuna_jobs collection)
-      let jobs = await adzunaService.getJobsFromDB(page, limit);
-      let total = await adzunaService.countJobsInDB();
-      console.log('[JobService] DB results:', { jobsCount: jobs.length, total });
+      // Get jobs from the 'jobs' collection (populated by the scheduler)
+      const jobsRef = db.collection('jobs');
+      
+      // Get total count
+      const totalSnapshot = await jobsRef.get();
+      const total = totalSnapshot.size;
+      
+      // Get paginated jobs (sorted by syncedAt - newest first)
+      const offset = (page - 1) * limit;
+      const snapshot = await jobsRef
+        .orderBy('syncedAt', 'desc')
+        .offset(offset)
+        .limit(limit)
+        .get();
+      
+      const jobs = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      
+      console.log('[JobService] Loaded from DB:', { jobsCount: jobs.length, total, page, limit });
 
-      // 2. If DB is empty, fetch 100-150 jobs from Adzuna, cache, and serve
+      // If no jobs in DB yet, return empty array (scheduler will populate it)
       if (total === 0) {
-        console.log('[JobService] DB empty, fetching from Adzuna...');
-        // Fetch 3 pages of 50 jobs each (max 150)
-        let allJobs: any[] = [];
-        for (let p = 1; p <= 3; p++) {
-          const adzunaData = await adzunaService.fetchJobs(p, 50);
-          if (adzunaData.results && adzunaData.results.length > 0) {
-            allJobs = allJobs.concat(adzunaData.results);
-          }
-          if (allJobs.length >= 150) break;
-        }
-        // Limit to 150
-        allJobs = allJobs.slice(0, 150);
-        console.log('[JobService] Fetched from Adzuna:', allJobs.length, 'jobs');
-        await adzunaService.cacheJobsToDB(allJobs);
-        jobs = await adzunaService.getJobsFromDB(page, limit);
-        total = await adzunaService.countJobsInDB();
+        console.log('[JobService] ⚠️ No jobs in database yet. Scheduler will populate soon...');
       }
 
       return {
@@ -71,17 +72,17 @@ export class JobService {
   }
 
   async getJobById(jobId: string) {
-    // Try to get job from DB (adzuna_jobs)
-    let job = await adzunaService.findJobInDBById(jobId);
-    if (job) return job;
-    // If not found, fetch from Adzuna, cache, and return
     try {
-      const adzunaData = await adzunaService.fetchJobs(1, 1, { id: jobId });
-      if (adzunaData.results && adzunaData.results.length > 0) {
-        const adzunaJob = adzunaData.results[0];
-        await adzunaService.cacheJobsToDB([adzunaJob]);
-        return adzunaJob;
+      // Try to get job from 'jobs' collection
+      const jobDoc = await db.collection('jobs').doc(jobId).get();
+      
+      if (jobDoc.exists) {
+        return {
+          id: jobDoc.id,
+          ...jobDoc.data()
+        };
       }
+      
       throw new Error('Job not found');
     } catch (error) {
       throw new Error('Job not found');

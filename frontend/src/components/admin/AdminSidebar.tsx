@@ -12,6 +12,7 @@ const items = [
     { label: 'Users', path: ADMIN_ROUTES.users, icon: 'M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' },
     { label: 'Employers', path: ADMIN_ROUTES.employers, icon: 'M3 6l4 4 4-4 4 4 4-4v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6z' },
     { label: 'Jobs', path: ADMIN_ROUTES.jobs, icon: 'M10 18a8 8 0 100-16 8 8 0 000 16zM9 9h2v4H9V9z' },
+    { label: 'Job Sync', path: '/admin/job-sync', icon: 'M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4z' },
     { label: 'Applications', path: ADMIN_ROUTES.applications, icon: 'M16 12H4V8h12v4zM4 16h12v-2H4v2z' },
     { label: 'Analytics', path: ADMIN_ROUTES.analytics, icon: 'M10 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1z' },
     { label: 'Settings', path: ADMIN_ROUTES.settings, icon: 'M10 2a8 8 0 100 16 8 8 0 000-16zM8 8a2 2 0 104 0 2 2 0 00-4 0z' },

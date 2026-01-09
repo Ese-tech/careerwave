@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import LoginPage from './pages/Auth/LoginPage';
 import { RegisterPage } from './pages/Auth/RegisterPage';
 import AdminDashboard from './pages/Admin/AdminDashboard';
+import JobSyncAdmin from './pages/Admin/JobSyncAdmin';
 import EmployerDashboard from './pages/Employer/EmployerDashboard';
 import EmployerJobs from './pages/Employer/EmployerJobs';
 import CreateJob from './pages/Employer/CreateJob';
@@ -64,6 +65,7 @@ function App() {
             <AdminRoute>
               <Routes>
                 <Route path="dashboard" element={<AdminDashboard />} />
+                <Route path="job-sync" element={<JobSyncAdmin />} />
                 <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
               </Routes>
             </AdminRoute>

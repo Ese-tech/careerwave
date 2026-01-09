@@ -234,7 +234,7 @@ const Profile: React.FC = () => {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001'}/upload/cv`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api/v1'}/upload/cv`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

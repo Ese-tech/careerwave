@@ -12,18 +12,18 @@ import {
 import { CreateApplicationSchema } from '../schemas/application.schema';
 
 export default new Elysia({ prefix: '/applications' })
-  // Public route - anyone can apply (with optional auth)
-  .post('/', createApplicationController, {
-    body: CreateApplicationSchema
-  })
-  
-  // Get applications by job (public or with auth)
+  // Get applications by job (public)
   .get('/by-job/:jobId', getApplicationsByJobController, {
     params: t.Object({ jobId: t.String() })
   })
   
   // Protected routes - require authentication
   .use(authGuard())
+  
+  // Create application (requires login)
+  .post('/', createApplicationController, {
+    body: CreateApplicationSchema
+  })
   
   // Get candidate's own applications
   .get('/my-applications', getCandidateApplicationsController)

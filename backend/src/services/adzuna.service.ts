@@ -38,6 +38,39 @@ export class AdzunaService {
     return data;
   }
 
+  /**
+   * Search jobs with specified parameters
+   * Used by job-sync.service for daily synchronization
+   */
+  async searchJobs(params: {
+    what?: string;
+    where?: string;
+    results_per_page?: number;
+    page?: number;
+    [key: string]: any;
+  }) {
+    const url = `${ADZUNA_BASE_URL}/search/${params.page || 1}`;
+    const searchParams = new URLSearchParams({
+      app_id: ADZUNA_APP_ID!,
+      app_key: ADZUNA_APP_KEY!,
+      results_per_page: (params.results_per_page || 50).toString(),
+      ...(params.what && { what: params.what }),
+      ...(params.where && { where: params.where }),
+    });
+    
+    try {
+      const { data } = await axios.get(url + '?' + searchParams.toString(), {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      return data;
+    } catch (error: any) {
+      console.error('❌ Adzuna API error:', error.message);
+      throw error;
+    }
+  }
+
   async cacheJobsToDB(jobs: AdzunaJob[]) {
     const batch = db.batch();
     jobs.forEach(job => {
