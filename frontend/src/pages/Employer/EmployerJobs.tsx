@@ -85,7 +85,7 @@ const EmployerJobs: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-8">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
@@ -99,7 +99,7 @@ const EmployerJobs: React.FC = () => {
           </div>
           <Button
             onClick={() => navigate('/employer/jobs/create')}
-            className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
+            className="bg-linear-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
           >
             + Neue Stellenanzeige
           </Button>
@@ -134,7 +134,7 @@ const EmployerJobs: React.FC = () => {
             </p>
             <Button
               onClick={() => navigate('/employer/jobs/create')}
-              className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 py-3 rounded-xl font-bold"
+              className="bg-linear-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 py-3 rounded-xl font-bold"
             >
               Stellenanzeige erstellen
             </Button>
@@ -151,7 +151,7 @@ const EmployerJobs: React.FC = () => {
                 <div className="flex gap-6">
                   {/* Job Image */}
                   {job.imageUrl && (
-                    <div className="flex-shrink-0">
+                    <div className="shrink-0">
                       <img
                         src={job.imageUrl}
                         alt={job.title}

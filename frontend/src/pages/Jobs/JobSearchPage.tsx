@@ -73,7 +73,7 @@ const JobSearchPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
         <div className="text-center mb-12">
@@ -109,7 +109,7 @@ const JobSearchPage: React.FC = () => {
             <Button 
               type="submit" 
               disabled={loading}
-              className="h-14 bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+              className="h-14 bg-linear-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
             >
               {loading ? (
                 <span className="flex items-center gap-2">
@@ -125,7 +125,7 @@ const JobSearchPage: React.FC = () => {
               type="button"
               onClick={handleReset}
               disabled={loading}
-              className="h-14 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-8 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
+              className="h-14 bg-linear-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-8 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
             >
               Zurücksetzen
             </Button>
@@ -185,7 +185,7 @@ const JobSearchPage: React.FC = () => {
 
                 {/* Company Info */}
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-pink-500 rounded-xl flex items-center justify-center shadow-md">
+                  <div className="w-12 h-12 bg-linear-to-br from-orange-400 to-pink-500 rounded-xl flex items-center justify-center shadow-md">
                     <span className="text-2xl">🏢</span>
                   </div>
                   <div>
@@ -260,7 +260,7 @@ const JobSearchPage: React.FC = () => {
                 </div>
                 <Button 
                   onClick={() => navigate(`/jobs/${job.id || job.hashId}`)}
-                  className="bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+                  className="bg-linear-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                 >
                   Details ansehen →
                 </Button>

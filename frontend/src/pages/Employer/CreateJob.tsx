@@ -119,7 +119,7 @@ const CreateJob: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-8">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
@@ -390,7 +390,7 @@ const CreateJob: React.FC = () => {
               <Button
                 type="submit"
                 disabled={loading}
-                className="flex-1 bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
+                className="flex-1 bg-linear-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
               >
                 {loading ? (
                   <span className="flex items-center justify-center gap-2">

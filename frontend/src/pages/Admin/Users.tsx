@@ -5,15 +5,17 @@ import AdminLayout from '../../layouts/AdminLayout';
 import { getUsers } from '../../api/admin';
 import { useUserStore } from '../../store/userStore';
 import { useAdminGuard } from '../../hooks/useAdmin'
-import AdminTable from '../../components/admin/AdminTable'; // Import the AdminTable component
-import type { AdminUser } from '../../types/admin'; // Use AdminUser type
+import AdminTable from '../../components/admin/AdminTable';
+import type { AdminUser } from '../../types/admin';
+import { Spinner, Toast } from '../../components/ui';
+import { useToast } from '../../hooks/useToast';
 
 const AdminUsers: React.FC = () => {
   useAdminGuard();
   const token = useUserStore(state => state.token);
-  const [users, setUsers] = React.useState<AdminUser[] | null>(null); // Use AdminUser
+  const { toasts, error: showError, hideToast } = useToast();
+  const [users, setUsers] = React.useState<AdminUser[] | null>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
-  const [error, setError] = React.useState<string | null>(null);
 
 const columns = [
     { key: 'uid', label: 'UID' }, // Use uid instead of id for Firebase Auth user
@@ -29,8 +31,9 @@ useEffect(() => {
             setLoading(true);
             const data = await getUsers(token ?? undefined);
             setUsers(data);
-        } catch (err: any) {
-            setError(err.message || 'Failed to load users');
+        } catch (err) {
+            const message = err instanceof Error ? err.message : 'Failed to load users';
+            showError(message);
         } finally {
             setLoading(false);
         }
@@ -41,9 +44,10 @@ useEffect(() => {
   return (
     <AdminLayout>
       <h1 className="text-2xl font-bold mb-4">Manage Users</h1>
-      {loading && <p>Loading users...</p>}
-      {error && <p className="text-red-500">Error: {error}</p>}
-      {users && <AdminTable columns={columns} data={users} />} {/* Use AdminTable here */}
+      {toasts.map(toast => (
+        <Toast key={toast.id} {...toast} onClose={() => hideToast(toast.id)} />
+      ))}
+      {loading ? <Spinner size="lg" label="Loading users..." /> : users && <AdminTable columns={columns} data={users} />}
     </AdminLayout>
   );
 }

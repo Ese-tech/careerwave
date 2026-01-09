@@ -3,41 +3,69 @@
 import React, { useState } from 'react';
 import { useAdminGuard } from '../../hooks/useAdmin';
 import AdminLayout from '../../layouts/AdminLayout';
+import { Toast, Spinner } from '../../components/ui';
+import { useToast } from '../../hooks/useToast';
 
 function AdminSettings() {
     useAdminGuard();
+    const { toasts, success, error: showError, hideToast } = useToast();
 
-    // Example state for settings
+    const [loading, setLoading] = useState(false);
     const [siteName, setSiteName] = useState('CareerWave');
     const [adminEmail, setAdminEmail] = useState('admin@example.com');
     const [maintenanceMode, setMaintenanceMode] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // TODO: Save settings to backend
-        alert('Settings saved!');
+        
+        try {
+            setLoading(true);
+            // TODO: Implement actual backend endpoint for settings
+            // const response = await api.put('/admin/settings', {
+            //     siteName,
+            //     adminEmail,
+            //     maintenanceMode
+            // });
+            
+            // Simulate API call for now
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            success('Settings saved successfully!');
+        } catch (err) {
+            const message = err instanceof Error ? err.message : 'Failed to save settings';
+            showError(message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <AdminLayout>
             <h1 className="text-2xl font-bold mb-4">Admin Settings</h1>
+            
+            {toasts.map(toast => (
+                <Toast key={toast.id} {...toast} onClose={() => hideToast(toast.id)} />
+            ))}
+
             <form onSubmit={handleSubmit} className="space-y-6 max-w-lg">
                 <div>
                     <label className="block font-medium mb-1">Site Name</label>
                     <input
                         type="text"
-                        className="border rounded px-3 py-2 w-full"
+                        className="border rounded px-3 py-2 w-full dark:bg-gray-800 dark:border-gray-600 dark:text-white"
                         value={siteName}
                         onChange={e => setSiteName(e.target.value)}
+                        disabled={loading}
                     />
                 </div>
                 <div>
                     <label className="block font-medium mb-1">Admin Email</label>
                     <input
                         type="email"
-                        className="border rounded px-3 py-2 w-full"
+                        className="border rounded px-3 py-2 w-full dark:bg-gray-800 dark:border-gray-600 dark:text-white"
                         value={adminEmail}
                         onChange={e => setAdminEmail(e.target.value)}
+                        disabled={loading}
                     />
                 </div>
                 <div className="flex items-center">
@@ -47,6 +75,7 @@ function AdminSettings() {
                         checked={maintenanceMode}
                         onChange={e => setMaintenanceMode(e.target.checked)}
                         className="mr-2"
+                        disabled={loading}
                     />
                     <label htmlFor="maintenance" className="font-medium">
                         Enable Maintenance Mode
@@ -54,8 +83,10 @@ function AdminSettings() {
                 </div>
                 <button
                     type="submit"
-                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                    disabled={loading}
                 >
+                    {loading && <Spinner size="sm" color="white" />}
                     Save Settings
                 </button>
             </form>

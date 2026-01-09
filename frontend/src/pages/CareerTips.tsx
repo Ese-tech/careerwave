@@ -328,7 +328,7 @@ const CareerTips: React.FC = () => {
                   <ul className="space-y-2">
                     {tip.tips.map((t, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-sm text-gray-700">
-                        <span className="text-teal-600 font-bold mt-0.5 flex-shrink-0">✓</span>
+                        <span className="text-teal-600 font-bold mt-0.5 shrink-0">✓</span>
                         <span>{t}</span>
                       </li>
                     ))}

@@ -13,11 +13,7 @@ import {
     Legend,
 } from "chart.js";
 import type { ChartOptions } from "chart.js";
-// Mock-Implementierung des useTheme-Hooks, um den Importfehler in dieser einzelnen Datei zu beheben.
-// Da kein globaler Theme-Kontext verfügbar ist, wird der Standardwert 'light' angenommen.
-const useTheme = () => {
-    return { theme: 'light' };
-};
+import { useTheme } from '../../context/ThemeContext';
 
 // Registrierung der benötigten Chart.js-Module
 ChartJS.register(
@@ -40,9 +36,8 @@ interface AnalyticsChartProps {
  * Eine wiederverwendbare Komponente zur Anzeige von Liniendiagrammen für Analysedaten.
  */
 const AnalyticsChart: React.FC<AnalyticsChartProps> = ({ data, title, label }) => {
-  // Nutzung des gemockten Hooks
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
+  const { actualTheme } = useTheme();
+  const isDark = actualTheme === 'dark';
   
   // Dynamische Farben basierend auf dem Theme
   const chartColor = isDark ? 'rgba(78, 118, 255, 1)' : 'rgba(59, 130, 246, 1)';

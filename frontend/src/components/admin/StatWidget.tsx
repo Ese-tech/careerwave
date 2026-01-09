@@ -1,14 +1,7 @@
 // frontend/src/components/admin/StatWidget.tsx
 
 import React from 'react';
-
-// Mock-Implementierung des useTheme-Hooks, um den Importfehler in dieser einzelnen Datei zu beheben.
-// Da kein globaler Theme-Kontext verfügbar ist, wird der Einfachheit halber eine Standardeinstellung (light) angenommen.
-// Wenn der dunkle Modus als Standard gewünscht wäre, könnte man hier 'dark' zurückgeben.
-const useTheme = () => {
-    // Liefert ein Standardobjekt zurück, das der Komponente ermöglicht, ihre Logik auszuführen.
-    return { theme: 'light' };
-};
+import { useTheme } from '../../context/ThemeContext';
 
 interface StatWidgetProps {
     title: string;
@@ -25,14 +18,14 @@ interface StatWidgetProps {
  * @param colorClass Tailwind-Klasse für die Akzentfarbe.
  */
 function StatWidget ({ title, value, icon, colorClass }: StatWidgetProps) {
-    const { theme } = useTheme();
-    const isDark = theme === 'dark';
+    const { actualTheme } = useTheme();
+    const isDark = actualTheme === 'dark';
 
     return (
         <div className={`flex items-center p-6 rounded-xl shadow-lg transition-all duration-300 ${isDark ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:shadow-xl'}`}>
             
             {/* Icon Bereich */}
-            <div className={`flex-shrink-0 p-3 rounded-full ${colorClass} ${isDark ? 'bg-opacity-20' : 'bg-opacity-10'}`}>
+            <div className={`shrink-0 p-3 rounded-full ${colorClass} ${isDark ? 'bg-opacity-20' : 'bg-opacity-10'}`}>
                 {icon}
             </div>
 

@@ -107,7 +107,7 @@ const EmployerApplications: React.FC = () => {
   const displayedApplications = filteredApplications.slice(startIndex, endIndex);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-8">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -197,7 +197,7 @@ const EmployerApplications: React.FC = () => {
                   >
                     <div className="flex gap-6">
                       {/* Candidate Avatar */}
-                      <div className="flex-shrink-0">
+                      <div className="shrink-0">
                         {application.candidate?.profile?.avatar ? (
                           <img
                             src={application.candidate.profile.avatar}
@@ -205,7 +205,7 @@ const EmployerApplications: React.FC = () => {
                             className="w-20 h-20 rounded-full object-cover border-2 border-gray-200"
                           />
                         ) : (
-                          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center text-white text-2xl font-bold">
+                          <div className="w-20 h-20 rounded-full bg-linear-to-br from-teal-400 to-blue-500 flex items-center justify-center text-white text-2xl font-bold">
                             {application.candidate?.firstName?.charAt(0) || 'K'}
                           </div>
                         )}

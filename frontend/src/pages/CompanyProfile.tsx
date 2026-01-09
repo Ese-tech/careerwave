@@ -101,7 +101,7 @@ const CompanyProfile: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="animate-pulse">
             <div className="h-12 bg-gray-200 rounded mb-4 w-1/3"></div>
@@ -118,7 +118,7 @@ const CompanyProfile: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
         <div className="text-center mb-12">
@@ -142,7 +142,7 @@ const CompanyProfile: React.FC = () => {
             />
             <div onClick={(e) => { e.stopPropagation(); setSearchTerm(''); }}>
               <Button 
-                className="h-14 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-8 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
+                className="h-14 bg-linear-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-8 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
               >
                 Zurücksetzen
               </Button>
@@ -185,7 +185,7 @@ const CompanyProfile: React.FC = () => {
                 }}
               >
                 {/* Company Logo */}
-                <div className="w-20 h-20 bg-gradient-to-br from-teal-400 to-blue-500 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                <div className="w-20 h-20 bg-linear-to-br from-teal-400 to-blue-500 rounded-2xl flex items-center justify-center shrink-0 shadow-lg">
                   <span className="text-white font-bold text-2xl">
                     {getCompanyInitials(company.name)}
                   </span>
@@ -241,7 +241,7 @@ const CompanyProfile: React.FC = () => {
                       onClick={() => {
                         navigate(`/jobs?company=${encodeURIComponent(company.name)}`);
                       }}
-                      className="bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+                      className="bg-linear-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                     >
                       Alle Stellen →
                     </Button>

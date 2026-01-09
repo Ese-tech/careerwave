@@ -293,13 +293,13 @@ const Profile: React.FC = () => {
             <div className="flex gap-4 justify-center">
               <Button 
                 onClick={() => navigate('/login')}
-                className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+                className="bg-linear-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
               >
                 Zur Anmeldung
               </Button>
               <Button 
                 onClick={() => navigate('/register')}
-                className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+                className="bg-linear-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
               >
                 Registrieren
               </Button>
@@ -320,7 +320,7 @@ const Profile: React.FC = () => {
             <p className="text-xl text-red-600 mb-8">{error}</p>
             <Button 
               onClick={() => window.location.reload()}
-              className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg"
+              className="bg-linear-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg"
             >
               Erneut versuchen
             </Button>
@@ -341,7 +341,7 @@ const Profile: React.FC = () => {
 
         {/* Success Message - Fixed Position */}
         {uploadSuccess && (
-          <div className="mb-6 p-4 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-400 rounded-xl shadow-lg animate-in slide-in-from-top duration-300">
+          <div className="mb-6 p-4 bg-linear-to-r from-green-50 to-emerald-50 border-2 border-green-400 rounded-xl shadow-lg animate-in slide-in-from-top duration-300">
             <div className="flex items-center justify-center gap-3">
               <span className="text-2xl">✅</span>
               <p className="text-green-800 font-bold text-lg">{uploadSuccess}</p>
@@ -351,7 +351,7 @@ const Profile: React.FC = () => {
 
         {/* Error Message - Fixed Position */}
         {error && !loading && (
-          <div className="mb-6 p-4 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-400 rounded-xl shadow-lg animate-in slide-in-from-top duration-300">
+          <div className="mb-6 p-4 bg-linear-to-r from-red-50 to-orange-50 border-2 border-red-400 rounded-xl shadow-lg animate-in slide-in-from-top duration-300">
             <div className="flex items-center justify-center gap-3">
               <span className="text-2xl">❌</span>
               <p className="text-red-800 font-bold text-lg">{error}</p>
@@ -389,7 +389,7 @@ const Profile: React.FC = () => {
                         }}
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center absolute inset-0">
+                      <div className="w-full h-full bg-linear-to-br from-teal-400 to-blue-500 flex items-center justify-center absolute inset-0">
                         <span className="text-5xl text-white font-bold">
                           {(profile.email?.[0] || user?.email?.[0] || '?').toUpperCase()}
                         </span>
@@ -400,7 +400,7 @@ const Profile: React.FC = () => {
                 <button
                   onClick={() => avatarInputRef.current?.click()}
                   disabled={uploadingAvatar}
-                  className="absolute -bottom-2 -right-2 bg-gradient-to-br from-teal-500 to-blue-600 text-white border-3 border-white rounded-full p-3 shadow-xl hover:from-teal-600 hover:to-blue-700 hover:scale-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed z-10"
+                  className="absolute -bottom-2 -right-2 bg-linear-to-br from-teal-500 to-blue-600 text-white border-3 border-white rounded-full p-3 shadow-xl hover:from-teal-600 hover:to-blue-700 hover:scale-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed z-10"
                   title="Profilbild ändern - Klicken zum Hochladen"
                 >
                   {uploadingAvatar ? (
@@ -474,7 +474,7 @@ const Profile: React.FC = () => {
                   {/* Grid Layout für 4 Dokumente nebeneinander */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {/* 1. Lebenslauf (CV) */}
-                    <div className="p-4 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-xl border-2 border-blue-400 shadow-md hover:shadow-lg transition-shadow">
+                    <div className="p-4 bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-xl border-2 border-blue-400 shadow-md hover:shadow-lg transition-shadow">
                       <div className="text-center mb-3">
                         <span className="text-4xl">📄</span>
                         <h4 className="text-lg font-bold text-gray-900 mt-2">Lebenslauf</h4>
@@ -495,7 +495,7 @@ const Profile: React.FC = () => {
                       <Button
                         onClick={() => cvInputRef.current?.click()}
                         disabled={uploadingCV}
-                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-3 py-2 rounded-lg text-sm font-bold shadow-md hover:scale-105 transition-all disabled:opacity-50"
+                        className="w-full bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-3 py-2 rounded-lg text-sm font-bold shadow-md hover:scale-105 transition-all disabled:opacity-50"
                       >
                         {uploadingCV ? (
                           <span className="flex items-center justify-center gap-1">
@@ -518,7 +518,7 @@ const Profile: React.FC = () => {
                     </div>
 
                     {/* 2. Anschreiben (Cover Letter) */}
-                    <div className="p-4 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 rounded-xl border-2 border-green-400 shadow-md hover:shadow-lg transition-shadow">
+                    <div className="p-4 bg-linear-to-br from-green-50 via-emerald-50 to-teal-50 rounded-xl border-2 border-green-400 shadow-md hover:shadow-lg transition-shadow">
                       <div className="text-center mb-3">
                         <span className="text-4xl">✉️</span>
                         <h4 className="text-lg font-bold text-gray-900 mt-2">Anschreiben</h4>
@@ -539,7 +539,7 @@ const Profile: React.FC = () => {
                       <Button
                         onClick={() => coverLetterInputRef.current?.click()}
                         disabled={uploadingCoverLetter}
-                        className="w-full bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white px-3 py-2 rounded-lg text-sm font-bold shadow-md hover:scale-105 transition-all disabled:opacity-50"
+                        className="w-full bg-linear-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white px-3 py-2 rounded-lg text-sm font-bold shadow-md hover:scale-105 transition-all disabled:opacity-50"
                       >
                         {uploadingCoverLetter ? (
                           <span className="flex items-center justify-center gap-1">
@@ -562,7 +562,7 @@ const Profile: React.FC = () => {
                     </div>
 
                     {/* 3. Zeugnisse (Certificates) */}
-                    <div className="p-4 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 rounded-xl border-2 border-orange-400 shadow-md hover:shadow-lg transition-shadow">
+                    <div className="p-4 bg-linear-to-br from-orange-50 via-amber-50 to-yellow-50 rounded-xl border-2 border-orange-400 shadow-md hover:shadow-lg transition-shadow">
                       <div className="text-center mb-3">
                         <span className="text-4xl">🎓</span>
                         <h4 className="text-lg font-bold text-gray-900 mt-2">Zeugnisse</h4>
@@ -583,7 +583,7 @@ const Profile: React.FC = () => {
                       <Button
                         onClick={() => certificatesInputRef.current?.click()}
                         disabled={uploadingCertificates}
-                        className="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white px-3 py-2 rounded-lg text-sm font-bold shadow-md hover:scale-105 transition-all disabled:opacity-50"
+                        className="w-full bg-linear-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white px-3 py-2 rounded-lg text-sm font-bold shadow-md hover:scale-105 transition-all disabled:opacity-50"
                       >
                         {uploadingCertificates ? (
                           <span className="flex items-center justify-center gap-1">
@@ -606,7 +606,7 @@ const Profile: React.FC = () => {
                     </div>
 
                     {/* 4. Weitere Dokumente (Other Documents) */}
-                    <div className="p-4 bg-gradient-to-br from-pink-50 via-rose-50 to-red-50 rounded-xl border-2 border-pink-400 shadow-md hover:shadow-lg transition-shadow">
+                    <div className="p-4 bg-linear-to-br from-pink-50 via-rose-50 to-red-50 rounded-xl border-2 border-pink-400 shadow-md hover:shadow-lg transition-shadow">
                       <div className="text-center mb-3">
                         <span className="text-4xl">📎</span>
                         <h4 className="text-lg font-bold text-gray-900 mt-2">Weitere</h4>
@@ -627,7 +627,7 @@ const Profile: React.FC = () => {
                       <Button
                         onClick={() => otherDocsInputRef.current?.click()}
                         disabled={uploadingOtherDocs}
-                        className="w-full bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white px-3 py-2 rounded-lg text-sm font-bold shadow-md hover:scale-105 transition-all disabled:opacity-50"
+                        className="w-full bg-linear-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white px-3 py-2 rounded-lg text-sm font-bold shadow-md hover:scale-105 transition-all disabled:opacity-50"
                       >
                         {uploadingOtherDocs ? (
                           <span className="flex items-center justify-center gap-1">
@@ -663,13 +663,13 @@ const Profile: React.FC = () => {
         <div className="flex gap-4 justify-center">
           <Button 
             onClick={() => navigate('/dashboard')}
-            className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
+            className="bg-linear-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
           >
             Zum Dashboard
           </Button>
           <Button 
             onClick={() => navigate('/jobs')}
-            className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
+            className="bg-linear-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
           >
             Jobs durchsuchen
           </Button>

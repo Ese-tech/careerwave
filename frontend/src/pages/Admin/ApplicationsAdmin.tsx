@@ -7,13 +7,15 @@ import { useUserStore } from '../../store/userStore';
 import { useAdminGuard } from '../../hooks/useAdmin';
 import AdminLayout from '../../layouts/AdminLayout';
 import type { AdminApplication } from '../../types/admin';
+import { Spinner, Toast } from '../../components/ui';
+import { useToast } from '../../hooks/useToast';
 
 function ApplicationsAdmin() {
   useAdminGuard();
   const token = useUserStore(state => state.token);
+  const { toasts, error: showError, hideToast } = useToast();
   const [apps, setApps] = React.useState<AdminApplication[] | null>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
-  const [error, setError] = React.useState<string | null>(null);
 
   const columns = [ 
     { key: 'applicantId', label: 'Applicant ID' },
@@ -28,8 +30,9 @@ function ApplicationsAdmin() {
             setLoading(true);
             const data = await getApplications(token ?? undefined);
             setApps(data);
-        } catch (err: any) {
-            setError(err.message || 'Failed to load applications');
+        } catch (err) {
+            const message = err instanceof Error ? err.message : 'Failed to load applications';
+            showError(message);
         } finally {
             setLoading(false);
         }
@@ -39,9 +42,10 @@ function ApplicationsAdmin() {
     return (
     <AdminLayout>
         <h1 className="text-2xl font-bold mb-4">Manage Applications</h1>
-        {loading && <p>Loading applications...</p>}
-        {error && <p className="text-red-600">{error}</p>}
-        {apps && <AdminTable columns={columns} data={apps} />}
+        {toasts.map(toast => (
+          <Toast key={toast.id} {...toast} onClose={() => hideToast(toast.id)} />
+        ))}
+        {loading ? <Spinner size="lg" label="Loading applications..." /> : apps && <AdminTable columns={columns} data={apps} />}
     </AdminLayout>
   );
 }  

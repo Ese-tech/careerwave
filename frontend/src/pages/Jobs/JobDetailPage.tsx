@@ -44,7 +44,6 @@ const JobDetailPage: React.FC = () => {
   const [otherFile, setOtherFile] = useState<File | null>(null);
   
   const [uploadError, setUploadError] = useState<string | null>(null);
-  const [docCategory, setDocCategory] = useState<'cv' | 'coverLetter' | 'certificates' | 'other'>('cv');
   
   const cvInputRef = useRef<HTMLInputElement>(null);
   const coverLetterInputRef = useRef<HTMLInputElement>(null);
@@ -225,7 +224,7 @@ const JobDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header Section with Breadcrumb */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-gray-100">
@@ -240,7 +239,7 @@ const JobDetailPage: React.FC = () => {
               <div className="flex-1">
                 <div className="flex items-start gap-4">
                   {/* Company Logo/Icon */}
-                  <div className="w-16 h-16 bg-gradient-to-br from-teal-400 to-blue-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
+                  <div className="w-16 h-16 bg-linear-to-br from-teal-400 to-blue-500 rounded-xl flex items-center justify-center shrink-0 shadow-md">
                     <span className="text-3xl">🏢</span>
                   </div>
                   <div className="flex-1">
@@ -290,7 +289,7 @@ const JobDetailPage: React.FC = () => {
             {(job.stellenbeschreibung || job.description) ? (
               <Card className="p-8 shadow-lg border border-gray-100 rounded-2xl hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-lg flex items-center justify-center">
+                  <div className="w-10 h-10 bg-linear-to-br from-purple-400 to-pink-500 rounded-lg flex items-center justify-center">
                     <span className="text-xl">📋</span>
                   </div>
                   <h2 className="text-2xl font-bold text-gray-900">{t('jobDetail.description', 'Stellenbeschreibung')}</h2>
@@ -311,7 +310,7 @@ const JobDetailPage: React.FC = () => {
             {/* Requirements & Skills */}
             <Card className="p-8 shadow-lg border border-gray-100 rounded-2xl hover:shadow-xl transition-shadow">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-linear-to-br from-blue-400 to-cyan-500 rounded-lg flex items-center justify-center">
                   <span className="text-xl">✅</span>
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900">{t('jobDetail.requirements', 'Anforderungen')}</h2>
@@ -347,7 +346,7 @@ const JobDetailPage: React.FC = () => {
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-6">
             {/* Quick Info Card */}
-            <Card className="p-6 shadow-lg border border-gray-100 rounded-2xl hover:shadow-xl transition-shadow bg-gradient-to-br from-white to-blue-50">
+            <Card className="p-6 shadow-lg border border-gray-100 rounded-2xl hover:shadow-xl transition-shadow bg-linear-to-br from-white to-blue-50">
               <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                 <span className="text-2xl">ℹ️</span>
                 {t('jobDetail.info', 'Job-Informationen')}
@@ -399,7 +398,7 @@ const JobDetailPage: React.FC = () => {
             <Card className="p-6 shadow-lg border border-gray-100 rounded-2xl bg-white">
               <div className="space-y-3">
                 <Button 
-                  className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+                  className="w-full bg-linear-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                   onClick={() => {
                     // Pre-fill user data if logged in
                     if (user) {
@@ -704,7 +703,7 @@ const JobDetailPage: React.FC = () => {
                           </div>
                           
                           <Button 
-                            className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-4 rounded-xl shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" 
+                            className="w-full bg-linear-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-4 rounded-xl shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" 
                             type="submit"
                             disabled={uploadingCV}
                             
@@ -724,7 +723,7 @@ const JobDetailPage: React.FC = () => {
                   </div>
                 )}
                 <Button 
-                  className="w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white font-bold py-3 rounded-xl shadow-md hover:shadow-lg transition-all"
+                  className="w-full bg-linear-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white font-bold py-3 rounded-xl shadow-md hover:shadow-lg transition-all"
                   onClick={() => {
                     // TODO: Implement save functionality
                     alert(t('jobDetail.saved', 'Job gespeichert!'));
@@ -734,7 +733,7 @@ const JobDetailPage: React.FC = () => {
                   Job speichern
                 </Button>
                 <Button 
-                  className="w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-bold py-3 rounded-xl shadow-md hover:shadow-lg transition-all"
+                  className="w-full bg-linear-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-bold py-3 rounded-xl shadow-md hover:shadow-lg transition-all"
                   onClick={() => {
                     if (navigator.share) {
                       navigator.share({
@@ -759,13 +758,13 @@ const JobDetailPage: React.FC = () => {
               </div>
             </Card>
             {/* Company Info */}
-            <Card className="p-6 shadow-lg border border-gray-100 rounded-2xl hover:shadow-xl transition-shadow bg-gradient-to-br from-white to-purple-50">
+            <Card className="p-6 shadow-lg border border-gray-100 rounded-2xl hover:shadow-xl transition-shadow bg-linear-to-br from-white to-purple-50">
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <span className="text-2xl">🏢</span>
                 {t('jobDetail.aboutCompany', 'Über das Unternehmen')}
               </h3>
               <div className="text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <div className="w-20 h-20 bg-linear-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <span className="text-4xl">🏢</span>
                 </div>
                 <p className="font-bold text-gray-900 text-lg mb-2">{job.arbeitgeber || job.company?.display_name}</p>
@@ -837,7 +836,7 @@ const JobDetailPage: React.FC = () => {
         {/* Related Jobs Section */}
         <Card className="p-8 mt-8 shadow-lg border border-gray-100 rounded-2xl text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-teal-400 to-blue-500 rounded-xl flex items-center justify-center">
+            <div className="w-12 h-12 bg-linear-to-br from-teal-400 to-blue-500 rounded-xl flex items-center justify-center">
               <span className="text-2xl">🔍</span>
             </div>
             <h2 className="text-2xl font-bold text-gray-900">{t('jobDetail.relatedJobs', 'Ähnliche Jobs')}</h2>

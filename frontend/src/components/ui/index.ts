@@ -6,3 +6,7 @@ export { Badge } from './Badge';
 export { LanguageSwitcher } from './LanguageSwitcher';
 export { ThemeSwitcher } from './ThemeSwitcher';
 export { Pagination } from './Pagination';
+export { Modal } from './Modal';
+export { Toast } from './Toast';
+export { Dialog } from './Dialog';
+export { Spinner } from './Spinner';

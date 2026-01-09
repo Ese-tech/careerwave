@@ -88,7 +88,7 @@ export const Pagination: React.FC<PaginationProps> = ({
               style={isActive ? {} : { backgroundColor: '#374151', color: 'white' }}
               className={`px-5 py-3 rounded-lg font-bold transition-all shadow-lg hover:shadow-xl border-2 ${
                 isActive
-                  ? 'bg-gradient-to-r from-teal-500 to-blue-600 text-white scale-110 border-teal-400'
+                  ? 'bg-linear-to-r from-teal-500 to-blue-600 text-white scale-110 border-teal-400'
                   : 'border-gray-600 hover:opacity-90'
               }`}
             >

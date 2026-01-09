@@ -7,13 +7,15 @@ import { useUserStore } from '../../store/userStore';
 import { useAdminGuard } from '../../hooks/useAdmin';
 import AdminLayout from '../../layouts/AdminLayout';
 import type { JobAdmin } from '../../types/admin';
+import { Spinner, Toast } from '../../components/ui';
+import { useToast } from '../../hooks/useToast';
 
 function JobsAdmin() {
   useAdminGuard();
   const token = useUserStore(state => state.token);
+  const { toasts, error: showError, hideToast } = useToast();
   const [jobs, setJobs] = React.useState<JobAdmin[] | null>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
-  const [error, setError] = React.useState<string | null>(null);
 
   const columns = [
     { key: 'title', label: 'Job Title' },
@@ -29,8 +31,9 @@ function JobsAdmin() {
             setLoading(true);
             const data = await getJobsAdmin(token ?? undefined);
             setJobs(data);
-        } catch (err: any) {
-            setError(err.message || 'Failed to load jobs');
+        } catch (err) {
+            const message = err instanceof Error ? err.message : 'Failed to load jobs';
+            showError(message);
         } finally {
             setLoading(false);
         }
@@ -40,9 +43,10 @@ function JobsAdmin() {
     return (
     <AdminLayout>
         <h1 className="text-2xl font-bold mb-4">Manage Jobs</h1>
-        {loading && <p>Loading jobs...</p>}
-        {error && <p className="text-red-600">{error}</p>}
-        {jobs && <AdminTable columns={columns} data={jobs} />}
+        {toasts.map(toast => (
+          <Toast key={toast.id} {...toast} onClose={() => hideToast(toast.id)} />
+        ))}
+        {loading ? <Spinner size="lg" label="Loading jobs..." /> : jobs && <AdminTable columns={columns} data={jobs} />}
     </AdminLayout>
   );
 }  

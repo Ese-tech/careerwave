@@ -4,7 +4,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 // Korrigierter Pfad, da Sidebar in components/admin liegt und constants/hooks eine Ebene höher
 import { ADMIN_ROUTES } from '../../constants/admin'; 
-import { useTheme } from '../../hooks/useTheme'; 
+import { useTheme } from '../../context/ThemeContext'; 
 
 // Definition der Navigations-Elemente
 const items = [

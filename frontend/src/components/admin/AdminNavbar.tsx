@@ -1,6 +1,6 @@
 // frontend/src/components/admin/AdminNavbar.tsx
 import React from 'react';
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '../../context/ThemeContext';
 import { useUserStore } from '../../store/userStore';   
 import { Link } from 'react-router-dom';
 import { ADMIN_ROUTES } from '../../constants/admin';

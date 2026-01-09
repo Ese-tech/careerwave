@@ -6,10 +6,13 @@ import { useUserStore } from '../../store/userStore';
 import { useAdminGuard } from '../../hooks/useAdmin';
 import AnalyticsChart from '../../components/admin/AnalyticsChart';
 import { api } from '../../services/api';
+import { Spinner, Toast } from '../../components/ui';
+import { useToast } from '../../hooks/useToast';
 
 const AdminDashboard: React.FC = () => {
   useAdminGuard();
   const token = useUserStore(state => state.token);
+  const { toasts, error: showError, hideToast } = useToast();
 
   const [analytics, setAnalytics] = useState<any>(null);
   const [stats, setStats] = useState({
@@ -20,7 +23,6 @@ const AdminDashboard: React.FC = () => {
     activeJobs: 0
   });
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -52,9 +54,9 @@ const AdminDashboard: React.FC = () => {
         console.error('Applications error:', appErr);
       }
 
-      setError(null);
-    } catch (err: any) {
-      setError(err.message || 'Failed to load data');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to load data';
+      showError(message);
     } finally {
       setLoading(false);
     }
@@ -64,8 +66,11 @@ const AdminDashboard: React.FC = () => {
     <div>
       <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
 
-      {loading && <p>Loading analytics...</p>}
-      {error && <p className="text-red-500">Error: {error}</p>}
+      {toasts.map(toast => (
+        <Toast key={toast.id} {...toast} onClose={() => hideToast(toast.id)} />
+      ))}
+
+      {loading && <Spinner size="lg" label="Loading analytics..." />}
 
       {analytics && (
         <>

@@ -77,13 +77,13 @@ const Applications: React.FC = () => {
             <div className="flex gap-4 justify-center">
               <Button 
                 onClick={() => navigate('/login')}
-                className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+                className="bg-linear-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
               >
                 Zur Anmeldung
               </Button>
               <Button 
                 onClick={() => navigate('/register')}
-                className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+                className="bg-linear-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
               >
                 Registrieren
               </Button>
@@ -104,7 +104,7 @@ const Applications: React.FC = () => {
             <p className="text-xl text-red-600 mb-8">{error}</p>
             <Button 
               onClick={() => window.location.reload()}
-              className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg"
+              className="bg-linear-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg"
             >
               Erneut versuchen
             </Button>
@@ -133,7 +133,7 @@ const Applications: React.FC = () => {
             </p>
             <Button 
               onClick={() => navigate('/jobs')}
-              className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+              className="bg-linear-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
             >
               Jobs durchsuchen
             </Button>
@@ -149,7 +149,7 @@ const Applications: React.FC = () => {
                   <div className="flex-1">
                     {/* Application Header */}
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="w-16 h-16 bg-gradient-to-br from-teal-400 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
+                      <div className="w-16 h-16 bg-linear-to-br from-teal-400 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
                         <span className="text-3xl">📄</span>
                       </div>
                       <div>
@@ -218,13 +218,13 @@ const Applications: React.FC = () => {
         <div className="mt-8 flex gap-4 justify-center">
           <Button 
             onClick={() => navigate('/jobs')}
-            className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
+            className="bg-linear-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
           >
             Weitere Jobs finden
           </Button>
           <Button 
             onClick={() => navigate('/candidate/profile')}
-            className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
+            className="bg-linear-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
           >
             Zum Profil
           </Button>

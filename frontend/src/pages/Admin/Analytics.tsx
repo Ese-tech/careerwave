@@ -7,6 +7,8 @@ import { useUserStore } from '../../store/userStore';
 import { useAdminGuard } from '../../hooks/useAdmin';
 import AdminLayout from '../../layouts/AdminLayout';
 import AnalyticsChart from '../../components/admin/AnalyticsChart';
+import { Spinner, Toast } from '../../components/ui';
+import { useToast } from '../../hooks/useToast';
 
 interface AnalyticsData {
   totalUsers: number;
@@ -19,14 +21,14 @@ interface AnalyticsData {
 function Analytics() {
   useAdminGuard();
   const token = useUserStore(state => state.token);
+  const { toasts, error: showError, hideToast } = useToast();
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchAnalytics() {
       if (!token) {
-        setError('No authentication token available');
+        showError('No authentication token available');
         setLoading(false);
         return;
       }
@@ -35,8 +37,9 @@ function Analytics() {
         setLoading(true);
         const data = await getAnalytics(token);
         setAnalytics(data);
-      } catch (err: any) {
-        setError(err.message || 'Failed to load analytics');
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'Failed to load analytics';
+        showError(message);
       } finally {
         setLoading(false);
       }
@@ -48,8 +51,11 @@ function Analytics() {
     <AdminLayout>
       <h1 className="text-2xl font-bold mb-4">Analytics Dashboard</h1>
 
-      {loading && <p>Loading analytics...</p>}
-      {error && <p className="text-red-600">{error}</p>}
+      {toasts.map(toast => (
+        <Toast key={toast.id} {...toast} onClose={() => hideToast(toast.id)} />
+      ))}
+
+      {loading ? <Spinner size="lg" label="Loading analytics..." /> : null}
 
       {analytics && (
         <>

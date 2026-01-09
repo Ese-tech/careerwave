@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { api } from '../../services/api';
+import { Spinner, Toast } from '../../components/ui';
+import { useToast } from '../../hooks/useToast';
 
 interface SyncStats {
   totalJobs: number;
@@ -20,7 +22,7 @@ const JobSyncAdmin: React.FC = () => {
   const [stats, setStats] = useState<SyncStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+  const { toasts, success, error: showError, hideToast } = useToast();
 
   const loadStats = async () => {
     try {
@@ -39,21 +41,18 @@ const JobSyncAdmin: React.FC = () => {
   const triggerSync = async () => {
     try {
       setSyncing(true);
-      setMessage(null);
       const response = await api.post('/sync/trigger');
       
       if (response.success) {
         const sources = response.data.sources || {};
-        setMessage({ 
-          type: 'success', 
-          text: `Sync erfolgreich! Total: ${response.data.fetched} (Adzuna: ${sources.adzuna || 0}, Arbeitsagentur: ${sources.arbeitsagentur || 0}), Gespeichert: ${response.data.saved}, Gelöscht: ${response.data.deleted}` 
-        });
-        await loadStats(); // Reload stats
+        success(`Sync erfolgreich! Total: ${response.data.fetched} (Adzuna: ${sources.adzuna || 0}, Arbeitsagentur: ${sources.arbeitsagentur || 0}), Gespeichert: ${response.data.saved}, Gelöscht: ${response.data.deleted}`);
+        await loadStats();
       } else {
-        setMessage({ type: 'error', text: response.error || 'Sync fehlgeschlagen' });
+        showError(response.error || 'Sync fehlgeschlagen');
       }
-    } catch (error: any) {
-      setMessage({ type: 'error', text: error.message || 'Sync fehlgeschlagen' });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Sync fehlgeschlagen';
+      showError(message);
     } finally {
       setSyncing(false);
     }
@@ -71,13 +70,7 @@ const JobSyncAdmin: React.FC = () => {
   if (loading) {
     return (
       <div className="p-6">
-        <Card className="p-8">
-          <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded mb-4"></div>
-            <div className="h-4 bg-gray-200 rounded mb-2"></div>
-            <div className="h-4 bg-gray-200 rounded"></div>
-          </div>
-        </Card>
+        <Spinner fullScreen label="Loading sync stats..." />
       </div>
     );
   }
@@ -105,13 +98,9 @@ const JobSyncAdmin: React.FC = () => {
         </Button>
       </div>
 
-      {message && (
-        <Card className={`p-4 ${message.type === 'success' ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
-          <p className={`font-semibold ${message.type === 'success' ? 'text-green-800' : 'text-red-800'}`}>
-            {message.type === 'success' ? '✅' : '❌'} {message.text}
-          </p>
-        </Card>
-      )}
+      {toasts.map(toast => (
+        <Toast key={toast.id} {...toast} onClose={() => hideToast(toast.id)} />
+      ))}
 
       <Card className="p-8 shadow-lg">
         <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
@@ -121,7 +110,7 @@ const JobSyncAdmin: React.FC = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Total Jobs */}
-          <div className="p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200">
+          <div className="p-6 bg-linear-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200">
             <div className="flex items-center gap-3 mb-2">
               <span className="text-3xl">💼</span>
               <h3 className="text-lg font-semibold text-gray-700">Gesamt Jobs</h3>
@@ -131,7 +120,7 @@ const JobSyncAdmin: React.FC = () => {
           </div>
 
           {/* Sources Breakdown */}
-          <div className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 rounded-xl border border-teal-200">
+          <div className="p-6 bg-linear-to-br from-teal-50 to-teal-100 rounded-xl border border-teal-200">
             <div className="flex items-center gap-3 mb-2">
               <span className="text-3xl">🔗</span>
               <h3 className="text-lg font-semibold text-gray-700">Job-Quellen</h3>
@@ -147,7 +136,7 @@ const JobSyncAdmin: React.FC = () => {
           </div>
 
           {/* Last Sync */}
-          <div className="p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200">
+          <div className="p-6 bg-linear-to-br from-green-50 to-green-100 rounded-xl border border-green-200">
             <div className="flex items-center gap-3 mb-2">
               <span className="text-3xl">🕐</span>
               <h3 className="text-lg font-semibold text-gray-700">Letzte Sync</h3>
@@ -158,7 +147,7 @@ const JobSyncAdmin: React.FC = () => {
           </div>
 
           {/* Next Sync */}
-          <div className="p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl border border-purple-200">
+          <div className="p-6 bg-linear-to-br from-purple-50 to-purple-100 rounded-xl border border-purple-200">
             <div className="flex items-center gap-3 mb-2">
               <span className="text-3xl">⏰</span>
               <h3 className="text-lg font-semibold text-gray-700">Nächste Sync</h3>
@@ -170,7 +159,7 @@ const JobSyncAdmin: React.FC = () => {
           </div>
 
           {/* Newest Job */}
-          <div className="p-6 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl border border-orange-200">
+          <div className="p-6 bg-linear-to-br from-orange-50 to-orange-100 rounded-xl border border-orange-200">
             <div className="flex items-center gap-3 mb-2">
               <span className="text-3xl">🆕</span>
               <h3 className="text-lg font-semibold text-gray-700">Neuester Job</h3>
