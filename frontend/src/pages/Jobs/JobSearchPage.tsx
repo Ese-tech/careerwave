@@ -200,7 +200,7 @@ const JobSearchPage: React.FC = () => {
                   {/* Location */}
                   {(job.location?.display_name || (job.arbeitsorte && job.arbeitsorte.length > 0)) && (
                     <span className="inline-flex items-center px-4 py-2 bg-teal-100 text-teal-800 rounded-full text-sm font-medium">
-                      📍 {job.location?.display_name || job.arbeitsorte?.map((ort, idx) => 
+                      📍 {job.location?.display_name || job.arbeitsorte?.map((ort) => 
                         [ort.plz, ort.ort].filter(Boolean).join(' ')
                       ).join(', ')}
                     </span>
