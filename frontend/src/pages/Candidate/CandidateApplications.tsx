@@ -1,5 +1,6 @@
 // frontend/src/pages/Candidate/CandidateApplications.tsx
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { api } from '../../services/api';
@@ -24,6 +25,7 @@ interface Application {
 }
 
 const CandidateApplications: React.FC = () => {
+  const { t } = useTranslation();
   const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -41,10 +43,10 @@ const CandidateApplications: React.FC = () => {
       if (response.success) {
         setApplications(response.applications || []);
       } else {
-        setError(response.error || 'Fehler beim Laden der Bewerbungen');
+        setError(response.error || t('dashboard.applications') + ': ' + t('common.error'));
       }
-    } catch (err: any) {
-      setError(err.message || 'Fehler beim Laden der Bewerbungen');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t('dashboard.applications') + ': ' + t('common.error'));
     } finally {
       setLoading(false);
     }

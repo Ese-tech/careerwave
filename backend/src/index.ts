@@ -9,6 +9,15 @@ import userRoutes from './routes/user.routes';
 import uploadRoutes from './routes/upload.routes';
 import employerRoutes from './routes/employer.routes';
 import { schedulerService } from './services/scheduler.service';
+import { validateEnvironment } from './utils/validateEnv';
+
+// Validate environment variables before starting
+try {
+  validateEnvironment();
+} catch (error) {
+  console.error('Environment validation failed:', error);
+  process.exit(1);
+}
 
 const app = new Elysia()
   .use(cors({

@@ -111,8 +111,8 @@ const CreateJob: React.FC = () => {
       } else {
         setError(response.error || 'Fehler beim Erstellen der Stellenanzeige');
       }
-    } catch (err: any) {
-      setError(err.message || 'Fehler beim Erstellen der Stellenanzeige');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Fehler beim Erstellen der Stellenanzeige');
     } finally {
       setLoading(false);
     }

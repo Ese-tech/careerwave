@@ -39,7 +39,6 @@ import EmployerRoute from './routes/EmployerRoute';
 import CandidateRoute from './routes/CandidateRoute';
 import ForbiddenPage from './pages/Errors/ForbiddenPage';
 import { useAuthStore } from './store/authStore';
-import './i18n'; // Initialize i18n
 
 function App() {
   const { user } = useAuthStore();

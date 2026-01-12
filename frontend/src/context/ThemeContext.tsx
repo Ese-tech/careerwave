@@ -27,7 +27,8 @@ interface ThemeProviderProps {
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(() => {
     const savedTheme = localStorage.getItem('theme') as Theme;
-    return savedTheme || 'system';
+    console.log('🎨 Initial theme from localStorage:', savedTheme);
+    return savedTheme || 'light';
   });
 
   const [actualTheme, setActualTheme] = useState<'light' | 'dark'>(() => {
@@ -37,13 +38,18 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     return theme === 'dark' ? 'dark' : 'light';
   });
 
+  // Update actualTheme when theme changes
   useEffect(() => {
+    console.log('🎨 Theme changed to:', theme);
     localStorage.setItem('theme', theme);
 
     const updateActualTheme = () => {
       if (theme === 'system') {
-        setActualTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        console.log('🎨 System theme detected:', isDark ? 'dark' : 'light');
+        setActualTheme(isDark ? 'dark' : 'light');
       } else {
+        console.log('🎨 Manual theme set to:', theme);
         setActualTheme(theme === 'dark' ? 'dark' : 'light');
       }
     };
@@ -57,17 +63,26 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     }
   }, [theme]);
 
+  // Apply theme to document
   useEffect(() => {
     const root = window.document.documentElement;
+    console.log('🎨 Applying theme to document:', actualTheme);
+    
+    // Remove both classes first
     root.classList.remove('light', 'dark');
+    
+    // Add the current theme
     root.classList.add(actualTheme);
+    
+    // Verify
+    console.log('🎨 Document classes:', root.className);
   }, [actualTheme]);
 
   const toggleTheme = () => {
     setTheme(currentTheme => {
-      if (currentTheme === 'light') return 'dark';
-      if (currentTheme === 'dark') return 'system';
-      return 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : currentTheme === 'dark' ? 'system' : 'light';
+      console.log('🎨 Toggling theme:', currentTheme, '→', newTheme);
+      return newTheme;
     });
   };
 

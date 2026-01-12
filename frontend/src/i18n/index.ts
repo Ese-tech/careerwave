@@ -15,21 +15,30 @@ const resources = {
   fr: { translation: fr }
 };
 
+// Get saved language or default to German
+const savedLanguage = localStorage.getItem('language') || 'de';
+
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: localStorage.getItem('language') || 'de', // Default to German
+    lng: savedLanguage,
     fallbackLng: 'en',
+    debug: false, // Set to true to see i18n logs
     
     interpolation: {
       escapeValue: false // React already escapes values
     },
     
-    detection: {
-      order: ['localStorage', 'navigator'],
-      caches: ['localStorage']
+    react: {
+      useSuspense: false
     }
+  })
+  .then(() => {
+    console.log('✅ i18n initialized with language:', i18n.language);
+  })
+  .catch((err) => {
+    console.error('❌ i18n initialization error:', err);
   });
 
 export default i18n;

@@ -1,36 +1,59 @@
 // frontend/src/pages/Admin/Settings.tsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAdminGuard } from '../../hooks/useAdmin';
 import AdminLayout from '../../layouts/AdminLayout';
 import { Toast, Spinner } from '../../components/ui';
 import { useToast } from '../../hooks/useToast';
+import { api } from '../../services/api';
 
 function AdminSettings() {
     useAdminGuard();
     const { toasts, success, error: showError, hideToast } = useToast();
 
     const [loading, setLoading] = useState(false);
+    const [fetchingSettings, setFetchingSettings] = useState(true);
     const [siteName, setSiteName] = useState('CareerWave');
     const [adminEmail, setAdminEmail] = useState('admin@example.com');
     const [maintenanceMode, setMaintenanceMode] = useState(false);
+
+    // Fetch current settings on mount
+    useEffect(() => {
+        const fetchSettings = async () => {
+            try {
+                setFetchingSettings(true);
+                const response = await api.get('/settings');
+                if (response.success && response.settings) {
+                    setSiteName(response.settings.siteName || 'CareerWave');
+                    setAdminEmail(response.settings.adminEmail || 'admin@example.com');
+                    setMaintenanceMode(response.settings.maintenanceMode || false);
+                }
+            } catch (err) {
+                const message = err instanceof Error ? err.message : 'Failed to fetch settings';
+                showError(message);
+            } finally {
+                setFetchingSettings(false);
+            }
+        };
+        fetchSettings();
+    }, [showError]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
         try {
             setLoading(true);
-            // TODO: Implement actual backend endpoint for settings
-            // const response = await api.put('/admin/settings', {
-            //     siteName,
-            //     adminEmail,
-            //     maintenanceMode
-            // });
+            const response = await api.put('/settings', {
+                siteName,
+                adminEmail,
+                maintenanceMode
+            });
             
-            // Simulate API call for now
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            success('Settings saved successfully!');
+            if (response.success) {
+                success('Settings saved successfully!');
+            } else {
+                showError(response.error || 'Failed to save settings');
+            }
         } catch (err) {
             const message = err instanceof Error ? err.message : 'Failed to save settings';
             showError(message);
@@ -46,8 +69,11 @@ function AdminSettings() {
             {toasts.map(toast => (
                 <Toast key={toast.id} {...toast} onClose={() => hideToast(toast.id)} />
             ))}
-
-            <form onSubmit={handleSubmit} className="space-y-6 max-w-lg">
+            
+            {fetchingSettings ? (
+                <Spinner fullScreen={false} size="lg" label="Loading settings..." />
+            ) : (
+                <form onSubmit={handleSubmit} className="space-y-6 max-w-lg">
                 <div>
                     <label className="block font-medium mb-1">Site Name</label>
                     <input
@@ -89,7 +115,8 @@ function AdminSettings() {
                     {loading && <Spinner size="sm" color="white" />}
                     Save Settings
                 </button>
-            </form>
+                </form>
+            )}
         </AdminLayout>
     );
 }

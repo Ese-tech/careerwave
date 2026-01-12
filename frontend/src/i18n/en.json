@@ -24,6 +24,7 @@
     "noAccount": "Don't have an account?",
     "haveAccount": "Already have an account?",
     "registerNow": "Register now",
+    "notLoggedIn": "Not logged in. Please sign in.",
     "login": {
       "title": "Sign In",
       "subtitle": "Sign in to your account",
@@ -153,6 +154,7 @@
     "confirm": "Confirm",
     "yes": "Yes",
     "no": "No",
+    "or": "or",
     "candidate": "Candidate",
     "employer": "Employer"
   }

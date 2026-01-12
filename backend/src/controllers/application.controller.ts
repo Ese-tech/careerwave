@@ -2,9 +2,28 @@
 import { db } from '../config/firebase';
 import { emailService } from '../services/email.service';
 import type { CreateApplicationPayload, Application } from '../types/application';
+import type { AuthenticatedUser } from '@/middleware/auth.middleware';
+
+interface ApplicationBody {
+  jobId: string;
+  name: string;
+  email: string;
+  nachricht: string;
+  telefon?: string;
+  resumeUrl?: string;
+}
+
+interface UpdateApplicationBody {
+  name?: string;
+  email?: string;
+  telefon?: string;
+  nachricht?: string;
+  resumeUrl?: string;
+  status?: 'applied' | 'reviewing' | 'accepted' | 'rejected';
+}
 
 // Create new application (public or authenticated)
-export const createApplicationController = async ({ user, body }: any) => {
+export const createApplicationController = async ({ user, body }: { user?: AuthenticatedUser; body: ApplicationBody }) => {
   try {
     console.log('📝 Creating application:', {
       userId: user?.uid,
@@ -12,7 +31,7 @@ export const createApplicationController = async ({ user, body }: any) => {
       email: body.email
     });
 
-    const newApp: any = {
+    const newApp = {
       jobId: body.jobId,
       candidateId: user?.uid || null, // Optional: user ID if logged in
       name: body.name,
@@ -63,17 +82,17 @@ export const createApplicationController = async ({ user, body }: any) => {
       success: true,
       application: { id: docRef.id, ...newApp }
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Application creation error:', error);
     return {
       success: false,
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     };
   }
 };
 
 // Get applications by job ID
-export const getApplicationsByJobController = async ({ params }: any) => {
+export const getApplicationsByJobController = async ({ params }: { params: { jobId: string } }) => {
   try {
     const snapshot = await db.collection('applications').where('jobId', '==', params.jobId).get();
     const applications: Application[] = [];
@@ -94,13 +113,13 @@ export const getApplicationsByJobController = async ({ params }: any) => {
       });
     });
     return { success: true, applications };
-  } catch (error: any) {
-    return { success: false, error: error.message };
+  } catch (error) {
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 };
 
 // Get all applications for logged-in candidate
-export const getCandidateApplicationsController = async ({ user }: any) => {
+export const getCandidateApplicationsController = async ({ user }: { user: AuthenticatedUser }) => {
   try {
     if (!user) {
       return { success: false, error: 'Authentication required' };
@@ -114,7 +133,7 @@ export const getCandidateApplicationsController = async ({ user }: any) => {
     
     console.log('📋 Found applications:', snapshot.size);
     
-    const applications: any[] = [];
+    const applications: Application[] = [];
     
     for (const doc of snapshot.docs) {
       const data = doc.data();
@@ -152,20 +171,19 @@ export const getCandidateApplicationsController = async ({ user }: any) => {
         resumeUrl: data.resumeUrl,
         status: data.status || 'applied',
         createdAt: data.createdAt?.toDate ? data.createdAt.toDate() : new Date(),
-        updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate() : new Date(),
-        job: jobData
+        updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate() : new Date()
       });
     }
     
     return { success: true, applications };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Get candidate applications error:', error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 };
 
 // Update application (for candidates to update their own applications)
-export const updateApplicationController = async ({ user, params, body }: any) => {
+export const updateApplicationController = async ({ user, params, body }: { user: AuthenticatedUser; params: { id: string }; body: UpdateApplicationBody }) => {
   try {
     const appDoc = await db.collection('applications').doc(params.id).get();
     
@@ -185,7 +203,7 @@ export const updateApplicationController = async ({ user, params, body }: any) =
     }
     
     // Candidates can only update certain fields
-    let updateData: any = { updatedAt: new Date() };
+    let updateData: Partial<UpdateApplicationBody> & { updatedAt: Date } = { updatedAt: new Date() };
     
     if (isCandidate) {
       // Candidates can update their info but not status
@@ -207,14 +225,14 @@ export const updateApplicationController = async ({ user, params, body }: any) =
       success: true, 
       application: { id: params.id, ...updatedDoc.data() } 
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Update application error:', error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 };
 
 // Delete application
-export const deleteApplicationController = async ({ user, params }: any) => {
+export const deleteApplicationController = async ({ user, params }: { user: AuthenticatedUser; params: { id: string } }) => {
   try {
     const appDoc = await db.collection('applications').doc(params.id).get();
     
@@ -236,21 +254,21 @@ export const deleteApplicationController = async ({ user, params }: any) => {
     await db.collection('applications').doc(params.id).delete();
     
     return { success: true, message: 'Application deleted' };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Delete application error:', error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 };
 
 // Get all applications (Admin only)
-export const getAllApplicationsController = async ({ user }: any) => {
+export const getAllApplicationsController = async ({ user }: { user: AuthenticatedUser }) => {
   try {
     if (user.role !== 'admin') {
       return { success: false, error: 'Unauthorized' };
     }
     
     const snapshot = await db.collection('applications').get();
-    const applications: any[] = [];
+    const applications: Application[] = [];
     
     for (const doc of snapshot.docs) {
       const data = doc.data();
@@ -270,16 +288,22 @@ export const getAllApplicationsController = async ({ user }: any) => {
       
       applications.push({
         id: doc.id,
-        ...data,
+        jobId: data.jobId,
+        candidateId: data.candidateId || null,
+        name: data.name,
+        email: data.email,
+        nachricht: data.nachricht,
+        telefon: data.telefon,
+        resumeUrl: data.resumeUrl,
+        status: data.status || 'applied',
         createdAt: data.createdAt?.toDate ? data.createdAt.toDate() : new Date(),
-        updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate() : new Date(),
-        job: jobData
+        updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate() : new Date()
       });
     }
     
     return { success: true, applications };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Get all applications error:', error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 };

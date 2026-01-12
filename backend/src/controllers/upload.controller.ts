@@ -1,6 +1,20 @@
 // backend/src/controllers/upload.controller.ts
 import { db } from '../config/firebase';
 import { cloudinaryService } from '../services/cloudinary.service';
+import type { AuthenticatedUser } from '@/middleware/auth.middleware';
+
+interface FileUpload {
+  file: {
+    type: string;
+    size: number;
+    name: string;
+    arrayBuffer: () => Promise<ArrayBuffer>;
+  };
+}
+
+interface CompanyLogoUpload extends FileUpload {
+  companyId?: string;
+}
 
 // Validate file type
 const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
@@ -8,7 +22,7 @@ const ALLOWED_CV_TYPES = ['application/pdf'];
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 // Upload CV Controller
-export const uploadCVController = async ({ user, body }: any) => {
+export const uploadCVController = async ({ user, body }: { user: AuthenticatedUser; body: FileUpload }) => {
   try {
     const file = body?.file;
     
@@ -51,14 +65,14 @@ export const uploadCVController = async ({ user, body }: any) => {
     });
 
     return { success: true, resumeUrl: url, publicId };
-  } catch (error: any) {
+  } catch (error) {
     console.error('CV upload error:', error);
-    return { success: false, error: error.message || 'Upload failed' };
+    return { success: false, error: error instanceof Error ? error.message : 'Upload failed' };
   }
 };
 
 // Upload Avatar Controller
-export const uploadAvatarController = async ({ user, body }: any) => {
+export const uploadAvatarController = async ({ user, body }: { user: AuthenticatedUser; body: FileUpload }) => {
   try {
     const file = body?.file;
     
@@ -125,14 +139,14 @@ export const uploadAvatarController = async ({ user, body }: any) => {
     const response = { success: true, url, avatarUrl: url, publicId };
     console.log('📤 Sending response:', response);
     return response;
-  } catch (error: any) {
+  } catch (error) {
     console.error('❌ Avatar upload error:', error);
-    return { success: false, error: error.message || 'Upload failed' };
+    return { success: false, error: error instanceof Error ? error.message : 'Upload failed' };
   }
 };
 
 // Upload Company Logo Controller
-export const uploadCompanyLogoController = async ({ user, body }: any) => {
+export const uploadCompanyLogoController = async ({ user, body }: { user: AuthenticatedUser; body: CompanyLogoUpload }) => {
   try {
     const file = body?.file;
     
@@ -171,14 +185,14 @@ export const uploadCompanyLogoController = async ({ user, body }: any) => {
     });
 
     return { success: true, logoUrl: url, publicId };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Logo upload error:', error);
-    return { success: false, error: error.message || 'Upload failed' };
+    return { success: false, error: error instanceof Error ? error.message : 'Upload failed' };
   }
 };
 
 // Upload Job Image Controller
-export const uploadJobImageController = async ({ user, body }: any) => {
+export const uploadJobImageController = async ({ user, body }: { user: AuthenticatedUser; body: FileUpload }) => {
   try {
     const file = body?.file;
     
@@ -219,8 +233,8 @@ export const uploadJobImageController = async ({ user, body }: any) => {
     });
 
     return { success: true, imageUrl: url, publicId };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Job image upload error:', error);
-    return { success: false, error: error.message || 'Upload failed' };
+    return { success: false, error: error instanceof Error ? error.message : 'Upload failed' };
   }
 };

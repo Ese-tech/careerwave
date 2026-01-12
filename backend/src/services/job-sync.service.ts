@@ -14,6 +14,22 @@ interface SyncStats {
   };
 }
 
+interface JobData {
+  source: string;
+  id: string;
+  title: string;
+  company?: string | { display_name?: string };
+  location?: string | { display_name?: string };
+  description?: string;
+  created?: string;
+  salary_min?: number | null;
+  salary_max?: number | null;
+  contract_type?: string;
+  url?: string;
+  originalData?: unknown;
+  [key: string]: unknown;
+}
+
 export class JobSyncService {
   private readonly MAX_JOBS = 200;
   private readonly COLLECTION_NAME = 'jobs';
@@ -38,7 +54,7 @@ export class JobSyncService {
     };
 
     try {
-      const allJobs: any[] = [];
+      const allJobs: JobData[] = [];
 
       // 1. Fetch jobs from Adzuna API
       try {
@@ -52,7 +68,7 @@ export class JobSyncService {
 
         if (adzunaResults.results && adzunaResults.results.length > 0) {
           // Transform Adzuna jobs to common format
-          const adzunaJobs = adzunaResults.results.map((job: any) => ({
+          const adzunaJobs: JobData[] = adzunaResults.results.map((job: { id: string; title: string; company?: { display_name?: string }; location?: { display_name?: string }; description?: string; created?: string; salary_min?: number; salary_max?: number; contract_type?: string; redirect_url?: string }) => ({
             ...job,
             source: 'adzuna',
             id: `adzuna_${job.id}`,
@@ -96,7 +112,7 @@ export class JobSyncService {
 
         if (baResponse.data?.stellenangebote && baResponse.data.stellenangebote.length > 0) {
           // Transform Arbeitsagentur jobs to common format
-          const baJobs = baResponse.data.stellenangebote.map((job: any) => ({
+          const baJobs: JobData[] = baResponse.data.stellenangebote.map((job: { hashId?: string; refnr?: string; titel?: string; arbeitgeber?: string; arbeitsorte?: Array<{ ort?: string; plz?: string }>; stellenbeschreibung?: string; modifikationsTimestamp?: string; aktuelleVeroeffentlichungsdatum?: string; befristung?: string }) => ({
             source: 'arbeitsagentur',
             id: `ba_${job.hashId || job.refnr}`,
             // Normalize fields
@@ -117,8 +133,8 @@ export class JobSyncService {
           stats.sources.arbeitsagentur = baJobs.length;
           console.log(`✅ Fetched ${baJobs.length} jobs from Arbeitsagentur`);
         }
-      } catch (error: any) {
-        console.error('❌ Error fetching from Arbeitsagentur:', error.message);
+      } catch (error) {
+        console.error('❌ Error fetching from Arbeitsagentur:', error instanceof Error ? error.message : 'Unknown error');
         stats.errors++;
       }
 
@@ -176,8 +192,8 @@ export class JobSyncService {
    * Clean job data by removing reserved Firestore fields and undefined/null values
    * Firestore reserves fields starting with __ and doesn't accept undefined
    */
-  private cleanJobData(job: any): any {
-    const cleanJob = { ...job };
+  private cleanJobData(job: JobData): Record<string, unknown> {
+    const cleanJob: Record<string, unknown> = { ...job };
     
     // Remove __CLASS__ and other reserved fields
     delete cleanJob.__CLASS__;
@@ -196,8 +212,8 @@ export class JobSyncService {
     
     // Clean nested objects
     if (cleanJob.company && typeof cleanJob.company === 'object') {
-      const cleanCompany = { ...cleanJob.company };
-      delete cleanCompany.__CLASS__;
+      const cleanCompany: Record<string, unknown> = { ...cleanJob.company as Record<string, unknown> };
+      delete (cleanCompany as Record<string, unknown>).__CLASS__;
       Object.keys(cleanCompany).forEach(key => {
         if (cleanCompany[key] === undefined) delete cleanCompany[key];
       });
@@ -205,8 +221,8 @@ export class JobSyncService {
     }
     
     if (cleanJob.location && typeof cleanJob.location === 'object') {
-      const cleanLocation = { ...cleanJob.location };
-      delete cleanLocation.__CLASS__;
+      const cleanLocation: Record<string, unknown> = { ...cleanJob.location as Record<string, unknown> };
+      delete (cleanLocation as Record<string, unknown>).__CLASS__;
       Object.keys(cleanLocation).forEach(key => {
         if (cleanLocation[key] === undefined) delete cleanLocation[key];
       });
@@ -214,8 +230,8 @@ export class JobSyncService {
     }
     
     if (cleanJob.category && typeof cleanJob.category === 'object') {
-      const cleanCategory = { ...cleanJob.category };
-      delete cleanCategory.__CLASS__;
+      const cleanCategory: Record<string, unknown> = { ...cleanJob.category as Record<string, unknown> };
+      delete (cleanCategory as Record<string, unknown>).__CLASS__;
       Object.keys(cleanCategory).forEach(key => {
         if (cleanCategory[key] === undefined) delete cleanCategory[key];
       });

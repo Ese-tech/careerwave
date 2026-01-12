@@ -41,8 +41,8 @@ const EmployerJobs: React.FC = () => {
       } else {
         setError(response.error || 'Fehler beim Laden der Jobs');
       }
-    } catch (err: any) {
-      setError(err.message || 'Fehler beim Laden der Jobs');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Fehler beim Laden der Jobs');
     } finally {
       setLoading(false);
     }

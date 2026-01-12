@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card } from '../components/ui/Card';
 
 
@@ -13,6 +14,7 @@ interface CareerTip {
 }
 
 const CareerTips: React.FC = () => {
+  const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [expandedTip, setExpandedTip] = useState<number | null>(null);
 

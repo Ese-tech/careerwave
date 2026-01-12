@@ -40,8 +40,8 @@ const JobSearchPage: React.FC = () => {
         limit: 100 // Fetch more jobs for pagination
       });
       setAllJobs(fetchedJobs || []);
-    } catch (err: any) {
-      setError(err.message || 'Fehler beim Laden der Jobs');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Fehler beim Laden der Jobs');
     } finally {
       setLoading(false);
     }
@@ -81,7 +81,7 @@ const JobSearchPage: React.FC = () => {
             {t('jobs.searchJobs')}
           </h1>
           <p className="text-xl text-gray-600">
-            Finde deinen Traumjob aus tausenden aktuellen Stellenangeboten
+            {t('jobs.findDreamJob')}
           </p>
         </div>
 

@@ -15,6 +15,7 @@ import arbeitsagenturLogoRoutes from './arbeitsagentur.logo.routes';
 import arbeitsagenturSkillsRoutes from './arbeitsagentur.skills.routes';
 import { syncRoutes } from './sync.routes';
 import applicationRoutes from './application.routes';
+import { settingsRoutes } from './settings.routes';
 
 export default new Elysia()
   .use(authController)
@@ -22,6 +23,7 @@ export default new Elysia()
   .use(jobRoutes)
   .use(employerRoutes)
   .use(adminRoutes)
+  .use(settingsRoutes)
   .use(favoriteRoutes)
   .use(jobAlertRoutes)
   .use(uploadRoutes)

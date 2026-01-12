@@ -24,6 +24,7 @@
     "noAccount": "Noch kein Konto?",
     "haveAccount": "Bereits ein Konto?",
     "registerNow": "Jetzt registrieren",
+    "notLoggedIn": "Nicht angemeldet. Bitte melden Sie sich an.",
     "login": {
       "title": "Anmelden",
       "subtitle": "Melden Sie sich bei Ihrem Konto an",
@@ -153,6 +154,7 @@
     "confirm": "Bestätigen",
     "yes": "Ja",
     "no": "Nein",
+    "or": "oder",
     "candidate": "Bewerber",
     "employer": "Arbeitgeber"
   }

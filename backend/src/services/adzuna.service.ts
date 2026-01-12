@@ -22,7 +22,7 @@ export interface AdzunaJob {
 }
 
 export class AdzunaService {
-  async fetchJobs(page = 1, results = 50, params: Record<string, any> = {}) {
+  async fetchJobs(page = 1, results = 50, params: Record<string, string> = {}) {
     const url = `${ADZUNA_BASE_URL}/search/${page}`;
     const searchParams = new URLSearchParams({
       app_id: ADZUNA_APP_ID!,
@@ -47,7 +47,7 @@ export class AdzunaService {
     where?: string;
     results_per_page?: number;
     page?: number;
-    [key: string]: any;
+    [key: string]: string | number | undefined;
   }) {
     const url = `${ADZUNA_BASE_URL}/search/${params.page || 1}`;
     const searchParams = new URLSearchParams({
@@ -65,8 +65,8 @@ export class AdzunaService {
         }
       });
       return data;
-    } catch (error: any) {
-      console.error('❌ Adzuna API error:', error.message);
+    } catch (error) {
+      console.error('❌ Adzuna API error:', error instanceof Error ? error.message : 'Unknown error');
       throw error;
     }
   }
@@ -75,22 +75,22 @@ export class AdzunaService {
     const batch = db.batch();
     jobs.forEach(job => {
       // Remove reserved Firestore fields like __CLASS__
-      const cleanJob = { ...job };
-      delete (cleanJob as any).__CLASS__;
+      const cleanJob: Partial<AdzunaJob> & Record<string, unknown> = { ...job };
+      delete (cleanJob as Record<string, unknown>).__CLASS__;
       if (cleanJob.company) {
-        const cleanCompany = { ...(cleanJob.company as any) };
+        const cleanCompany: Record<string, unknown> = { ...cleanJob.company };
         delete cleanCompany.__CLASS__;
-        cleanJob.company = cleanCompany as any;
+        cleanJob.company = cleanCompany as { display_name: string };
       }
       if (cleanJob.location) {
-        const cleanLocation = { ...(cleanJob.location as any) };
+        const cleanLocation: Record<string, unknown> = { ...cleanJob.location };
         delete cleanLocation.__CLASS__;
-        cleanJob.location = cleanLocation as any;
+        cleanJob.location = cleanLocation as { display_name: string };
       }
       if (cleanJob.category) {
-        const cleanCategory = { ...(cleanJob.category as any) };
+        const cleanCategory: Record<string, unknown> = { ...cleanJob.category };
         delete cleanCategory.__CLASS__;
-        cleanJob.category = cleanCategory as any;
+        cleanJob.category = cleanCategory as { label: string };
       }
       
       const ref = db.collection('adzuna_jobs').doc(job.id);
@@ -99,7 +99,7 @@ export class AdzunaService {
     await batch.commit();
   }
 
-  async getJobsFromDB(page = 1, pageSize = 10, query: any = {}) {
+  async getJobsFromDB(page = 1, pageSize = 10, _query: Record<string, unknown> = {}) {
     let ref = db.collection('adzuna_jobs');
     // Add query filters if needed
     const snapshot = await ref.orderBy('created', 'desc')

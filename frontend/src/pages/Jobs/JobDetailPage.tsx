@@ -113,8 +113,8 @@ const JobDetailPage: React.FC = () => {
         setUploadError(result.error || 'Upload fehlgeschlagen');
         return null;
       }
-    } catch (err: any) {
-      setUploadError(err.message || 'Upload fehlgeschlagen');
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : 'Upload fehlgeschlagen');
       return null;
     }
   };
@@ -136,8 +136,8 @@ const JobDetailPage: React.FC = () => {
             setJob(jobDetails);
             sessionStorage.setItem('lastJob', JSON.stringify(jobDetails));
           }
-        } catch (err: any) {
-          setError(err.message || t('jobDetail.error.load', 'Fehler beim Laden der Job-Details'));
+        } catch (err) {
+          setError(err instanceof Error ? err.message : t('jobDetail.error.load', 'Fehler beim Laden der Job-Details'));
         } finally {
           setLoading(false);
         }

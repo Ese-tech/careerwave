@@ -1,7 +1,20 @@
+// backend/src/controllers/admin.controller.ts
+
+import { db, auth } from "@/config/firebase";
+import { AdminUser } from "../types/admin";
+import { UserRole } from "@/models/user.model";
+
+interface ElysiaContext {
+  params: Record<string, string>;
+  set: {
+    status?: number;
+  };
+}
+
 /**
  * Löscht einen Benutzer (User) aus Firestore und Auth
  */
-export const deleteUserController = async ({ params, set }: any) => {
+export const deleteUserController = async ({ params, set }: ElysiaContext) => {
     try {
         const { id } = params;
         // Lösche aus Auth
@@ -9,49 +22,44 @@ export const deleteUserController = async ({ params, set }: any) => {
         // Lösche aus Firestore
         await db.collection('users').doc(id).delete();
         return { success: true, message: `User ${id} deleted.` };
-    } catch (err: any) {
+    } catch (err) {
         set.status = 500;
-        return { success: false, error: err.message };
+        return { success: false, error: err instanceof Error ? err.message : 'Unknown error' };
     }
 };
 
 /**
  * Löscht einen Job aus Firestore
  */
-export const deleteJobController = async ({ params, set }: any) => {
+export const deleteJobController = async ({ params, set }: ElysiaContext) => {
     try {
         const { id } = params;
         await db.collection('jobs').doc(id).delete();
         return { success: true, message: `Job ${id} deleted.` };
-    } catch (err: any) {
+    } catch (err) {
         set.status = 500;
-        return { success: false, error: err.message };
+        return { success: false, error: err instanceof Error ? err.message : 'Unknown error' };
     }
 };
 
 /**
  * Löscht eine Bewerbung aus Firestore
  */
-export const deleteApplicationController = async ({ params, set }: any) => {
+export const deleteApplicationController = async ({ params, set }: ElysiaContext) => {
     try {
         const { id } = params;
         await db.collection('applications').doc(id).delete();
         return { success: true, message: `Application ${id} deleted.` };
-    } catch (err: any) {
+    } catch (err) {
         set.status = 500;
-        return { success: false, error: err.message };
+        return { success: false, error: err instanceof Error ? err.message : 'Unknown error' };
     }
 };
-// backend/src/controllers/admin.controller.ts
-
-import { db, auth } from "@/config/firebase";
-import { AdminUser } from "../types/admin";
-import { UserRole } from "@/models/user.model";
 
 /**
  * Holt alle Benutzer (mit Paginierung und Filterung)
  */
-export const getUsersController = async ({ set }: any) => {
+export const getUsersController = async ({ set }: Pick<ElysiaContext, 'set'>) => {
     try {
         // Verwende Firebase Admin SDK zum Abrufen der Auth-Benutzer
         const listUsersResult = await auth.listUsers(1000); // Max 1000 für Demo
@@ -70,7 +78,7 @@ export const getUsersController = async ({ set }: any) => {
         // um die 'role' und andere Profilfelder zu erhalten.
 
         return users;
-    } catch (err: any) {
+    } catch (err) {
         console.error("Admin: Failed to fetch users:", err);
         set.status = 500;
         return { error: 'Failed to fetch users' };
@@ -80,7 +88,7 @@ export const getUsersController = async ({ set }: any) => {
 /**
  * Holt alle Arbeitgeber
  */
-export const getEmployersController = async ({ set }: any) => {
+export const getEmployersController = async ({ set }: Pick<ElysiaContext, 'set'>) => {
     try {
         // Beispiel: Holt alle Dokumente aus der 'employers' Collection
         const snapshot = await db.collection('employers').get();
@@ -89,7 +97,7 @@ export const getEmployersController = async ({ set }: any) => {
             ...doc.data(),
         }));
         return employers;
-    } catch (err: any) {
+    } catch (err) {
         console.error("Admin: Failed to fetch employers:", err);
         set.status = 500;
         return { error: 'Failed to fetch employers' };
@@ -99,7 +107,7 @@ export const getEmployersController = async ({ set }: any) => {
 /**
  * Verifiziert einen Arbeitgeber.
  */
-export const verifyEmployerController = async ({ params, set }: any) => {
+export const verifyEmployerController = async ({ params, set }: ElysiaContext) => {
     const { id } = params;
     try {
         await db.collection('employers').doc(id).update({
@@ -107,7 +115,7 @@ export const verifyEmployerController = async ({ params, set }: any) => {
             verifiedAt: new Date(),
         });
         return { message: `Employer ${id} verified.` };
-    } catch (err: any) {
+    } catch (err) {
         console.error("Admin: Failed to verify employer:", err);
         set.status = 500;
         return { error: 'Failed to verify employer' };
@@ -117,7 +125,7 @@ export const verifyEmployerController = async ({ params, set }: any) => {
 /**
  * Holt alle Job-Anzeigen
  */
-export const getJobsAdminController = async ({ set }: any) => {
+export const getJobsAdminController = async ({ set }: Pick<ElysiaContext, 'set'>) => {
     try {
         // Beispiel: Holt alle Dokumente aus der 'jobs' Collection
         const snapshot = await db.collection('jobs').get();
@@ -128,7 +136,7 @@ export const getJobsAdminController = async ({ set }: any) => {
             postedAt: getFormattedDate(doc.data().createdAt?.toDate() || new Date()),
         }));
         return jobs;
-    } catch (err: any) {
+    } catch (err) {
         console.error("Admin: Failed to fetch jobs:", err);
         set.status = 500;
         return { error: 'Failed to fetch jobs' };
@@ -138,7 +146,7 @@ export const getJobsAdminController = async ({ set }: any) => {
 /**
  * Holt alle Bewerbungen
  */
-export const getApplicationsController = async ({ set }: any) => {
+export const getApplicationsController = async ({ set }: Pick<ElysiaContext, 'set'>) => {
     try {
         // Beispiel: Holt alle Dokumente aus der 'applications' Collection
         const snapshot = await db.collection('applications').get();
@@ -148,7 +156,7 @@ export const getApplicationsController = async ({ set }: any) => {
             submittedAt: getFormattedDate(doc.data().createdAt?.toDate() || new Date()),
         }));
         return applications;
-    } catch (err: any) {
+    } catch (err) {
         console.error("Admin: Failed to fetch applications:", err);
         set.status = 500;
         return { error: 'Failed to fetch applications' };

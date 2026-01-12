@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { api } from '../services/api';
 import { useAuthStore } from '../store/authStore';
 import { Button } from '../components/ui/Button';
@@ -26,6 +27,7 @@ interface UserProfile {
 }
 
 const Profile: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,7 +54,7 @@ const Profile: React.FC = () => {
       setError(null);
       try {
         if (!token) {
-          setError('Nicht angemeldet. Bitte melden Sie sich an.');
+          setError(t('common.error') + ': ' + t('auth.notLoggedIn'));
           setLoading(false);
           return;
         }
@@ -92,7 +94,7 @@ const Profile: React.FC = () => {
             setError(res.error || 'Fehler beim Laden des Profils');
           }
         }
-      } catch (e: any) {
+      } catch (e) {
         // FALLBACK: Use user data on error
         if (user) {
           setProfile({
@@ -103,7 +105,7 @@ const Profile: React.FC = () => {
             profile: {}
           });
         } else {
-          setError(e.message || 'Fehler beim Laden des Profils');
+          setError(e instanceof Error ? e.message : 'Fehler beim Laden des Profils');
         }
       } finally {
         setLoading(false);
@@ -257,8 +259,8 @@ const Profile: React.FC = () => {
         setError(result.error || 'Upload fehlgeschlagen');
         setTimeout(() => setError(null), 5000);
       }
-    } catch (err: any) {
-      setError(err.message || 'Upload fehlgeschlagen');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Upload fehlgeschlagen');
       setTimeout(() => setError(null), 5000);
     } finally {
       setUploading(false);

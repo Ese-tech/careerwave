@@ -26,7 +26,7 @@ const CandidateDashboard: React.FC = () => {
         const applications = response.applications;
         setStats({
           applications: applications.length,
-          interviews: applications.filter((app: any) => app.status === 'interview').length,
+          interviews: applications.filter((app: { status: string }) => app.status === 'interview').length,
           saved: 0 // TODO: Implement favorites
         });
       }
