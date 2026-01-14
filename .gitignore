@@ -5,9 +5,6 @@ backend/src/config/.env
 careerwave-*.log
 backend/logs/
 
-# Admin Config - enthält sensible E-Mail-Adressen
-frontend/src/config/adminConfig.ts
-
 .DS_Store
 .vscode/
 .idea/
