@@ -4,15 +4,15 @@
   "private": true,
   "description": "CareerWave - Job Portal with Frontend and Backend",
   "scripts": {
-    "install:all": "cd frontend && bun install && cd ../backend && bun install",
-    "dev": "concurrently \"cd frontend && bun dev\" \"cd backend && bun dev\"",
-    "dev:frontend": "cd frontend && bun dev",
-    "dev:backend": "cd backend && bun dev",
-    "build": "cd frontend && bun run build && cd ../backend && bun run build",
-    "build:frontend": "cd frontend && bun run build",
-    "build:backend": "cd backend && bun run build",
-    "start": "cd backend && bun start",
-    "vercel-build": "echo 'Building frontend and backend...' && cd frontend && bun install && bun run build && cd ../backend && bun install && bun run build"
+    "install:all": "cd frontend && npm install && cd ../backend && npm install",
+    "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "cd frontend && npm run build && cd ../backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "start": "cd backend && npm start",
+    "vercel-build": "echo 'Building frontend and backend...' && cd frontend && npm install && npm run build && cd ../backend && npm install && npm run build"
   },
   "dependencies": {
     "axios": "^1.13.2"
