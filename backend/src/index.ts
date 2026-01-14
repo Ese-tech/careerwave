@@ -25,6 +25,7 @@ const app = new Elysia()
       'http://localhost:3000',
       'http://localhost:5173',
       'http://localhost:5174',
+      'https://careerwavefrontend.vercel.app',
       'https://careerwave-frontend.vercel.app'
     ],
     credentials: true
@@ -114,10 +115,11 @@ const app = new Elysia()
       message: 'Interner Server-Fehler'
     };
   })
-  .listen(3001);
+  .listen(process.env.PORT || 3001);
 
-console.log('🚀 CareerWave API läuft auf http://localhost:3001');
-console.log('📖 API-Dokumentation: http://localhost:3001/swagger');
+const port = process.env.PORT || 3001;
+console.log(`🚀 CareerWave API läuft auf http://localhost:${port}`);
+console.log(`📖 API-Dokumentation: http://localhost:${port}/swagger`);
 console.log('🔧 Environment:', process.env.NODE_ENV || 'development');
 
 // Start the job synchronization scheduler
