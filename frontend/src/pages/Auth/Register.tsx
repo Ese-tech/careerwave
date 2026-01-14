@@ -1,6 +1,6 @@
 // frontend/src/pages/Auth/Register.tsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../../api/auth';
 import { useUserStore } from '../../store/userStore';
@@ -12,7 +12,15 @@ const Register: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
     const navigate = useNavigate();
+    const user = useUserStore(state => state.user);
     const isLoading = useUserStore(state => state.isLoading);
+
+    // Redirect if already logged in
+    useEffect(() => {
+        if (user) {
+            navigate('/dashboard');
+        }
+    }, [user, navigate]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -80,10 +88,10 @@ const Register: React.FC = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full admin-button py-2 text-lg font-semibold"
                         disabled={isLoading}
+                        className="w-full px-6 py-4 text-xl font-black text-white bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed rounded-xl shadow-2xl border-4 border-indigo-900 hover:scale-105 transform transition-all duration-300"
                     >
-                        {isLoading ? 'Registering...' : 'Register'}
+                        {isLoading ? 'Registering...' : 'Create Account'}
                     </button>
                 </form>
                 <p className="mt-6 text-center text-sm text-gray-600">

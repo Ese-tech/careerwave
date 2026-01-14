@@ -2,8 +2,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout } from '../../components/layout';
+import { useAuthStore } from '../../store/authStore';
 
 const ForbiddenPage: React.FC = () => { 
+  const { user } = useAuthStore();
 
   return (
     <Layout>
@@ -24,13 +26,17 @@ const ForbiddenPage: React.FC = () => {
               >
                 Go Home
               </Link>
-              <br />
-              <Link 
-                to="/login"
-                className="inline-block text-teal-600 hover:text-teal-800 underline"
-              >
-                Login with different account
-              </Link>
+              {!user && (
+                <>
+                  <br />
+                  <Link 
+                    to="/login"
+                    className="inline-block text-teal-600 hover:text-teal-800 underline"
+                  >
+                    Login with different account
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

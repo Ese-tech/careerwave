@@ -55,7 +55,7 @@ export function Input({
             ? 'border-error-500 focus:ring-error-500' 
             : 'border-gray-300 focus:ring-primary-500 focus:border-primary-500'
           }
-          dark:bg-gray-800 dark:border-gray-600 dark:text-white
+          dark:bg-[#BCD4E6] dark:border-gray-500 dark:text-slate-900 dark:placeholder-slate-600
         `}
         {...props}
       />

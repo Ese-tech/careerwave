@@ -400,14 +400,18 @@ const JobDetailPage: React.FC = () => {
                 <Button 
                   className="w-full bg-linear-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                   onClick={() => {
-                    // Pre-fill user data if logged in
-                    if (user) {
-                      setApplication({
-                        name: `${user.firstName || ''} ${user.lastName || ''}`.trim() || user.name || '',
-                        email: user.email || '',
-                        message: ''
-                      });
+                    // Check if user is logged in
+                    if (!user) {
+                      // Redirect to login if not logged in
+                      navigate('/login', { state: { from: location.pathname } });
+                      return;
                     }
+                    // Pre-fill user data if logged in
+                    setApplication({
+                      name: `${user.firstName || ''} ${user.lastName || ''}`.trim() || user.name || '',
+                      email: user.email || '',
+                      message: ''
+                    });
                     setShowApplyModal(true);
                   }}
                 >
@@ -415,7 +419,7 @@ const JobDetailPage: React.FC = () => {
                   {t('jobDetail.applyNow', 'Jetzt bewerben')}
                 </Button>
                 {/* Application Modal */}
-                {showApplyModal && (
+                {showApplyModal && user && (
                   <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
                     <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative animate-fade-in">
                       <button 

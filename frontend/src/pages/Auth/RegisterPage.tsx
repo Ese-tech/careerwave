@@ -1,5 +1,5 @@
 // frontend/src/pages/Auth/RegisterPage.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
@@ -12,7 +12,14 @@ import { authService } from '../../services/auth';
 export function RegisterPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { setLoading } = useAuthStore();
+  const { setLoading, user } = useAuthStore();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -251,14 +258,38 @@ export function RegisterPage() {
             </div>
 
             {/* Submit Button */}
-            <Button
+            <button
               type="submit"
-              className="w-full"
-              size="lg"
               disabled={isSubmitting}
+              style={{
+                width: '100%',
+                padding: '1.5rem',
+                fontSize: '1.25rem',
+                fontWeight: '900',
+                color: '#FFFFFF',
+                backgroundColor: '#1e3a8a',
+                border: '4px solid #1e3a8a',
+                borderRadius: '0.75rem',
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                transition: 'all 0.3s ease',
+                opacity: isSubmitting ? 0.5 : 1
+              }}
+              onMouseEnter={(e) => {
+                if (!isSubmitting) {
+                  e.currentTarget.style.backgroundColor = '#1e40af';
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isSubmitting) {
+                  e.currentTarget.style.backgroundColor = '#1e3a8a';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }
+              }}
             >
-              {isSubmitting ? t('common.loading') : t('auth.register.button')}
-            </Button>
+              {isSubmitting ? t('auth.register.submitting') : t('auth.register.button')}
+            </button>
 
             {/* Terms */}
             <p className="text-xs text-gray-600 dark:text-gray-400 text-center">

@@ -157,5 +157,671 @@
     "or": "oder",
     "candidate": "Bewerber",
     "employer": "Arbeitgeber"
+  },
+  "about": {
+    "title": "Über CareerWave",
+    "subtitle": "Wir verbinden Talente mit Möglichkeiten. Unsere Mission ist es, den Bewerbungsprozess für alle Beteiligten einfacher, schneller und erfolgreicher zu gestalten.",
+    "stats": {
+      "users": "Aktive Nutzer",
+      "companies": "Partner-Unternehmen",
+      "placements": "Erfolgreiche Vermittlungen",
+      "satisfaction": "Zufriedenheitsrate"
+    },
+    "mission": {
+      "title": "Unsere Mission",
+      "text1": "CareerWave wurde 2020 mit der Vision gegründet, die Art und Weise zu revolutionieren, wie Menschen Jobs finden und Unternehmen Talente einstellen. Wir glauben daran, dass jeder eine erfüllende Karriere verdient und dass Unternehmen die besten Talente verdienen.",
+      "text2": "Durch den Einsatz modernster Technologien wie Künstliche Intelligenz und Machine Learning helfen wir dabei, die perfekten Matches zu finden - schneller und präziser als je zuvor."
+    },
+    "values": {
+      "title": "Unsere Werte",
+      "innovation": {
+        "title": "Innovation",
+        "description": "Wir setzen modernste Technologien ein, um die beste Recruiting-Lösung zu bieten"
+      },
+      "transparency": {
+        "title": "Transparenz",
+        "description": "Offene Kommunikation und faire Preise sind uns wichtig"
+      },
+      "candidatesFirst": {
+        "title": "Kandidaten zuerst",
+        "description": "Die Bedürfnisse der Jobsuchenden stehen im Mittelpunkt"
+      },
+      "efficiency": {
+        "title": "Effizienz",
+        "description": "Schnelle und effektive Prozesse für alle Beteiligten"
+      }
+    },
+    "history": {
+      "title": "Unsere Geschichte"
+    },
+    "team": {
+      "title": "Unser Team",
+      "joinTeam": "Werde Teil unseres Teams →"
+    },
+    "cta": {
+      "title": "Bereit für den nächsten Schritt?",
+      "subtitle": "Egal ob Sie einen Job suchen oder Top-Talente einstellen möchten - CareerWave ist die richtige Wahl.",
+      "register": "Jetzt registrieren",
+      "contact": "Kontakt aufnehmen"
+    }
+  },
+  "footer": {
+    "description": "Die führende Plattform für Jobs und Karrieremöglichkeiten. Wir verbinden Talente mit den besten Unternehmen.",
+    "jobSeekers": {
+      "title": "Für Jobsuchende",
+      "searchJobs": "Jobs suchen",
+      "companies": "Unternehmen entdecken",
+      "careerTips": "Karriere-Tipps",
+      "createProfile": "Profil erstellen"
+    },
+    "employers": {
+      "title": "Für Arbeitgeber",
+      "postJob": "Job ausschreiben",
+      "findCandidates": "Kandidaten finden",
+      "pricing": "Preise",
+      "companyProfile": "Firmenprofil"
+    },
+    "support": {
+      "title": "Support",
+      "helpCenter": "Hilfe-Center",
+      "contact": "Kontakt",
+      "faq": "FAQ",
+      "community": "Community"
+    },
+    "company": {
+      "title": "Über CareerWave",
+      "about": "Über uns",
+      "blog": "Blog",
+      "careers": "Karriere",
+      "press": "Presse"
+    },
+    "newsletter": {
+      "title": "Newsletter abonnieren",
+      "description": "Erhalten Sie die neuesten Jobs und Karriere-Updates direkt in Ihr Postfach.",
+      "placeholder": "Ihre E-Mail-Adresse",
+      "subscribe": "Abonnieren"
+    },
+    "legal": {
+      "privacy": "Datenschutz",
+      "terms": "AGB",
+      "imprint": "Impressum",
+      "cookies": "Cookie-Richtlinie"
+    },
+    "copyright": "Alle Rechte vorbehalten."
+  },
+  "blog": {
+    "hero": {
+      "title": "CareerWave Blog",
+      "subtitle": "Einblicke, Tipps und Trends rund um Karriere, Recruiting und die moderne Arbeitswelt."
+    },
+    "categories": {
+      "all": "Alle",
+      "careerTips": "Karriere-Tipps",
+      "recruiting": "Recruiting",
+      "remoteWork": "Remote Work",
+      "tech": "Tech",
+      "interviewTips": "Interview-Tipps"
+    },
+    "featured": {
+      "badge": "Hervorgehoben",
+      "title": "Die Zukunft des Recruitings: KI und Machine Learning",
+      "excerpt": "Wie Künstliche Intelligenz die Art und Weise transformiert, wie Unternehmen Talente finden und einstellen.",
+      "author": "Dr. Sarah Müller",
+      "date": "10. Januar 2025",
+      "readTime": "8 Min."
+    },
+    "readArticle": "Artikel lesen →",
+    "newsletter": {
+      "title": "Verpassen Sie keine neuen Artikel",
+      "subtitle": "Abonnieren Sie unseren Newsletter und erhalten Sie die neuesten Karriere-Tipps direkt in Ihr Postfach.",
+      "placeholder": "Ihre E-Mail-Adresse",
+      "subscribe": "Abonnieren",
+      "disclaimer": "Kostenlos und jederzeit abbestellbar. Kein Spam, versprochen!"
+    },
+    "popularTopics": "Beliebte Themen"
+  },
+  "careers": {
+    "hero": {
+      "title": "Karriere bei CareerWave",
+      "subtitle": "Werde Teil unseres Teams und hilf uns, die Zukunft des Recruitings zu gestalten. Wir suchen leidenschaftliche Menschen, die etwas bewegen wollen.",
+      "viewPositions": "Offene Stellen ansehen"
+    },
+    "stats": {
+      "teamMembers": "Team-Mitglieder",
+      "nationalities": "Nationalitäten",
+      "satisfaction": "Mitarbeiterzufriedenheit",
+      "offices": "Standorte"
+    },
+    "benefits": {
+      "title": "Was wir bieten",
+      "competitiveSalary": {
+        "title": "Attraktives Gehalt",
+        "description": "Wettbewerbsfähige Vergütung plus Bonus-Möglichkeiten"
+      },
+      "remoteFirst": {
+        "title": "Remote First",
+        "description": "Arbeite von überall oder im Büro - du hast die Wahl"
+      },
+      "flexibleHours": {
+        "title": "Flexible Arbeitszeiten",
+        "description": "Work-Life-Balance ist uns wichtig"
+      },
+      "training": {
+        "title": "Weiterbildung",
+        "description": "Großzügiges Budget für Kurse und Konferenzen"
+      },
+      "vacation": {
+        "title": "30 Tage Urlaub",
+        "description": "Plus zusätzliche Wellness-Tage"
+      },
+      "familyFirst": {
+        "title": "Familie zuerst",
+        "description": "Elternzeit und flexible Teilzeitmodelle"
+      },
+      "health": {
+        "title": "Gesundheit & Wellness",
+        "description": "Fitnessstudio-Mitgliedschaft und Gesundheitsbudget"
+      },
+      "teamEvents": {
+        "title": "Team-Events",
+        "description": "Regelmäßige Team-Events und Offsites"
+      }
+    },
+    "openPositions": {
+      "title": "Offene Stellen",
+      "applyButton": "Jetzt bewerben →",
+      "noPositions": "Aktuell keine offenen Stellen in dieser Kategorie.",
+      "checkBack": "Schauen Sie regelmäßig vorbei oder senden Sie uns eine Initiativbewerbung!"
+    },
+    "hiringProcess": {
+      "title": "Unser Bewerbungsprozess",
+      "step1": {
+        "title": "Bewerbung",
+        "description": "Sende deine Bewerbung über unser Portal"
+      },
+      "step2": {
+        "title": "Erstes Gespräch",
+        "description": "30-minütiges Kennenlernen mit unserem Recruiting-Team"
+      },
+      "step3": {
+        "title": "Fachgespräch",
+        "description": "Technisches/fachliches Gespräch mit dem Team"
+      },
+      "step4": {
+        "title": "Team-Fit",
+        "description": "Lerne dein zukünftiges Team kennen"
+      },
+      "step5": {
+        "title": "Angebot",
+        "description": "Wir machen dir ein Angebot - Willkommen im Team!"
+      }
+    },
+    "culture": {
+      "title": "Unsere Kultur",
+      "subtitle": "Bei CareerWave pflegen wir eine offene, inklusive und kollaborative Arbeitskultur. Wir glauben an:",
+      "transparency": "Transparente Kommunikation auf allen Ebenen",
+      "learning": "Kontinuierliches Lernen und Weiterentwicklung",
+      "balance": "Work-Life-Balance und mentales Wohlbefinden",
+      "diversity": "Vielfalt und Inklusion als Kernwerte",
+      "autonomy": "Eigenverantwortung und Vertrauen"
+    },
+    "cta": {
+      "title": "Deine Traumposition nicht dabei?",
+      "subtitle": "Wir freuen uns über Initiativbewerbungen! Sende uns deine Unterlagen und erzähle uns, wie du CareerWave bereichern kannst.",
+      "button": "Initiativ bewerben"
+    }
+  },
+  "press": {
+    "title": "Presse & Medien",
+    "subtitle": "Aktuelle Pressemitteilungen, Unternehmensinformationen und Medienmaterial von CareerWave.",
+    "releases": {
+      "title": "Neueste Pressemitteilungen"
+    },
+    "mediaKit": {
+      "title": "Medien-Kit"
+    },
+    "awards": {
+      "title": "Auszeichnungen & Anerkennungen"
+    },
+    "contacts": {
+      "title": "Pressekontakte"
+    },
+    "newsletter": {
+      "title": "Presse-Newsletter",
+      "subtitle": "Bleiben Sie auf dem Laufenden über die neuesten Entwicklungen bei CareerWave. Abonnieren Sie unseren Presse-Newsletter.",
+      "placeholder": "Ihre E-Mail-Adresse",
+      "subscribe": "Abonnieren"
+    },
+    "social": {
+      "title": "Folgen Sie uns"
+    }
+  },
+  "privacy": {
+    "title": "Datenschutzerklärung",
+    "lastUpdated": "Letzte Aktualisierung: 12. Januar 2025",
+    "section1": {
+      "title": "1. Allgemeine Hinweise",
+      "intro": "Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie unsere Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.",
+      "responsible": "Verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist die CareerWave GmbH. Kontaktdaten finden Sie im Impressum dieser Website."
+    },
+    "section2": {
+      "title": "2. Datenerfassung auf unserer Website",
+      "cookies": {
+        "title": "Cookies",
+        "description": "Unsere Website verwendet sogenannte 'Cookies'. Cookies sind kleine Textdateien, die keinen Schaden auf Ihrem Endgerät anrichten. Sie werden entweder vorübergehend für die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endgerät gespeichert."
+      },
+      "serverLogs": {
+        "title": "Server-Log-Dateien",
+        "description": "Der Provider der Seiten erhebt und speichert automatisch Informationen in sogenannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt. Dies sind:",
+        "items": {
+          "browserType": "Browsertyp und Browserversion",
+          "os": "Verwendetes Betriebssystem",
+          "referrerUrl": "Referrer URL",
+          "hostname": "Hostname des zugreifenden Rechners",
+          "time": "Uhrzeit der Serveranfrage",
+          "ip": "IP-Adresse"
+        },
+        "legal": "Diese Daten werden nicht mit anderen Datenquellen zusammengeführt. Die Erfassung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO."
+      }
+    },
+    "section3": {
+      "title": "3. Ihre Rechte",
+      "intro": "Sie haben jederzeit das Recht auf:",
+      "rights": {
+        "access": "Auskunft über Ihre bei uns gespeicherten personenbezogenen Daten (Art. 15 DSGVO)",
+        "rectification": "Berichtigung unrichtiger oder unvollständiger Daten (Art. 16 DSGVO)",
+        "erasure": "Löschung Ihrer bei uns gespeicherten Daten (Art. 17 DSGVO)",
+        "restriction": "Einschränkung der Verarbeitung Ihrer Daten (Art. 18 DSGVO)",
+        "objection": "Widerspruch gegen die Verarbeitung Ihrer Daten (Art. 21 DSGVO)",
+        "portability": "Erhalt Ihrer Daten in einem strukturierten Format (Art. 20 DSGVO)",
+        "complaint": "Beschwerde bei einer Aufsichtsbehörde (Art. 77 DSGVO)"
+      }
+    },
+    "section4": {
+      "title": "4. Registrierung und Benutzerkonto",
+      "intro": "Bei der Registrierung auf unserer Plattform erheben wir folgende personenbezogene Daten:",
+      "data": {
+        "name": "Vor- und Nachname",
+        "email": "E-Mail-Adresse",
+        "password": "Passwort (verschlüsselt gespeichert)",
+        "professional": "Berufliche Informationen (freiwillig)",
+        "documents": "Lebenslauf und Bewerbungsunterlagen (für Jobsuchende)"
+      },
+      "legal": "Die Verarbeitung erfolgt auf Grundlage Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) und zur Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO)."
+    },
+    "section5": {
+      "title": "5. Bewerbungsverfahren",
+      "intro": "Wenn Sie sich auf eine Stelle bewerben, verarbeiten wir Ihre Bewerbungsdaten zum Zweck der Durchführung des Bewerbungsverfahrens. Dazu gehören:",
+      "data": {
+        "cv": "Lebenslauf und Anschreiben",
+        "certificates": "Zeugnisse und Qualifikationsnachweise",
+        "contact": "Kontaktdaten",
+        "career": "Beruflicher Werdegang"
+      },
+      "legal": "Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO i.V.m. § 26 BDSG. Ihre Daten werden nach Abschluss des Bewerbungsverfahrens gelöscht, sofern Sie nicht in eine weitere Speicherung eingewilligt haben."
+    },
+    "section6": {
+      "title": "6. Weitergabe von Daten",
+      "intro": "Eine Weitergabe Ihrer personenbezogenen Daten an Dritte erfolgt nur, wenn:",
+      "conditions": {
+        "consent": "Sie ausdrücklich eingewilligt haben (Art. 6 Abs. 1 lit. a DSGVO)",
+        "contract": "Dies zur Vertragserfüllung erforderlich ist (Art. 6 Abs. 1 lit. b DSGVO)",
+        "legal": "Eine gesetzliche Verpflichtung besteht (Art. 6 Abs. 1 lit. c DSGVO)",
+        "claims": "Dies zur Geltendmachung rechtlicher Ansprüche notwendig ist (Art. 6 Abs. 1 lit. f DSGVO)"
+      }
+    },
+    "section7": {
+      "title": "7. Einsatz von Analyse-Tools",
+      "analytics": {
+        "title": "Google Analytics",
+        "description1": "Diese Website nutzt Funktionen des Webanalysedienstes Google Analytics. Anbieter ist die Google Ireland Limited. Google Analytics verwendet Cookies. Die durch das Cookie erzeugten Informationen über Ihre Benutzung dieser Website werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert.",
+        "description2": "Die Speicherung von Google-Analytics-Cookies und die Nutzung dieses Analyse-Tools erfolgen auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Sie können die Speicherung der Cookies durch eine entsprechende Einstellung Ihrer Browser-Software verhindern."
+      }
+    },
+    "section8": {
+      "title": "8. Datensicherheit",
+      "ssl": "Wir verwenden innerhalb des Website-Besuchs das verbreitete SSL-Verfahren (Secure Socket Layer) in Verbindung mit der jeweils höchsten Verschlüsselungsstufe, die von Ihrem Browser unterstützt wird.",
+      "measures": "Darüber hinaus setzen wir geeignete technische und organisatorische Sicherheitsmaßnahmen ein, um Ihre Daten gegen zufällige oder vorsätzliche Manipulationen, teilweisen oder vollständigen Verlust, Zerstörung oder gegen den unbefugten Zugriff Dritter zu schützen."
+    },
+    "section9": {
+      "title": "9. Speicherdauer",
+      "description": "Wir speichern personenbezogene Daten nur so lange, wie dies für die Zwecke, für die sie erhoben wurden, erforderlich ist oder gesetzliche Aufbewahrungsfristen dies vorschreiben. Nach Wegfall des jeweiligen Zweckes bzw. Ablauf dieser Fristen werden die entsprechenden Daten routinemäßig und entsprechend den gesetzlichen Vorschriften gelöscht."
+    },
+    "section10": {
+      "title": "10. Kontakt",
+      "intro": "Bei Fragen zum Datenschutz können Sie sich jederzeit an uns wenden:",
+      "company": "CareerWave GmbH",
+      "officer": "Datenschutzbeauftragter",
+      "street": "Beispielstraße 123",
+      "city": "10115 Berlin",
+      "email": "datenschutz@careerwave.de",
+      "phone": "+49 (0) 30 1234567"
+    }
+  },
+  "terms": {
+    "title": "Allgemeine Geschäftsbedingungen",
+    "lastUpdated": "Letzte Aktualisierung: 12. Januar 2025",
+    "section1": {
+      "title": "1. Geltungsbereich",
+      "intro": "Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Verträge zwischen der CareerWave GmbH (nachfolgend 'CareerWave' oder 'Anbieter') und Nutzern der Plattform www.careerwave.de.",
+      "acceptance": "Mit der Registrierung auf der Plattform akzeptieren Sie diese AGB. Abweichende Geschäftsbedingungen des Nutzers werden nicht anerkannt, es sei denn, CareerWave stimmt ihrer Geltung ausdrücklich schriftlich zu."
+    },
+    "section2": {
+      "title": "2. Leistungsbeschreibung",
+      "intro": "CareerWave betreibt eine Online-Plattform zur Vermittlung von Arbeitskräften und Stellenangeboten. Die Plattform ermöglicht:",
+      "services": {
+        "jobSearch": "Jobsuchenden die Suche nach passenden Stellenangeboten",
+        "postJobs": "Arbeitgebern die Veröffentlichung von Stellenanzeigen",
+        "management": "Verwaltung von Bewerbungen und Kandidatenprofilen",
+        "communication": "Kommunikation zwischen Arbeitgebern und Bewerbern"
+      },
+      "scope": "Der genaue Leistungsumfang richtet sich nach der gewählten Mitgliedschaft bzw. dem gebuchten Paket."
+    },
+    "section3": {
+      "title": "3. Registrierung und Benutzerkonto",
+      "subsection1": {
+        "title": "3.1 Voraussetzungen für die Registrierung",
+        "description": "Die Registrierung ist nur für natürliche Personen zulässig, die das 18. Lebensjahr vollendet haben. Unternehmen können sich als Arbeitgeber registrieren."
+      },
+      "subsection2": {
+        "title": "3.2 Wahrheitsgemäße Angaben",
+        "description": "Der Nutzer verpflichtet sich, bei der Registrierung wahrheitsgemäße, vollständige und aktuelle Angaben zu machen. Falsche Angaben berechtigen CareerWave zur sofortigen Sperrung oder Löschung des Benutzerkontos."
+      },
+      "subsection3": {
+        "title": "3.3 Zugangsdaten",
+        "description": "Der Nutzer ist für die Geheimhaltung seiner Zugangsdaten verantwortlich. Bei Verdacht auf Missbrauch ist CareerWave unverzüglich zu informieren."
+      }
+    },
+    "section4": {
+      "title": "4. Nutzungsbedingungen",
+      "intro": "Bei der Nutzung der Plattform ist Folgendes untersagt:",
+      "prohibited": {
+        "illegal": "Veröffentlichung rechtswidriger, belästigender oder anstößiger Inhalte",
+        "spam": "Versendung von Spam oder unerwünschten Nachrichten",
+        "scraping": "Nutzung automatisierter Systeme zur Datenerhebung (Scraping)",
+        "bypass": "Umgehung technischer Schutzmaßnahmen",
+        "sharing": "Weitergabe von Zugangsdaten an Dritte",
+        "fakeJobs": "Veröffentlichung falscher Stellenanzeigen",
+        "discrimination": "Diskriminierung aufgrund von Geschlecht, Alter, Herkunft etc."
+      }
+    },
+    "section5": {
+      "title": "5. Preise und Zahlung",
+      "subsection1": {
+        "title": "5.1 Kostenlose Nutzung",
+        "description": "Die Grundfunktionen der Plattform für Jobsuchende sind kostenlos. Arbeitgeber können kostenpflichtige Pakete buchen."
+      },
+      "subsection2": {
+        "title": "5.2 Kostenpflichtige Leistungen",
+        "description": "Die aktuellen Preise für kostenpflichtige Leistungen können auf der Website unter /pricing eingesehen werden. Alle Preise verstehen sich zuzüglich der gesetzlichen Mehrwertsteuer."
+      },
+      "subsection3": {
+        "title": "5.3 Zahlungsmodalitäten",
+        "description": "Die Zahlung kann per Kreditkarte, PayPal oder SEPA-Lastschrift erfolgen. Bei Abonnements wird die Gebühr automatisch zum jeweiligen Abrechnungstermin eingezogen."
+      }
+    },
+    "section6": {
+      "title": "6. Vertragslaufzeit und Kündigung",
+      "subsection1": {
+        "title": "6.1 Kostenlose Konten",
+        "description": "Kostenlose Benutzerkonten können jederzeit ohne Frist gekündigt werden."
+      },
+      "subsection2": {
+        "title": "6.2 Kostenpflichtige Abonnements",
+        "description": "Kostenpflichtige Abonnements haben eine Mindestlaufzeit von einem Monat (bei monatlicher Zahlung) bzw. einem Jahr (bei jährlicher Zahlung). Die Kündigung muss mindestens 30 Tage vor Ablauf der jeweiligen Laufzeit erfolgen, andernfalls verlängert sich der Vertrag automatisch um den gleichen Zeitraum."
+      },
+      "subsection3": {
+        "title": "6.3 Außerordentliche Kündigung",
+        "description": "Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt unberührt. Ein wichtiger Grund liegt insbesondere bei Verstößen gegen diese AGB vor."
+      }
+    },
+    "section7": {
+      "title": "7. Haftung",
+      "subsection1": {
+        "title": "7.1 Haftungsbeschränkung",
+        "description": "CareerWave haftet unbeschränkt für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit sowie für Schäden, die auf Vorsatz oder grober Fahrlässigkeit beruhen."
+      },
+      "subsection2": {
+        "title": "7.2 Inhalte Dritter",
+        "description": "CareerWave übernimmt keine Haftung für die Richtigkeit und Vollständigkeit von Stellenanzeigen, Bewerberprofilen und sonstigen von Nutzern eingestellten Inhalten."
+      },
+      "subsection3": {
+        "title": "7.3 Technische Verfügbarkeit",
+        "description": "CareerWave bemüht sich um eine ununterbrochene Verfügbarkeit der Plattform, kann diese jedoch nicht garantieren. Wartungsarbeiten werden nach Möglichkeit angekündigt."
+      }
+    },
+    "section8": {
+      "title": "8. Urheberrecht",
+      "content": "Alle Inhalte der Plattform (Texte, Bilder, Grafiken, Design) sind urheberrechtlich geschützt. Eine Vervielfältigung oder Verwendung ohne ausdrückliche Zustimmung von CareerWave ist nicht gestattet.",
+      "license": "Mit dem Hochladen von Inhalten räumt der Nutzer CareerWave ein nicht-exklusives, weltweites Nutzungsrecht ein, die Inhalte im Rahmen der Plattform zu nutzen und zu veröffentlichen."
+    },
+    "section9": {
+      "title": "9. Änderungen der AGB",
+      "description": "CareerWave behält sich das Recht vor, diese AGB jederzeit zu ändern. Änderungen werden den Nutzern per E-Mail mitgeteilt. Widerspricht der Nutzer nicht innerhalb von 14 Tagen, gelten die neuen AGB als akzeptiert."
+    },
+    "section10": {
+      "title": "10. Schlussbestimmungen",
+      "subsection1": {
+        "title": "10.1 Anwendbares Recht",
+        "description": "Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts."
+      },
+      "subsection2": {
+        "title": "10.2 Gerichtsstand",
+        "description": "Gerichtsstand für alle Streitigkeiten aus diesem Vertrag ist Berlin, sofern der Nutzer Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen ist."
+      },
+      "subsection3": {
+        "title": "10.3 Salvatorische Klausel",
+        "description": "Sollten einzelne Bestimmungen dieser AGB unwirksam sein oder werden, berührt dies die Gültigkeit der übrigen Bestimmungen nicht."
+      }
+    },
+    "section11": {
+      "title": "11. Kontakt",
+      "company": "CareerWave GmbH",
+      "street": "Beispielstraße 123",
+      "city": "10115 Berlin",
+      "email": "legal@careerwave.de",
+      "phone": "+49 (0) 30 1234567"
+    }
+  },
+  "imprint": {
+    "title": "Impressum",
+    "subtitle": "Angaben gemäß § 5 TMG",
+    "companyInfo": {
+      "title": "Unternehmensinformationen",
+      "companyName": "Unternehmensname",
+      "address": "Anschrift",
+      "register": "Handelsregister",
+      "registerCourt": "Amtsgericht Berlin-Charlottenburg",
+      "registerNumber": "HRB 123456 B",
+      "vatId": "Umsatzsteuer-ID",
+      "vatNumber": "DE123456789"
+    },
+    "contact": {
+      "title": "Kontakt",
+      "phone": "Telefon",
+      "email": "E-Mail",
+      "website": "Website"
+    },
+    "management": {
+      "title": "Vertretungsberechtigte Geschäftsführung",
+      "ceo": {
+        "name": "Dr. Sarah Müller",
+        "role": "CEO & Gründerin"
+      },
+      "cto": {
+        "name": "Michael Schmidt",
+        "role": "CTO & Gründer"
+      }
+    },
+    "authority": {
+      "title": "Aufsichtsbehörde",
+      "name": "Bundesagentur für Arbeit",
+      "street": "Regensburger Straße 104",
+      "city": "90478 Nürnberg"
+    },
+    "disclaimer": {
+      "title": "Haftungsausschluss",
+      "content": {
+        "title": "Haftung für Inhalte",
+        "description": "Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen."
+      },
+      "links": {
+        "title": "Haftung für Links",
+        "description": "Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich."
+      },
+      "copyright": {
+        "title": "Urheberrecht",
+        "description": "Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers."
+      },
+      "dispute": {
+        "title": "Streitschlichtung",
+        "description": "Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: https://ec.europa.eu/consumers/odr. Unsere E-Mail-Adresse finden Sie oben im Impressum.",
+        "participation": "Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
+      }
+    },
+    "credits": {
+      "title": "Bildnachweise",
+      "icons": "Icons und Grafiken: Eigene Darstellung",
+      "photos": "Fotos: Unsplash, Pexels (Lizenzen siehe jeweilige Plattform)",
+      "fonts": "Schriftarten: Google Fonts (Open-Source-Lizenzen)"
+    }
+  },
+  "cookies": {
+    "title": "Cookie-Richtlinie",
+    "lastUpdated": "Letzte Aktualisierung: 12. Januar 2025",
+    "intro": {
+      "title": "Was sind Cookies?",
+      "description1": "Cookies sind kleine Textdateien, die auf Ihrem Endgerät gespeichert werden, wenn Sie eine Website besuchen. Sie helfen uns, die Website effizienter zu machen, Ihre Nutzererfahrung zu verbessern und Informationen über die Website-Nutzung zu sammeln.",
+      "description2": "Cookies können dauerhaft gespeichert werden (permanente Cookies) oder temporär (Session-Cookies). Sie werden entweder direkt von uns gesetzt (First-Party-Cookies) oder von Drittanbietern (Third-Party-Cookies)."
+    },
+    "categories": {
+      "title": "Cookie-Kategorien",
+      "necessary": {
+        "title": "Notwendige Cookies",
+        "description": "Diese Cookies sind für die Grundfunktionen der Website unerlässlich und können nicht deaktiviert werden.",
+        "examples": {
+          "session": "Sitzungs-Cookies für die Authentifizierung",
+          "security": "Sicherheits-Cookies zur Verhinderung von CSRF-Angriffen",
+          "settings": "Cookie-Einstellungen",
+          "language": "Sprachpräferenzen"
+        },
+        "info": "ℹ️ Diese Cookies sind technisch notwendig und können nicht deaktiviert werden."
+      },
+      "functional": {
+        "title": "Funktionale Cookies",
+        "description": "Diese Cookies ermöglichen erweiterte Funktionalität und Personalisierung.",
+        "examples": {
+          "filters": "Gespeicherte Suchfilter",
+          "preferences": "Bevorzugte Ansichtseinstellungen",
+          "chat": "Chat-Funktionen",
+          "favorites": "Merkliste und Favoriten"
+        }
+      },
+      "analytics": {
+        "title": "Analyse-Cookies",
+        "description": "Diese Cookies helfen uns zu verstehen, wie Besucher mit der Website interagieren.",
+        "examples": {
+          "ga": "Google Analytics",
+          "pageviews": "Seitenaufrufe und Sitzungsdauer",
+          "clicks": "Klickverhalten",
+          "performance": "Performance-Metriken"
+        }
+      },
+      "marketing": {
+        "title": "Marketing-Cookies",
+        "description": "Diese Cookies werden verwendet, um Werbung für Sie relevanter zu machen.",
+        "examples": {
+          "facebook": "Facebook-Pixel",
+          "googleAds": "Google Ads Tracking",
+          "retargeting": "Retargeting-Cookies",
+          "conversion": "Conversion-Tracking"
+        }
+      }
+    },
+    "settings": {
+      "title": "Ihre Cookie-Einstellungen",
+      "description": "Sie können Ihre Einwilligung jederzeit anpassen oder widerrufen.",
+      "acceptAll": "✓ Alle akzeptieren",
+      "saveSettings": "Einstellungen speichern"
+    },
+    "additionalInfo": {
+      "title": "Weitere Informationen",
+      "management": {
+        "title": "Wie Sie Cookies verwalten",
+        "intro": "Sie können Cookies in Ihren Browser-Einstellungen verwalten und löschen:",
+        "browsers": {
+          "chrome": "Chrome: Einstellungen → Datenschutz und Sicherheit → Cookies",
+          "firefox": "Firefox: Einstellungen → Datenschutz & Sicherheit → Cookies",
+          "safari": "Safari: Einstellungen → Datenschutz → Cookies",
+          "edge": "Edge: Einstellungen → Cookies und Websiteberechtigungen"
+        }
+      },
+      "dnt": {
+        "title": "Do Not Track (DNT)",
+        "description": "Wir respektieren Do-Not-Track-Signale. Wenn Sie DNT in Ihrem Browser aktiviert haben, setzen wir keine Tracking-Cookies."
+      },
+      "lifespan": {
+        "title": "Cookie-Lebensdauer",
+        "intro": "Die Lebensdauer von Cookies variiert:",
+        "types": {
+          "session": "Session-Cookies: Werden beim Schließen des Browsers gelöscht",
+          "persistent": "Permanente Cookies: Bleiben für einen festgelegten Zeitraum gespeichert (maximal 2 Jahre)"
+        }
+      },
+      "contact": {
+        "title": "Kontakt",
+        "intro": "Bei Fragen zu unserer Cookie-Richtlinie können Sie uns kontaktieren:",
+        "email": "E-Mail: privacy@careerwave.de",
+        "phone": "Telefon: +49 (0) 30 1234567"
+      }
+    }
+  },
+  "home": {
+    "brand": "CareerWave",
+    "hero": {
+      "title": "Finde deinen",
+      "titleHighlight": "Traumjob",
+      "subtitle": "Die moderne Plattform für Karriereentwicklung und Recruiting"
+    },
+    "auth": {
+      "login": "Anmelden",
+      "register": "Registrieren"
+    },
+    "loggedIn": {
+      "welcome": "Willkommen zurück",
+      "roles": {
+        "admin": "👑 Administrator",
+        "employer": "🏢 Arbeitgeber",
+        "candidate": "👤 Kandidat"
+      },
+      "quickLinks": {
+        "jobs": {
+          "title": "Stellenangebote",
+          "description": "Jobs durchsuchen"
+        },
+        "adminPanel": {
+          "title": "Admin Panel",
+          "description": "System verwalten"
+        },
+        "logout": {
+          "title": "Abmelden",
+          "description": "Sicher ausloggen"
+        }
+      }
+    },
+    "features": {
+      "jobs": {
+        "title": "Tausende Jobs",
+        "description": "Zugriff auf aktuelle Stellenangebote aus verschiedenen Branchen"
+      },
+      "ai": {
+        "title": "KI-Unterstützung",
+        "description": "Intelligente Jobempfehlungen und automatische Bewerbungserstellung"
+      },
+      "contact": {
+        "title": "Direktkontakt",
+        "description": "Direkte Kommunikation mit Arbeitgebern und schnelle Bewerbung"
+      }
+    }
   }
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Card } from '../components/ui/Card';
 import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
@@ -19,6 +20,7 @@ interface Company {
 }
 
 const CompanyProfile: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
@@ -47,7 +49,7 @@ const CompanyProfile: React.FC = () => {
         const companyMap = new Map<string, Company>();
         
         jobs.forEach((job: JobDetails) => {
-          const companyName = job.company?.display_name || job.arbeitgeber || 'Unbekanntes Unternehmen';
+          const companyName = job.company?.display_name || job.arbeitgeber || t('companies.unknownCompany');
           
           if (companyMap.has(companyName)) {
             const company = companyMap.get(companyName)!;
@@ -59,7 +61,7 @@ const CompanyProfile: React.FC = () => {
               jobCount: 1,
               logo: '🏢',
               location: job.location?.display_name || job.arbeitsorte?.[0]?.ort || '',
-              description: job.company?.display_name ? 'Führendes Unternehmen mit vielfältigen Karrieremöglichkeiten' : job.arbeitgeberdarstellung,
+              description: job.company?.display_name ? t('companies.defaultDescription') : job.arbeitgeberdarstellung,
               jobs: [job]
             });
           }
@@ -100,7 +102,7 @@ const CompanyProfile: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50">
+      <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 dark:bg-[#2C6C8B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="animate-pulse">
             <div className="h-12 bg-gray-200 rounded mb-4 w-1/3"></div>
@@ -117,24 +119,24 @@ const CompanyProfile: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 dark:bg-[#2C6C8B]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Unternehmen entdecken
+            {t('companies.title')}
           </h1>
           <p className="text-xl text-gray-600">
-            Finde die besten Arbeitgeber und ihre offenen Stellen
+            {t('companies.subtitle')}
           </p>
         </div>
 
         {/* Search Bar */}
-        <Card className="mb-12 p-6 shadow-xl border border-gray-100 rounded-2xl bg-white">
+        <Card className="mb-12 p-6 shadow-xl border border-gray-100 rounded-2xl bg-white dark:bg-[#BCD4E6]">
           <div className="flex gap-4">
             <Input
               type="text"
-              placeholder="Unternehmen oder Standort suchen..."
+              placeholder={t('companies.searchPlaceholder')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="flex-1 h-14 text-lg px-6 rounded-xl border-2 border-gray-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all"
@@ -143,7 +145,7 @@ const CompanyProfile: React.FC = () => {
               <Button 
                 className="h-14 bg-linear-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-8 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
               >
-                Zurücksetzen
+                {t('companies.reset')}
               </Button>
             </div>
           </div>
@@ -152,20 +154,20 @@ const CompanyProfile: React.FC = () => {
         {/* Stats */}
         <div className="mb-8 flex justify-between items-center">
           <p className="text-lg text-gray-700">
-            <span className="font-bold text-teal-600">{filteredCompanies.length}</span> Unternehmen gefunden
+            <span className="font-bold text-teal-600">{filteredCompanies.length}</span> {t('companies.companiesFound')}
             <span className="mx-2">•</span>
-            <span className="font-bold text-purple-600">{filteredCompanies.reduce((sum, c) => sum + c.jobCount, 0)}</span> offene Stellen
+            <span className="font-bold text-purple-600">{filteredCompanies.reduce((sum, c) => sum + c.jobCount, 0)}</span> {t('companies.openPositions')}
             {totalPages > 1 && (
               <>
                 <span className="mx-2">•</span>
                 <span className="text-gray-500">
-                  Seite {currentPage} von {totalPages}
+                  {t('companies.page')} {currentPage} {t('companies.of')} {totalPages}
                 </span>
               </>
             )}
           </p>
           <p className="text-sm text-gray-500">
-            Zeige {startIndex + 1} - {Math.min(endIndex, filteredCompanies.length)} von {filteredCompanies.length}
+            {t('companies.showing')} {startIndex + 1} - {Math.min(endIndex, filteredCompanies.length)} {t('companies.of')} {filteredCompanies.length}
           </p>
         </div>
 
@@ -174,7 +176,7 @@ const CompanyProfile: React.FC = () => {
           {displayedCompanies.map((company, index) => (
             <Card 
               key={index} 
-              className="p-8 hover:shadow-2xl transition-all transform hover:scale-[1.02] rounded-2xl border border-gray-100 bg-white"
+              className="p-8 hover:shadow-2xl transition-all transform hover:scale-[1.02] rounded-2xl border border-gray-100 bg-white dark:bg-[#BCD4E6]"
             >
               <div 
                 className="flex items-start gap-6 cursor-pointer"
@@ -199,7 +201,7 @@ const CompanyProfile: React.FC = () => {
                   {/* Tags */}
                   <div className="flex flex-wrap gap-3 mb-4">
                     <span className="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
-                      💼 {company.jobCount} {company.jobCount === 1 ? 'offene Stelle' : 'offene Stellen'}
+                      💼 {company.jobCount} {company.jobCount === 1 ? t('companies.openPosition') : t('companies.openPositions')}
                     </span>
                     {company.location && (
                       <span className="inline-flex items-center px-4 py-2 bg-teal-100 text-teal-800 rounded-full text-sm font-medium">
@@ -217,7 +219,7 @@ const CompanyProfile: React.FC = () => {
 
                   {/* Job Samples */}
                   <div className="mt-4">
-                    <p className="text-sm font-semibold text-gray-600 mb-2">Beispiel-Positionen:</p>
+                    <p className="text-sm font-semibold text-gray-600 mb-2">{t('companies.examplePositions')}:</p>
                     <div className="flex flex-wrap gap-2">
                       {company.jobs.slice(0, 3).map((job, idx) => (
                         <span key={idx} className="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm">
@@ -226,7 +228,7 @@ const CompanyProfile: React.FC = () => {
                       ))}
                       {company.jobCount > 3 && (
                         <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-600 rounded-lg text-sm font-semibold">
-                          +{company.jobCount - 3} weitere
+                          +{company.jobCount - 3} {t('companies.more')}
                         </span>
                       )}
                     </div>
@@ -242,7 +244,7 @@ const CompanyProfile: React.FC = () => {
                       }}
                       className="bg-linear-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                     >
-                      Alle Stellen →
+                      {t('companies.allPositions')} →
                     </Button>
                   </div>
                 </div>
@@ -264,10 +266,10 @@ const CompanyProfile: React.FC = () => {
 
         {/* No Results */}
         {filteredCompanies.length === 0 && !loading && (
-          <Card className="p-12 text-center rounded-2xl border border-gray-200 bg-white shadow-lg">
+          <Card className="p-12 text-center rounded-2xl border border-gray-200 bg-white dark:bg-[#BCD4E6] shadow-lg">
             <div className="text-6xl mb-4">🔍</div>
             <p className="text-xl text-gray-600">
-              Keine Unternehmen gefunden für "{searchTerm}"
+              {t('companies.noResults')} "{searchTerm}"
             </p>
           </Card>
         )}

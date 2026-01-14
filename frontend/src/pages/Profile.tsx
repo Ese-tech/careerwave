@@ -422,7 +422,7 @@ const Profile: React.FC = () => {
 
               <div className="flex-1">
                 <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                  {profile.displayName || user?.firstName || user?.email || 'Benutzer'}
+                  {profile.displayName || (user?.firstName && user?.lastName ? `${user.firstName} ${user.lastName}` : user?.firstName || user?.name || 'Benutzer')}
                 </h2>
                 <p className="text-lg text-gray-600">{profile.email || user?.email}</p>
                 <div className="mt-3">

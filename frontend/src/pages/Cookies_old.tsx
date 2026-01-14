@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 
 const Cookies: React.FC = () => {
-  const { t } = useTranslation();
   const [cookieSettings, setCookieSettings] = useState({
     necessary: true,
     functional: true,
@@ -32,59 +30,59 @@ const Cookies: React.FC = () => {
   const handleSaveSettings = () => {
     // Save cookie preferences
     localStorage.setItem('cookieSettings', JSON.stringify(cookieSettings));
-    alert(t('cookies.settings.saveSettings'));
+    alert('Cookie-Einstellungen gespeichert!');
   };
 
   const cookieCategories = [
     {
       id: 'necessary' as const,
-      title: t('cookies.categories.necessary.title'),
+      title: 'Notwendige Cookies',
       icon: '🔒',
-      description: t('cookies.categories.necessary.description'),
+      description: 'Diese Cookies sind für die Grundfunktionen der Website erforderlich und können nicht deaktiviert werden.',
       examples: [
-        t('cookies.categories.necessary.examples.session'),
-        t('cookies.categories.necessary.examples.security'),
-        t('cookies.categories.necessary.examples.settings'),
-        t('cookies.categories.necessary.examples.language')
+        'Session-Cookies zur Authentifizierung',
+        'Sicherheits-Cookies zur Verhinderung von CSRF-Angriffen',
+        'Cookie-Einstellungen',
+        'Sprachpräferenzen'
       ],
       canDisable: false
     },
     {
       id: 'functional' as const,
-      title: t('cookies.categories.functional.title'),
+      title: 'Funktionale Cookies',
       icon: '⚙️',
-      description: t('cookies.categories.functional.description'),
+      description: 'Diese Cookies ermöglichen erweiterte Funktionalität und Personalisierung.',
       examples: [
-        t('cookies.categories.functional.examples.filters'),
-        t('cookies.categories.functional.examples.preferences'),
-        t('cookies.categories.functional.examples.chat'),
-        t('cookies.categories.functional.examples.favorites')
+        'Gespeicherte Suchfilter',
+        'Bevorzugte Ansichtseinstellungen',
+        'Chat-Funktionen',
+        'Merkliste und Favoriten'
       ],
       canDisable: true
     },
     {
       id: 'analytics' as const,
-      title: t('cookies.categories.analytics.title'),
+      title: 'Analytische Cookies',
       icon: '📊',
-      description: t('cookies.categories.analytics.description'),
+      description: 'Diese Cookies helfen uns zu verstehen, wie Besucher mit der Website interagieren.',
       examples: [
-        t('cookies.categories.analytics.examples.ga'),
-        t('cookies.categories.analytics.examples.pageviews'),
-        t('cookies.categories.analytics.examples.clicks'),
-        t('cookies.categories.analytics.examples.performance')
+        'Google Analytics',
+        'Seitenaufrufe und Nutzungsdauer',
+        'Klickverhalten',
+        'Performance-Metriken'
       ],
       canDisable: true
     },
     {
       id: 'marketing' as const,
-      title: t('cookies.categories.marketing.title'),
+      title: 'Marketing Cookies',
       icon: '🎯',
-      description: t('cookies.categories.marketing.description'),
+      description: 'Diese Cookies werden verwendet, um Werbung relevanter für Sie zu gestalten.',
       examples: [
-        t('cookies.categories.marketing.examples.facebook'),
-        t('cookies.categories.marketing.examples.googleAds'),
-        t('cookies.categories.marketing.examples.retargeting'),
-        t('cookies.categories.marketing.examples.conversion')
+        'Facebook Pixel',
+        'Google Ads Tracking',
+        'Retargeting-Cookies',
+        'Conversion-Tracking'
       ],
       canDisable: true
     }
@@ -96,10 +94,10 @@ const Cookies: React.FC = () => {
       <div className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-bold mb-4">
-            {t('cookies.title')}
+            Cookie-Richtlinie
           </h1>
           <p className="text-lg">
-            {t('cookies.lastUpdated')}
+            Letzte Aktualisierung: 12. Januar 2025
           </p>
         </div>
       </div>
@@ -109,12 +107,12 @@ const Cookies: React.FC = () => {
         {/* Introduction */}
         <Card className="p-8 mb-8">
           <div className="prose prose-lg max-w-none">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900">{t('cookies.intro.title')}</h2>
+            <h2 className="text-2xl font-bold mb-4 text-gray-900">Was sind Cookies?</h2>
             <p className="text-gray-700 mb-4">
-              {t('cookies.intro.description1')}
+              Cookies sind kleine Textdateien, die auf Ihrem Endgerät gespeichert werden, wenn Sie eine Website besuchen. Sie helfen uns, die Website effizienter zu gestalten, Ihre Benutzererfahrung zu verbessern und Informationen über die Nutzung der Website zu sammeln.
             </p>
             <p className="text-gray-700">
-              {t('cookies.intro.description2')}
+              Cookies können dauerhaft (persistente Cookies) oder vorübergehend (Session-Cookies) gespeichert werden. Sie werden entweder direkt von uns (First-Party-Cookies) oder von Drittanbietern (Third-Party-Cookies) gesetzt.
             </p>
           </div>
         </Card>
@@ -122,7 +120,7 @@ const Cookies: React.FC = () => {
         {/* Cookie Categories */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-6 text-center text-gray-900">
-            {t('cookies.categories.title')}
+            Cookie-Kategorien
           </h2>
           <div className="space-y-6">
             {cookieCategories.map((category) => (
@@ -147,7 +145,7 @@ const Cookies: React.FC = () => {
                 </div>
                 
                 <div className="mt-4">
-                  <p className="text-sm font-semibold text-gray-700 mb-2">{t('common.examples') || 'Beispiele'}:</p>
+                  <p className="text-sm font-semibold text-gray-700 mb-2">Beispiele:</p>
                   <ul className="list-disc pl-6 space-y-1">
                     {category.examples.map((example, idx) => (
                       <li key={idx} className="text-sm text-gray-600">{example}</li>
@@ -158,7 +156,7 @@ const Cookies: React.FC = () => {
                 {!category.canDisable && (
                   <div className="mt-4 bg-blue-50 p-3 rounded-lg">
                     <p className="text-sm text-blue-800">
-                      {t('cookies.categories.necessary.info')}
+                      ℹ️ Diese Cookies sind technisch notwendig und können nicht deaktiviert werden.
                     </p>
                   </div>
                 )}
@@ -170,22 +168,22 @@ const Cookies: React.FC = () => {
         {/* Action Buttons */}
         <Card className="p-8 mb-8">
           <div className="text-center">
-            <h3 className="text-2xl font-bold mb-4 text-gray-900">{t('cookies.settings.title')}</h3>
+            <h3 className="text-2xl font-bold mb-4 text-gray-900">Ihre Cookie-Einstellungen</h3>
             <p className="text-gray-600 mb-6">
-              {t('cookies.settings.description')}
+              Sie können Ihre Zustimmung jederzeit anpassen oder zurückziehen.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 onClick={handleAcceptAll}
                 className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-8 py-4 rounded-xl font-bold text-lg"
               >
-                {t('cookies.settings.acceptAll')}
+                ✓ Alle akzeptieren
               </Button>
               <Button 
                 onClick={handleSaveSettings}
                 className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-8 py-4 rounded-xl font-bold text-lg"
               >
-                {t('cookies.settings.saveSettings')}
+                Einstellungen speichern
               </Button>
             </div>
           </div>
@@ -194,40 +192,40 @@ const Cookies: React.FC = () => {
         {/* Additional Information */}
         <Card className="p-8">
           <div className="prose prose-lg max-w-none">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900">{t('cookies.additionalInfo.title')}</h2>
+            <h2 className="text-2xl font-bold mb-4 text-gray-900">Weitere Informationen</h2>
             
-            <h3 className="text-xl font-bold mb-3 text-gray-800">{t('cookies.additionalInfo.management.title')}</h3>
+            <h3 className="text-xl font-bold mb-3 text-gray-800">Wie Sie Cookies verwalten können</h3>
             <p className="text-gray-700 mb-4">
-              {t('cookies.additionalInfo.management.intro')}
+              Sie können Cookies in Ihren Browsereinstellungen verwalten und löschen:
             </p>
             <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-              <li><strong>Chrome:</strong> {t('cookies.additionalInfo.management.browsers.chrome')}</li>
-              <li><strong>Firefox:</strong> {t('cookies.additionalInfo.management.browsers.firefox')}</li>
-              <li><strong>Safari:</strong> {t('cookies.additionalInfo.management.browsers.safari')}</li>
-              <li><strong>Edge:</strong> {t('cookies.additionalInfo.management.browsers.edge')}</li>
+              <li><strong>Chrome:</strong> Einstellungen → Datenschutz und Sicherheit → Cookies</li>
+              <li><strong>Firefox:</strong> Einstellungen → Datenschutz & Sicherheit → Cookies</li>
+              <li><strong>Safari:</strong> Einstellungen → Datenschutz → Cookies</li>
+              <li><strong>Edge:</strong> Einstellungen → Cookies und Websiteberechtigungen</li>
             </ul>
 
-            <h3 className="text-xl font-bold mb-3 text-gray-800">{t('cookies.additionalInfo.dnt.title')}</h3>
+            <h3 className="text-xl font-bold mb-3 text-gray-800">Do Not Track (DNT)</h3>
             <p className="text-gray-700 mb-6">
-              {t('cookies.additionalInfo.dnt.description')}
+              Wir respektieren Do-Not-Track-Signale. Wenn Sie DNT in Ihrem Browser aktiviert haben, setzen wir keine Tracking-Cookies.
             </p>
 
-            <h3 className="text-xl font-bold mb-3 text-gray-800">{t('cookies.additionalInfo.lifespan.title')}</h3>
+            <h3 className="text-xl font-bold mb-3 text-gray-800">Cookie-Lebensdauer</h3>
             <p className="text-gray-700 mb-4">
-              {t('cookies.additionalInfo.lifespan.intro')}
+              Die Lebensdauer von Cookies variiert:
             </p>
             <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-              <li><strong>{t('cookies.additionalInfo.lifespan.types.session').split(':')[0]}:</strong> {t('cookies.additionalInfo.lifespan.types.session').split(':')[1]}</li>
-              <li><strong>{t('cookies.additionalInfo.lifespan.types.persistent').split(':')[0]}:</strong> {t('cookies.additionalInfo.lifespan.types.persistent').split(':')[1]}</li>
+              <li><strong>Session-Cookies:</strong> Werden beim Schließen des Browsers gelöscht</li>
+              <li><strong>Persistente Cookies:</strong> Bleiben für einen festgelegten Zeitraum gespeichert (maximal 2 Jahre)</li>
             </ul>
 
-            <h3 className="text-xl font-bold mb-3 text-gray-800">{t('cookies.additionalInfo.contact.title')}</h3>
+            <h3 className="text-xl font-bold mb-3 text-gray-800">Kontakt</h3>
             <p className="text-gray-700 mb-2">
-              {t('cookies.additionalInfo.contact.intro')}
+              Bei Fragen zu unserer Cookie-Richtlinie können Sie uns kontaktieren:
             </p>
             <div className="bg-gray-50 p-4 rounded-lg">
-              <p className="text-gray-700">{t('cookies.additionalInfo.contact.email')}</p>
-              <p className="text-gray-700">{t('cookies.additionalInfo.contact.phone')}</p>
+              <p className="text-gray-700">E-Mail: <a href="mailto:privacy@careerwave.de" className="text-blue-600 hover:underline">privacy@careerwave.de</a></p>
+              <p className="text-gray-700">Telefon: +49 (0) 30 1234567</p>
             </div>
           </div>
         </Card>

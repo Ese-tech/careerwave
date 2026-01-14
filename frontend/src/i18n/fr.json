@@ -33,6 +33,8 @@
       "title": "S'inscrire",
       "subtitle": "Créez votre compte gratuit",
       "button": "Créer un compte",
+      "submitting": "Création du compte...",
+      "success": "Inscription réussie ! Veuillez vous connecter.",
       "haveAccount": "Déjà un compte?",
       "signInLink": "Connectez-vous ici",
       "terms": {
@@ -41,6 +43,17 @@
         "and": "et",
         "privacyLink": "Politique de confidentialité"
       }
+    },
+    "errors": {
+      "emailRequired": "L'e-mail est obligatoire",
+      "emailInvalid": "Adresse e-mail invalide",
+      "passwordRequired": "Le mot de passe est obligatoire",
+      "passwordTooShort": "Le mot de passe doit contenir au moins 6 caractères",
+      "confirmPasswordRequired": "La confirmation du mot de passe est obligatoire",
+      "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "displayNameRequired": "Le nom d'affichage est obligatoire",
+      "registrationFailed": "L'inscription a échoué",
+      "networkError": "Erreur réseau. Veuillez réessayer plus tard."
     },
     "fields": {
       "email": "E-mail",
@@ -68,21 +81,36 @@
   },
   "jobs": {
     "findDreamJob": "Trouvez l'emploi de vos rêves",
-    "searchJobs": "Rechercher des emplois",
-    "filterJobs": "Filtrer les emplois",
+    "searchJobs": "Rechercher des Emplois",
+    "filterJobs": "Filtrer les Emplois",
     "location": "Lieu",
-    "jobType": "Type d'emploi",
+    "jobType": "Type d'Emploi",
     "salary": "Salaire",
-    "remote": "À distance",
-    "fullTime": "Temps plein",
-    "partTime": "Temps partiel",
+    "remote": "À Distance",
+    "fullTime": "Temps Plein",
+    "partTime": "Temps Partiel",
     "contract": "Contrat",
     "internship": "Stage",
-    "applyNow": "Postuler maintenant",
-    "viewDetails": "Voir les détails",
+    "applyNow": "Postuler Maintenant",
+    "viewDetails": "Voir les Détails",
     "requirements": "Exigences",
     "benefits": "Avantages",
-    "description": "Description"
+    "description": "Description",
+    "whatPlaceholder": "Quoi? (ex. Développeur, Designer...)",
+    "wherePlaceholder": "Où? (ex. Berlin, Munich...)",
+    "search": "Rechercher",
+    "searching": "Recherche en cours...",
+    "reset": "Réinitialiser",
+    "error": "Erreur",
+    "jobsFound": "emplois trouvés",
+    "page": "Page",
+    "of": "de",
+    "showing": "Affichage",
+    "noJobsFound": "Aucun emploi trouvé.",
+    "startSearching": "Lancez une recherche pour trouver des emplois.",
+    "notSpecified": "Non spécifié",
+    "permanentPosition": "Poste Permanent",
+    "published": "Publié"
   },
   "dashboard": {
     "welcome": "Bienvenue",
@@ -110,5 +138,1543 @@
     "confirm": "Confirmer",
     "yes": "Oui",
     "no": "Non"
+  },
+  "about": {
+    "title": "À propos de CareerWave",
+    "subtitle": "Connecter les talents aux opportunités à travers l'Europe",
+    "mission": {
+      "title": "Notre Mission",
+      "description": "Transformer la recherche d'emploi avec une technologie innovante et l'IA pour connecter les personnes aux opportunités parfaites."
+    },
+    "story": {
+      "title": "Notre Histoire",
+      "description": "Fondée en 2023, CareerWave est née de la vision de rendre la recherche d'emploi plus intelligente, rapide et réussie."
+    },
+    "stats": {
+      "users": "Utilisateurs Actifs",
+      "jobs": "Offres d'Emploi",
+      "companies": "Entreprises",
+      "placements": "Placements Réussis"
+    },
+    "values": {
+      "title": "Nos Valeurs",
+      "innovation": {
+        "title": "Innovation",
+        "description": "Amélioration continue avec les dernières technologies"
+      },
+      "transparency": {
+        "title": "Transparence",
+        "description": "Communication ouverte et honnête"
+      },
+      "excellence": {
+        "title": "Excellence",
+        "description": "Standards les plus élevés en tout"
+      },
+      "community": {
+        "title": "Communauté",
+        "description": "Soutien mutuel et croissance ensemble"
+      }
+    },
+    "team": {
+      "title": "Notre Équipe",
+      "subtitle": "Rencontrez les personnes passionnées derrière CareerWave"
+    },
+    "cta": {
+      "title": "Prêt à commencer votre parcours professionnel?",
+      "button": "Rejoindre maintenant"
+    }
+  },
+  "footer": {
+    "description": "Nous connectons les talents aux opportunités. Votre prochaine grande carrière vous attend.",
+    "jobSeekers": {
+      "title": "Chercheurs d'Emploi",
+      "findJobs": "Trouver des Emplois",
+      "companies": "Entreprises",
+      "careerAdvice": "Conseils de Carrière",
+      "resources": "Ressources"
+    },
+    "employers": {
+      "title": "Employeurs",
+      "postJob": "Publier une Offre",
+      "findCandidates": "Trouver des Candidats",
+      "pricing": "Tarifs",
+      "solutions": "Solutions"
+    },
+    "support": {
+      "title": "Support",
+      "help": "Centre d'Aide",
+      "contact": "Contact",
+      "faq": "FAQ",
+      "privacy": "Confidentialité"
+    },
+    "company": {
+      "title": "Entreprise",
+      "about": "À Propos",
+      "careers": "Carrières",
+      "press": "Presse",
+      "blog": "Blog"
+    },
+    "newsletter": {
+      "title": "Newsletter Emploi",
+      "description": "Recevez des offres d'emploi hebdomadaires et des conseils de carrière directement dans votre boîte de réception.",
+      "placeholder": "Votre adresse e-mail",
+      "subscribe": "S'abonner"
+    },
+    "legal": {
+      "terms": "Conditions d'Utilisation",
+      "privacy": "Confidentialité",
+      "cookies": "Cookies",
+      "imprint": "Mentions Légales"
+    },
+    "copyright": "© 2025 CareerWave. Tous droits réservés."
+  },
+  "press": {
+    "title": "Presse et Médias",
+    "subtitle": "Communiqués de presse actuels, informations sur l'entreprise et matériel médiatique de CareerWave.",
+    "releases": {
+      "title": "Communiqués de Presse Actuels"
+    },
+    "mediaKit": {
+      "title": "Kit Média"
+    },
+    "awards": {
+      "title": "Prix et Distinctions"
+    },
+    "contacts": {
+      "title": "Contacts Presse"
+    },
+    "newsletter": {
+      "title": "Newsletter Presse",
+      "subtitle": "Restez informé des derniers développements chez CareerWave. Abonnez-vous à notre newsletter presse.",
+      "placeholder": "Votre adresse e-mail",
+      "subscribe": "S'abonner"
+    },
+    "social": {
+      "title": "Suivez-nous"
+    }
+  },
+  "careerTips": {
+    "title": "Conseils de Carrière",
+    "subtitle": "Conseils précieux pour votre développement professionnel",
+    "all": "Tous",
+    "found": "conseils trouvés",
+    "readTime": "Temps de lecture",
+    "showMore": "En savoir plus",
+    "showLess": "Afficher moins",
+    "categories": {
+      "application": "Candidature",
+      "interview": "Entretien",
+      "salary": "Négociation Salariale",
+      "development": "Développement de Carrière",
+      "softSkills": "Compétences Douces",
+      "workLife": "Équilibre Vie-Travail",
+      "remote": "Travail à Distance",
+      "leadership": "Leadership"
+    },
+    "tips": {
+      "resume": {
+        "title": "Le CV Parfait",
+        "description": "Comment créer un CV qui convainc",
+        "readTime": "5 min",
+        "tip1": "Limitez votre CV à un maximum de 2 pages",
+        "tip2": "Utilisez une structure claire et professionnelle",
+        "tip3": "Commencez par vos expériences les plus récentes (ordre chronologique inverse)",
+        "tip4": "Quantifiez vos réalisations avec des chiffres concrets et des résultats",
+        "tip5": "Personnalisez votre CV pour chaque poste individuellement",
+        "tip6": "Utilisez des verbes d'action comme 'développé', 'mis en œuvre', 'dirigé'",
+        "tip7": "Assurez-vous d'avoir une orthographe et une grammaire parfaites",
+        "tip8": "Incluez des mots-clés pertinents de l'offre d'emploi"
+      },
+      "coverLetter": {
+        "title": "La Lettre de Motivation Convaincante",
+        "description": "Comment se démarquer avec votre lettre de motivation",
+        "readTime": "6 min",
+        "tip1": "Commencez par une introduction forte qui suscite l'intérêt",
+        "tip2": "Montrez un enthousiasme sincère pour le poste et l'entreprise",
+        "tip3": "Expliquez spécifiquement pourquoi vous êtes parfait pour le rôle",
+        "tip4": "Évitez les phrases standard et les répétitions de votre CV",
+        "tip5": "Abordez les exigences spécifiques de l'offre d'emploi",
+        "tip6": "Racontez une brève histoire sur des réalisations pertinentes",
+        "tip7": "Terminez par un appel à l'action clair",
+        "tip8": "Limitez la lettre de motivation à un maximum d'une page"
+      },
+      "interviewPrep": {
+        "title": "Préparation à l'Entretien",
+        "description": "Le succès par une préparation appropriée",
+        "readTime": "8 min",
+        "tip1": "Renseignez-vous en profondeur sur l'entreprise et le secteur",
+        "tip2": "Préparez des réponses aux questions courantes (méthode STAR)",
+        "tip3": "Pratiquez votre présentation personnelle (2-3 minutes)",
+        "tip4": "Préparez vos propres questions pour l'intervieweur",
+        "tip5": "Habillez-vous de manière appropriée et professionnelle",
+        "tip6": "Planifiez votre trajet avec suffisamment de temps tampon",
+        "tip7": "Apportez plusieurs copies de votre CV",
+        "tip8": "Pratiquez avec des amis ou devant un miroir"
+      },
+      "bodyLanguage": {
+        "title": "Langage Corporel et Présence",
+        "description": "Les premières impressions comptent",
+        "readTime": "4 min",
+        "tip1": "Donnez une poignée de main ferme et confiante",
+        "tip2": "Maintenez le contact visuel, mais ne fixez pas",
+        "tip3": "Faites attention à une posture droite et ouverte",
+        "tip4": "Souriez authentiquement et montrez une énergie positive",
+        "tip5": "Évitez les gestes nerveux comme tambouriner des doigts",
+        "tip6": "Parlez clairement et à un rythme approprié",
+        "tip7": "Montrez une écoute active en hochant la tête et en posant des questions",
+        "tip8": "Restez calme et professionnel même sous stress"
+      },
+      "negotiation": {
+        "title": "Négociation Réussie",
+        "description": "Comment obtenir ce que vous méritez",
+        "readTime": "7 min",
+        "tip1": "Recherchez les salaires du marché pour votre poste au préalable",
+        "tip2": "Attendez le bon moment (après l'offre d'emploi)",
+        "tip3": "Mentionnez d'abord une fourchette salariale plutôt qu'un chiffre fixe",
+        "tip4": "Justifiez votre demande avec des qualifications concrètes",
+        "tip5": "Négociez le package complet (bonus, avantages, formation)",
+        "tip6": "Restez amical et professionnel, mais ferme",
+        "tip7": "Soyez prêt à faire des compromis, mais connaissez votre limite inférieure",
+        "tip8": "Obtenez l'offre par écrit"
+      },
+      "networking": {
+        "title": "Le Réseautage Bien Fait",
+        "description": "Construisez un réseau professionnel précieux",
+        "readTime": "6 min",
+        "tip1": "Maintenez votre profil LinkedIn professionnel et à jour",
+        "tip2": "Assistez aux événements de l'industrie et aux meetups",
+        "tip3": "Offrez de la valeur aux autres avant de demander de l'aide",
+        "tip4": "Restez authentique et montrez un intérêt sincère",
+        "tip5": "Faites un suivi après de nouveaux contacts dans les 24 heures",
+        "tip6": "Partagez du contenu pertinent et montrez votre expertise",
+        "tip7": "Entretenez régulièrement les contacts existants",
+        "tip8": "Utilisez les réseaux d'anciens élèves et les groupes professionnels"
+      },
+      "skills": {
+        "title": "Formation Continue et Compétences",
+        "description": "Restez à la pointe",
+        "readTime": "5 min",
+        "tip1": "Identifiez les compétences demandées dans votre secteur",
+        "tip2": "Utilisez les plateformes d'apprentissage en ligne (Coursera, Udemy, LinkedIn Learning)",
+        "tip3": "Assistez à des conférences et des ateliers",
+        "tip4": "Lisez régulièrement des livres et articles professionnels",
+        "tip5": "Travaillez sur des projets parallèles pour pratiquer",
+        "tip6": "Obtenez des certifications pour les qualifications importantes",
+        "tip7": "Apprenez de mentors et de collègues expérimentés",
+        "tip8": "Documentez vos progrès d'apprentissage dans un portfolio"
+      },
+      "communication": {
+        "title": "Communication au Travail",
+        "description": "Communiquez efficacement au travail",
+        "readTime": "5 min",
+        "tip1": "Écoutez activement avant de répondre",
+        "tip2": "Communiquez clairement et avec précision",
+        "tip3": "Adaptez votre style de communication au destinataire",
+        "tip4": "Donnez des retours constructifs au lieu de critiques",
+        "tip5": "Utilisez des messages 'je' au lieu d'accusations",
+        "tip6": "Documentez les accords importants par écrit",
+        "tip7": "Soyez préparé et précis dans les réunions",
+        "tip8": "Apprenez à aborder professionnellement des sujets inconfortables"
+      },
+      "timeManagement": {
+        "title": "Gestion du Temps et Productivité",
+        "description": "Travaillez plus intelligemment, pas plus dur",
+        "readTime": "6 min",
+        "tip1": "Utilisez la Technique Pomodoro (25 min concentration, 5 min pause)",
+        "tip2": "Priorisez en utilisant la Matrice d'Eisenhower (important vs urgent)",
+        "tip3": "Planifiez votre journée la veille au soir",
+        "tip4": "Bloquez du temps de concentration dans votre calendrier",
+        "tip5": "Éliminez les distractions (téléphone, notifications)",
+        "tip6": "Déléguez ce que d'autres peuvent faire mieux",
+        "tip7": "Dites non aux tâches non importantes",
+        "tip8": "Réfléchissez régulièrement à vos méthodes de travail"
+      },
+      "burnout": {
+        "title": "Éviter l'Épuisement Professionnel",
+        "description": "Prenez soin de votre santé mentale",
+        "readTime": "7 min",
+        "tip1": "Établissez des limites claires entre travail et vie privée",
+        "tip2": "Prenez des pauses régulières pendant la journée de travail",
+        "tip3": "Pratiquez la pleine conscience et la méditation",
+        "tip4": "Faites régulièrement de l'exercice comme équilibre",
+        "tip5": "Parlez ouvertement du stress avec les superviseurs",
+        "tip6": "Utilisez pleinement votre temps de vacances",
+        "tip7": "Développez des passe-temps en dehors du travail",
+        "tip8": "Cherchez une aide professionnelle si nécessaire"
+      },
+      "homeOffice": {
+        "title": "Réussir en Télétravail",
+        "description": "Travaillez de manière productive depuis chez vous",
+        "readTime": "5 min",
+        "tip1": "Aménagez un espace de travail dédié",
+        "tip2": "Maintenez des heures de travail fixes",
+        "tip3": "Habillez-vous comme pour le bureau",
+        "tip4": "Utilisez les appels vidéo pour le contact personnel",
+        "tip5": "Communiquez de manière proactive avec l'équipe",
+        "tip6": "Prenez des pauses régulières et faites de l'exercice",
+        "tip7": "Investissez dans du bon équipement (casque, moniteur, chaise)",
+        "tip8": "Séparez travail et loisirs spatialement et temporellement"
+      },
+      "leadership": {
+        "title": "Premiers Pas en tant que Leader",
+        "description": "Comment maîtriser le nouveau rôle",
+        "readTime": "8 min",
+        "tip1": "Écoutez plus au début que vous ne parlez",
+        "tip2": "Construisez la confiance par l'authenticité",
+        "tip3": "Organisez des réunions régulières en tête-à-tête avec les employés",
+        "tip4": "Fixez des objectifs et des attentes clairs",
+        "tip5": "Déléguez la responsabilité et faites confiance à votre équipe",
+        "tip6": "Soyez un modèle en matière d'éthique de travail et de valeurs",
+        "tip7": "Investissez dans le développement de vos employés",
+        "tip8": "Apprenez de vos erreurs et soyez ouvert aux retours"
+      }
+    }
+  },
+  "companies": {
+    "title": "Découvrir les Entreprises",
+    "subtitle": "Trouvez les meilleurs employeurs et leurs postes ouverts",
+    "searchPlaceholder": "Rechercher des entreprises ou des emplacements...",
+    "reset": "Réinitialiser",
+    "companiesFound": "entreprises trouvées",
+    "openPosition": "poste ouvert",
+    "openPositions": "postes ouverts",
+    "page": "Page",
+    "of": "de",
+    "showing": "Affichage",
+    "examplePositions": "Exemples de Postes",
+    "more": "plus",
+    "allPositions": "Tous les Postes",
+    "noResults": "Aucune entreprise trouvée pour",
+    "unknownCompany": "Entreprise Inconnue",
+    "defaultDescription": "Entreprise leader avec diverses opportunités de carrière"
+  },
+  "postJob": {
+    "hero": {
+      "title": "Publier une Offre",
+      "subtitle": "Trouvez les meilleurs talents pour votre entreprise. Publiez votre offre d'emploi et touchez des milliers de candidats qualifiés.",
+      "startButton": "Commencer →",
+      "pricingButton": "Voir les Tarifs"
+    },
+    "features": {
+      "targetedReach": {
+        "title": "Portée Ciblée",
+        "description": "Atteignez exactement les bons candidats grâce à des algorithmes intelligents"
+      },
+      "quickPublish": {
+        "title": "Publication Rapide",
+        "description": "Votre offre est en ligne et visible en quelques minutes"
+      },
+      "analytics": {
+        "title": "Analyses Détaillées",
+        "description": "Suivez les vues, les candidatures et plus en temps réel"
+      },
+      "templates": {
+        "title": "Modèles Professionnels",
+        "description": "Utilisez nos modèles d'offres d'emploi éprouvés"
+      }
+    },
+    "benefits": {
+      "title": "Vos Avantages"
+    },
+    "steps": {
+      "step1": {
+        "title": "Créer un Compte",
+        "description": "Inscrivez-vous en tant qu'employeur"
+      },
+      "step2": {
+        "title": "Décrire le Poste",
+        "description": "Entrez tous les détails pertinents"
+      },
+      "step3": {
+        "title": "Publier",
+        "description": "Votre offre est mise en ligne immédiatement"
+      },
+      "step4": {
+        "title": "Recevoir des Candidatures",
+        "description": "Gérez toutes les candidatures de manière centralisée"
+      }
+    },
+    "howItWorks": {
+      "title": "Comment ça Marche"
+    },
+    "stats": {
+      "candidates": {
+        "number": "10 000+",
+        "label": "Candidats Actifs"
+      },
+      "placements": {
+        "number": "500+",
+        "label": "Placements Réussis"
+      },
+      "responseTime": {
+        "number": "24h",
+        "label": "Temps de Réponse Moyen"
+      }
+    },
+    "cta": {
+      "title": "Prêt à Élargir Votre Équipe?",
+      "subtitle": "Commencez dès aujourd'hui et trouvez les candidats parfaits pour votre entreprise.",
+      "button": "S'inscrire Gratuitement"
+    }
+  },
+  "findCandidates": {
+    "hero": {
+      "title": "Trouvez les Meilleurs Talents",
+      "subtitle": "Parcourez notre base de données de plus de 10 000 candidats qualifiés et trouvez la correspondance parfaite pour votre équipe.",
+      "searchPlaceholder": "Rechercher des compétences, un poste, un lieu...",
+      "searchButton": "Rechercher →"
+    },
+    "features": {
+      "smartSearch": {
+        "title": "Recherche Intelligente",
+        "description": "Trouvez des candidats en fonction des compétences, de l'expérience et du lieu"
+      },
+      "perfectMatch": {
+        "title": "Correspondance Parfaite",
+        "description": "Les algorithmes alimentés par l'IA trouvent les meilleurs candidats pour votre poste"
+      },
+      "directContact": {
+        "title": "Contact Direct",
+        "description": "Contactez les candidats intéressants directement via la plateforme"
+      },
+      "detailedProfiles": {
+        "title": "Profils Détaillés",
+        "description": "Consultez les CV, les qualifications et les portfolios"
+      }
+    },
+    "categories": {
+      "title": "Candidats par Catégorie",
+      "available": "Candidats Disponibles",
+      "itSoftware": {
+        "title": "IT & Logiciels",
+        "count": "2 500+"
+      },
+      "marketing": {
+        "title": "Marketing & Ventes",
+        "count": "1 800+"
+      },
+      "design": {
+        "title": "Design & Créativité",
+        "count": "1 200+"
+      },
+      "engineering": {
+        "title": "Ingénierie",
+        "count": "1 500+"
+      },
+      "finance": {
+        "title": "Finance & Comptabilité",
+        "count": "900+"
+      },
+      "hr": {
+        "title": "RH & Gestion",
+        "count": "750+"
+      }
+    },
+    "benefits": {
+      "title": "Vos Avantages"
+    },
+    "steps": {
+      "step1": {
+        "title": "Créer un Compte",
+        "description": "Inscrivez-vous en tant qu'employeur"
+      },
+      "step2": {
+        "title": "Lancer la Recherche",
+        "description": "Utilisez nos filtres avancés"
+      },
+      "step3": {
+        "title": "Contacter les Candidats",
+        "description": "Entrez en contact directement"
+      },
+      "step4": {
+        "title": "Planifier un Entretien",
+        "description": "Planifiez des réunions en ligne"
+      }
+    },
+    "howItWorks": {
+      "title": "Comment ça Marche"
+    },
+    "stats": {
+      "candidates": {
+        "number": "10 000+",
+        "label": "Candidats Actifs"
+      },
+      "successRate": {
+        "number": "95%",
+        "label": "Taux de Réussite"
+      },
+      "responseTime": {
+        "number": "48h",
+        "label": "Temps de Réponse Moyen"
+      }
+    },
+    "cta": {
+      "title": "Prêt à Construire Votre Équipe de Rêve?",
+      "subtitle": "Commencez maintenant et accédez à des milliers de candidats qualifiés.",
+      "startButton": "Commencer",
+      "pricingButton": "Voir les Tarifs"
+    }
+  },
+  "pricing": {
+    "hero": {
+      "title": "Tarifs Transparents pour Chaque Entreprise",
+      "subtitle": "Choisissez le plan qui correspond le mieux à vos besoins de recrutement. Pas de coûts cachés, annulation à tout moment."
+    },
+    "billing": {
+      "monthly": "Mensuel",
+      "yearly": "Annuel",
+      "saveUp": "Économisez jusqu'à 20%"
+    },
+    "popularPlan": "Plan le Plus Populaire",
+    "perMonth": "/mois",
+    "save": "Économisez",
+    "withYearly": "avec facturation annuelle",
+    "billedYearly": "facturé annuellement",
+    "choosePlan": "Choisir le Plan",
+    "plans": {
+      "basic": {
+        "name": "Basique",
+        "description": "Parfait pour les startups et les petites entreprises",
+        "features": {
+          "0": "1 offre d'emploi active",
+          "1": "Jusqu'à 50 candidatures/mois",
+          "2": "Support Basique",
+          "3": "Analyses Basiques",
+          "4": "30 jours de durée"
+        },
+        "limitations": {
+          "0": "Pas de Placement Premium",
+          "1": "Pas de filtres avancés"
+        }
+      },
+      "professional": {
+        "name": "Professionnel",
+        "description": "Idéal pour les entreprises en croissance",
+        "features": {
+          "0": "5 offres d'emploi actives",
+          "1": "Candidatures illimitées",
+          "2": "Support Prioritaire",
+          "3": "Analyses Avancées",
+          "4": "60 jours de durée",
+          "5": "Placement Premium",
+          "6": "Accès à la Base de Données des Candidats",
+          "7": "Page Entreprise de Marque"
+        }
+      },
+      "enterprise": {
+        "name": "Entreprise",
+        "description": "Pour les grandes entreprises avec une forte demande",
+        "features": {
+          "0": "Offres d'emploi illimitées",
+          "1": "Candidatures illimitées",
+          "2": "Gestionnaire de Compte Dédié",
+          "3": "Analyses Premium & Rapports",
+          "4": "90 jours de durée",
+          "5": "Placement Premium Maximal",
+          "6": "Accès Complet à la Base de Données",
+          "7": "Marque d'Entreprise Personnalisée",
+          "8": "Intégration API",
+          "9": "Option Marque Blanche",
+          "10": "Flux de Travail Personnalisés"
+        }
+      }
+    },
+    "allPlansInclude": {
+      "title": "Tous les Plans Incluent"
+    },
+    "additionalFeatures": {
+      "targetedAds": {
+        "title": "Annonces d'Emploi Ciblées",
+        "description": "Atteignez exactement les bons candidats"
+      },
+      "analytics": {
+        "title": "Analyses Avancées",
+        "description": "Aperçus détaillés de vos performances de recrutement"
+      },
+      "support": {
+        "title": "Support Dédié",
+        "description": "Contact personnel pour toutes les questions"
+      },
+      "integration": {
+        "title": "Intégration Facile",
+        "description": "Intégration transparente avec vos systèmes existants"
+      }
+    },
+    "faq": {
+      "title": "Questions Fréquemment Posées"
+    },
+    "faqs": {
+      "upgrade": {
+        "question": "Puis-je mettre à niveau ou rétrograder à tout moment?",
+        "answer": "Oui, vous pouvez ajuster votre plan à tout moment. Les modifications prennent effet à la fin de la période de facturation en cours."
+      },
+      "trial": {
+        "question": "Y a-t-il un essai gratuit?",
+        "answer": "Oui, nous offrons un essai gratuit de 14 jours pour le Plan Professionnel. Aucune carte de crédit requise."
+      },
+      "limit": {
+        "question": "Que se passe-t-il si j'atteins ma limite de candidatures?",
+        "answer": "Vous pouvez ajouter des candidatures supplémentaires à tout moment ou passer à un plan supérieur."
+      },
+      "vat": {
+        "question": "Les prix incluent-ils la TVA?",
+        "answer": "Les prix affichés sont des prix nets. La TVA sera ajoutée lors du paiement."
+      }
+    },
+    "cta": {
+      "title": "Vous Avez Encore des Questions sur Nos Plans?",
+      "subtitle": "Notre équipe est heureuse de vous aider à choisir le bon plan pour votre entreprise.",
+      "contactButton": "Nous Contacter",
+      "trialButton": "Essayer Gratuitement"
+    }
+  },
+  "help": {
+    "hero": {
+      "title": "Comment pouvons-nous vous aider ?",
+      "subtitle": "Explorez nos ressources d'aide ou contactez notre équipe de support."
+    },
+    "searchPlaceholder": "Rechercher des articles d'aide...",
+    "searchButton": "Rechercher",
+    "categoriesTitle": "Catégories d'Aide",
+    "categories": {
+      "jobSeekers": {
+        "title": "Pour les Chercheurs d'Emploi",
+        "description": "Aide à la recherche d'emploi et aux candidatures",
+        "articles": [
+          "Comment créer un profil ?",
+          "Comment postuler à un emploi ?",
+          "Comment télécharger mon CV ?",
+          "Comment suivre mes candidatures ?"
+        ]
+      },
+      "employers": {
+        "title": "Pour les Employeurs",
+        "description": "Aide au recrutement et à la gestion des candidats",
+        "articles": [
+          "Comment créer une offre d'emploi ?",
+          "Comment trouver les bons candidats ?",
+          "Comment gérer les candidatures ?",
+          "Comment fonctionne la tarification ?"
+        ]
+      },
+      "accountSettings": {
+        "title": "Compte et Paramètres",
+        "description": "Gérer votre compte",
+        "articles": [
+          "Comment changer mon mot de passe ?",
+          "Comment mettre à jour mon email ?",
+          "Comment supprimer mon compte ?",
+          "Comment gérer les notifications ?"
+        ]
+      },
+      "billing": {
+        "title": "Facturation et Paiements",
+        "description": "Questions sur les prix et les paiements",
+        "articles": [
+          "Quels moyens de paiement sont acceptés ?",
+          "Comment annuler mon abonnement ?",
+          "Puis-je obtenir une facture ?",
+          "Comment fonctionne le remboursement ?"
+        ]
+      }
+    },
+    "quickLinks": {
+      "email": {
+        "title": "Support par Email",
+        "description": "support@careerwave.de"
+      },
+      "chat": {
+        "title": "Chat en Direct",
+        "description": "Lun-Ven 9h00-18h00"
+      },
+      "phone": {
+        "title": "Téléphone",
+        "description": "+49 (0) 30 1234567"
+      },
+      "faq": {
+        "title": "FAQ",
+        "description": "Questions Fréquentes"
+      }
+    },
+    "videos": {
+      "title": "Tutoriels Vidéo",
+      "duration": "Durée",
+      "video1": {
+        "title": "Premiers Pas",
+        "duration": "5:32"
+      },
+      "video2": {
+        "title": "Optimiser le Profil",
+        "duration": "8:15"
+      },
+      "video3": {
+        "title": "Gérer les Candidatures",
+        "duration": "6:45"
+      }
+    },
+    "cta": {
+      "title": "Vous n'avez pas trouvé de réponse ?",
+      "subtitle": "Notre équipe de support est là pour vous. Contactez-nous et nous serons heureux de vous aider.",
+      "button": "Contacter"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Contactez-nous",
+      "subtitle": "Vous avez des questions ? Nous sommes là pour vous. Contactez-nous via l'une des options suivantes."
+    },
+    "methods": {
+      "email": {
+        "title": "Email",
+        "content": "support@careerwave.de",
+        "description": "Réponse sous 24 heures"
+      },
+      "phone": {
+        "title": "Téléphone",
+        "content": "+49 (0) 30 1234567",
+        "description": "Lun-Ven 9h00-18h00"
+      },
+      "chat": {
+        "title": "Chat en Direct",
+        "content": "Chatter maintenant",
+        "description": "Réponse immédiate"
+      },
+      "address": {
+        "title": "Adresse",
+        "content": "Rue Exemple 123",
+        "description": "10115 Berlin, Allemagne"
+      }
+    },
+    "form": {
+      "title": "Envoyer un Message",
+      "successMessage": "✓ Merci ! Votre message a été envoyé avec succès.",
+      "userType": {
+        "label": "Je suis un...",
+        "jobseeker": "Chercheur d'Emploi",
+        "employer": "Employeur",
+        "other": "Autre"
+      },
+      "name": {
+        "label": "Nom",
+        "placeholder": "Votre nom complet"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "votre.email@exemple.com"
+      },
+      "subject": {
+        "label": "Sujet",
+        "placeholder": "De quoi s'agit-il ?"
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Votre message..."
+      },
+      "submit": "Envoyer le Message"
+    },
+    "offices": {
+      "title": "Nos Bureaux",
+      "addressLabel": "Adresse",
+      "phoneLabel": "Téléphone",
+      "emailLabel": "Email",
+      "berlin": {
+        "city": "Berlin",
+        "address": "Rue Exemple 123, 10115 Berlin",
+        "phone": "+49 (0) 30 1234567",
+        "email": "berlin@careerwave.de"
+      },
+      "munich": {
+        "city": "Munich",
+        "address": "Chemin Échantillon 456, 80331 Munich",
+        "phone": "+49 (0) 89 9876543",
+        "email": "muenchen@careerwave.de"
+      },
+      "hamburg": {
+        "city": "Hambourg",
+        "address": "Place Test 789, 20095 Hambourg",
+        "phone": "+49 (0) 40 5555555",
+        "email": "hamburg@careerwave.de"
+      }
+    },
+    "businessHours": {
+      "title": "Heures d'Ouverture",
+      "subtitle": "Nous sommes là pour vous",
+      "weekdays": "Lundi - Vendredi",
+      "weekdaysHours": "9h00 - 18h00",
+      "saturday": "Samedi",
+      "saturdayHours": "10h00 - 14h00",
+      "sunday": "Dimanche",
+      "sundayHours": "Fermé"
+    }
+  },
+  "faq": {
+    "hero": {
+      "title": "Questions Fréquentes",
+      "subtitle": "Trouvez des réponses rapides aux questions les plus courantes sur CareerWave."
+    },
+    "categories": {
+      "all": "Toutes",
+      "jobSeekers": "Chercheurs d'Emploi",
+      "employers": "Employeurs",
+      "account": "Compte",
+      "payments": "Paiements"
+    },
+    "jobSeekers": {
+      "q1": {
+        "question": "Comment créer un profil sur CareerWave ?",
+        "answer": "Cliquez sur \"S'inscrire\" en haut à droite, sélectionnez \"S'inscrire en tant que Candidat\" et remplissez le formulaire. Ensuite, vous pouvez compléter votre profil en téléchargeant votre CV, en ajoutant vos compétences et en saisissant votre expérience professionnelle."
+      },
+      "q2": {
+        "question": "CareerWave est-il gratuit pour les chercheurs d'emploi ?",
+        "answer": "Oui, CareerWave est entièrement gratuit pour les chercheurs d'emploi. Vous pouvez rechercher des emplois illimités, postuler et gérer votre profil sans frais."
+      },
+      "q3": {
+        "question": "Comment postuler à un emploi ?",
+        "answer": "Cliquez sur une offre d'emploi qui vous intéresse et sélectionnez \"Postuler Maintenant\". Vous pouvez utiliser votre CV enregistré ou ajouter une lettre de motivation. Assurez-vous que votre profil est à jour pour avoir les meilleures chances."
+      },
+      "q4": {
+        "question": "Comment suivre le statut de ma candidature ?",
+        "answer": "Allez dans \"Mes Candidatures\" dans votre tableau de bord. Vous y verrez toutes vos candidatures avec leur statut actuel : \"Envoyée\", \"En Révision\", \"Entretien\" ou \"Rejetée\". Vous recevrez également des notifications par email lorsque le statut change."
+      }
+    },
+    "employers": {
+      "q1": {
+        "question": "Combien coûte la publication d'une offre d'emploi ?",
+        "answer": "Nous proposons plusieurs plans tarifaires à partir de 49€/mois. Le plan Basique comprend 1 offre d'emploi active, le plan Professionnel (149€/mois) 5 offres et le plan Entreprise (499€/mois) des offres illimitées. Tous les plans peuvent être payés mensuellement ou annuellement (avec 20% de réduction)."
+      },
+      "q2": {
+        "question": "Combien de temps mon offre d'emploi reste-t-elle en ligne ?",
+        "answer": "Cela dépend de votre plan choisi : Basique (30 jours), Professionnel (60 jours) et Entreprise (90 jours). Vous pouvez désactiver ou prolonger les offres manuellement à tout moment."
+      },
+      "q3": {
+        "question": "Puis-je filtrer et trier les candidatures ?",
+        "answer": "Oui, dans le tableau de bord employeur, vous pouvez filtrer les candidatures selon plusieurs critères (statut, date, notation) et les trier. Les plans Professionnel et Entreprise offrent des filtres avancés et un matching de candidats alimenté par IA."
+      },
+      "q4": {
+        "question": "Puis-je ajouter plusieurs utilisateurs à mon compte entreprise ?",
+        "answer": "Oui, avec le plan Professionnel, vous pouvez ajouter jusqu'à 5 membres d'équipe. Le plan Entreprise offre des membres d'équipe illimités avec des rôles et permissions personnalisables."
+      }
+    },
+    "account": {
+      "q1": {
+        "question": "Comment changer mon mot de passe ?",
+        "answer": "Allez dans \"Paramètres\" > \"Sécurité\" et cliquez sur \"Changer le Mot de Passe\". Vous devez saisir votre mot de passe actuel puis confirmer votre nouveau mot de passe deux fois."
+      },
+      "q2": {
+        "question": "Puis-je changer mon adresse email ?",
+        "answer": "Oui, dans \"Paramètres\" > \"Profil\", vous pouvez changer votre adresse email. Vous recevrez un email de confirmation à la nouvelle adresse que vous devez confirmer."
+      },
+      "q3": {
+        "question": "Comment supprimer mon compte ?",
+        "answer": "Allez dans \"Paramètres\" > \"Compte\" et sélectionnez \"Supprimer le Compte\". Notez que cette action ne peut pas être annulée et toutes vos données seront définitivement supprimées."
+      },
+      "q4": {
+        "question": "Comment gérer mes notifications ?",
+        "answer": "Dans \"Paramètres\" > \"Notifications\", vous pouvez choisir quelles notifications par email et push vous souhaitez recevoir. Vous pouvez choisir parmi les recommandations d'emploi, les mises à jour de candidatures et les newsletters."
+      }
+    },
+    "payments": {
+      "q1": {
+        "question": "Quels moyens de paiement sont acceptés ?",
+        "answer": "Nous acceptons toutes les cartes de crédit courantes (Visa, Mastercard, American Express), PayPal, prélèvement SEPA et facture (uniquement pour les clients Entreprise après approbation)."
+      },
+      "q2": {
+        "question": "Puis-je annuler mon plan à tout moment ?",
+        "answer": "Oui, vous pouvez annuler votre abonnement à tout moment. Pour les plans mensuels, l'accès se termine à la fin de la période de facturation en cours. Pour les plans annuels, vous recevrez un remboursement au prorata."
+      },
+      "q3": {
+        "question": "Y a-t-il un essai gratuit ?",
+        "answer": "Oui, nous offrons un essai gratuit de 14 jours pour le plan Professionnel. Aucune carte de crédit requise. Vous pouvez mettre à niveau ou annuler à tout moment."
+      },
+      "q4": {
+        "question": "Vais-je recevoir une facture ?",
+        "answer": "Oui, après chaque paiement, vous recevrez automatiquement une facture par email. Vous pouvez également télécharger toutes les factures dans votre compte sous \"Paramètres\" > \"Facturation\"."
+      }
+    },
+    "cta": {
+      "title": "Votre question n'a pas de réponse ?",
+      "subtitle": "Contactez-nous et notre équipe de support sera heureuse de vous aider.",
+      "contactButton": "Contacter",
+      "helpButton": "Centre d'Aide"
+    }
+  },
+  "community": {
+    "hero": {
+      "title": "Communauté CareerWave",
+      "subtitle": "Connectez-vous avec plus de 15 000 professionnels, partagez vos expériences et grandissez ensemble.",
+      "joinButton": "Rejoindre Maintenant"
+    },
+    "categories": {
+      "all": "Toutes",
+      "events": "Événements",
+      "networking": "Networking",
+      "careerTips": "Conseils de Carrière",
+      "discussions": "Discussions"
+    },
+    "features": {
+      "networking": {
+        "title": "Networking",
+        "description": "Connectez-vous avec d'autres professionnels",
+        "stats": "15 000+ Membres"
+      },
+      "events": {
+        "title": "Événements et Webinaires",
+        "description": "Rejoignez des événements exclusifs",
+        "stats": "50+ Événements/Mois"
+      },
+      "forums": {
+        "title": "Forums de Discussion",
+        "description": "Échangez avec la communauté",
+        "stats": "1 000+ Discussions"
+      },
+      "mentoring": {
+        "title": "Mentorat",
+        "description": "Trouvez des mentors ou devenez-en un",
+        "stats": "500+ Mentors"
+      }
+    },
+    "upcomingEvents": {
+      "title": "Événements à Venir",
+      "registerButton": "S'inscrire"
+    },
+    "events": {
+      "event1": {
+        "title": "Meetup Carrières Tech Berlin",
+        "date": "15 février 2025",
+        "time": "18h00 - 21h00",
+        "location": "Berlin",
+        "type": "Présentiel"
+      },
+      "event2": {
+        "title": "Meilleures Pratiques du Travail à Distance",
+        "date": "20 février 2025",
+        "time": "16h00 - 17h30",
+        "location": "En ligne",
+        "type": "Webinaire"
+      },
+      "event3": {
+        "title": "Masterclass Négociation Salariale",
+        "date": "25 février 2025",
+        "time": "19h00 - 20h30",
+        "location": "En ligne",
+        "type": "Atelier"
+      },
+      "event4": {
+        "title": "Networking Fondateurs de Startups",
+        "date": "28 février 2025",
+        "time": "18h30 - 22h00",
+        "location": "Munich",
+        "type": "Networking"
+      },
+      "event5": {
+        "title": "IA dans le Recrutement - Table Ronde",
+        "date": "5 mars 2025",
+        "time": "17h00 - 18h30",
+        "location": "En ligne",
+        "type": "Discussion"
+      },
+      "event6": {
+        "title": "Optimisation du Profil LinkedIn",
+        "date": "10 mars 2025",
+        "time": "16h00 - 17h00",
+        "location": "En ligne",
+        "type": "Atelier"
+      }
+    },
+    "discussions": {
+      "title": "Discussions Populaires",
+      "by": "Par",
+      "replies": "Réponses",
+      "views": "Vues",
+      "discussion1": {
+        "title": "Comment négocier mon salaire correctement ?",
+        "author": "Sarah M."
+      },
+      "discussion2": {
+        "title": "À distance vs. Bureau : Qu'est-ce qui est mieux ?",
+        "author": "Michael K."
+      },
+      "discussion3": {
+        "title": "Conseils de networking pour introvertis",
+        "author": "Laura W."
+      },
+      "discussion4": {
+        "title": "Reconversion professionnelle à 40+",
+        "author": "Thomas B."
+      }
+    },
+    "successStories": {
+      "title": "Histoires de Réussite",
+      "story1": {
+        "name": "Anna Schmidt",
+        "role": "Ingénieure Logiciel",
+        "story": "Grâce à la communauté, j'ai trouvé mon emploi de rêve dans une startup de premier plan !"
+      },
+      "story2": {
+        "name": "Max Müller",
+        "role": "Responsable Marketing",
+        "story": "Les événements de networking m'ont aidé à établir des connexions précieuses."
+      },
+      "story3": {
+        "name": "Julia Weber",
+        "role": "Designer Produit",
+        "story": "Mon mentor de la communauté a porté ma carrière au niveau supérieur."
+      }
+    },
+    "cta": {
+      "title": "Faites Partie de Notre Communauté",
+      "subtitle": "Inscrivez-vous gratuitement et bénéficiez d'événements exclusifs, de networking et de conseils de carrière.",
+      "button": "S'inscrire Gratuitement Maintenant"
+    }
+  },
+  "blog": {
+    "hero": {
+      "title": "Blog CareerWave",
+      "subtitle": "Insights, conseils et tendances autour de la carrière, du recrutement et du monde du travail moderne."
+    },
+    "categories": {
+      "all": "Tous",
+      "careerTips": "Conseils de Carrière",
+      "recruiting": "Recrutement",
+      "remoteWork": "Travail à Distance",
+      "tech": "Tech",
+      "interviewTips": "Conseils d'Entretien"
+    },
+    "featured": {
+      "badge": "À la Une",
+      "title": "L'avenir du recrutement : IA et apprentissage automatique",
+      "excerpt": "Comment l'intelligence artificielle transforme la manière dont les entreprises trouvent et embauchent des talents.",
+      "author": "Dr. Sarah Müller",
+      "date": "10 janvier 2025",
+      "readTime": "8 min"
+    },
+    "readArticle": "Lire l'article →",
+    "newsletter": {
+      "title": "Ne manquez aucun nouvel article",
+      "subtitle": "Inscrivez-vous à notre newsletter et recevez les derniers conseils de carrière directement dans votre boîte mail.",
+      "placeholder": "Votre adresse e-mail",
+      "subscribe": "S'abonner",
+      "disclaimer": "Gratuit et résiliable à tout moment. Pas de spam, promis !"
+    },
+    "popularTopics": "Sujets Populaires"
+  },
+  "careers": {
+    "hero": {
+      "title": "Carrière chez CareerWave",
+      "subtitle": "Rejoignez notre équipe et aidez-nous à façonner l'avenir du recrutement. Nous recherchons des personnes passionnées qui veulent faire la différence.",
+      "viewPositions": "Voir les postes ouverts"
+    },
+    "stats": {
+      "teamMembers": "Membres de l'équipe",
+      "nationalities": "Nationalités",
+      "satisfaction": "Satisfaction des employés",
+      "offices": "Bureaux"
+    },
+    "benefits": {
+      "title": "Ce que nous offrons",
+      "competitiveSalary": {
+        "title": "Salaire Compétitif",
+        "description": "Rémunération attractive plus possibilités de bonus"
+      },
+      "remoteFirst": {
+        "title": "Remote First",
+        "description": "Travaillez de n'importe où ou au bureau - votre choix"
+      },
+      "flexibleHours": {
+        "title": "Horaires Flexibles",
+        "description": "L'équilibre vie professionnelle-vie privée est notre priorité"
+      },
+      "training": {
+        "title": "Formation Continue",
+        "description": "Budget généreux pour les cours et conférences"
+      },
+      "vacation": {
+        "title": "30 Jours de Congés",
+        "description": "Plus des jours de bien-être supplémentaires"
+      },
+      "familyFirst": {
+        "title": "La Famille d'Abord",
+        "description": "Congé parental et modèles de temps partiel flexibles"
+      },
+      "health": {
+        "title": "Santé",
+        "description": "Abonnement à la salle de sport et budget santé"
+      },
+      "teamEvents": {
+        "title": "Événements d'Équipe",
+        "description": "Événements d'équipe réguliers et séminaires"
+      }
+    },
+    "openPositions": {
+      "title": "Postes Ouverts",
+      "applyButton": "Postuler maintenant →",
+      "noPositions": "Aucun poste ouvert actuellement dans cette catégorie.",
+      "checkBack": "Consultez régulièrement ou envoyez-nous une candidature spontanée !"
+    },
+    "hiringProcess": {
+      "title": "Notre Processus de Recrutement",
+      "step1": {
+        "title": "Candidature",
+        "description": "Envoyez-nous votre dossier de candidature via notre portail"
+      },
+      "step2": {
+        "title": "Premier Entretien",
+        "description": "Entretien de 30 minutes avec notre équipe de recrutement"
+      },
+      "step3": {
+        "title": "Entretien Technique",
+        "description": "Entretien technique/professionnel avec l'équipe"
+      },
+      "step4": {
+        "title": "Adéquation avec l'Équipe",
+        "description": "Rencontrez votre future équipe"
+      },
+      "step5": {
+        "title": "Offre",
+        "description": "Nous vous faisons une offre - bienvenue dans l'équipe !"
+      }
+    },
+    "culture": {
+      "title": "Notre Culture",
+      "subtitle": "Chez CareerWave, nous favorisons une culture de travail ouverte, inclusive et collaborative. Nous croyons en :",
+      "transparency": "Une communication transparente à tous les niveaux",
+      "learning": "L'apprentissage continu et le développement",
+      "balance": "L'équilibre vie professionnelle-vie privée et le bien-être mental",
+      "diversity": "La diversité et l'inclusion comme valeurs fondamentales",
+      "autonomy": "L'autonomie et la confiance"
+    },
+    "cta": {
+      "title": "Votre poste idéal n'est pas là ?",
+      "subtitle": "Nous acceptons les candidatures spontanées ! Envoyez-nous vos documents et dites-nous comment vous pouvez enrichir CareerWave.",
+      "button": "Postuler spontanément"
+    }
+  },
+  "privacy": {
+    "title": "Politique de Confidentialité",
+    "lastUpdated": "Dernière mise à jour : 12 janvier 2025",
+    "section1": {
+      "title": "1. Informations Générales",
+      "intro": "Les informations suivantes donnent un aperçu simple de ce qui arrive à vos données personnelles lorsque vous visitez notre site web. Les données personnelles sont toutes les données qui peuvent vous identifier personnellement.",
+      "responsible": "L'entité responsable du traitement des données sur ce site web est CareerWave GmbH. Les coordonnées se trouvent dans les mentions légales de ce site web."
+    },
+    "section2": {
+      "title": "2. Collecte de Données sur Notre Site Web",
+      "cookies": {
+        "title": "Cookies",
+        "description": "Nos pages internet utilisent des « cookies ». Les cookies sont de petits fichiers texte qui ne causent aucun dommage à votre appareil. Ils sont stockés temporairement pour la durée d'une session (cookies de session) ou de manière permanente (cookies permanents) sur votre appareil."
+      },
+      "serverLogs": {
+        "title": "Fichiers Journaux du Serveur",
+        "description": "Le fournisseur des pages collecte et stocke automatiquement des informations dans des fichiers journaux du serveur, que votre navigateur transmet automatiquement. Il s'agit de :",
+        "items": {
+          "browserType": "Type et version du navigateur",
+          "os": "Système d'exploitation utilisé",
+          "referrerUrl": "URL de référence",
+          "hostname": "Nom d'hôte de l'ordinateur accédant",
+          "time": "Heure de la requête du serveur",
+          "ip": "Adresse IP"
+        },
+        "legal": "Ces données ne sont pas fusionnées avec d'autres sources de données. La collecte de ces données est basée sur l'article 6, paragraphe 1, point f) du RGPD."
+      }
+    },
+    "section3": {
+      "title": "3. Vos Droits",
+      "intro": "Vous avez à tout moment le droit de :",
+      "rights": {
+        "access": "Obtenir des informations sur vos données personnelles stockées chez nous (art. 15 RGPD)",
+        "rectification": "Demander la rectification de données incorrectes ou incomplètes (art. 16 RGPD)",
+        "erasure": "Demander la suppression de vos données stockées chez nous (art. 17 RGPD)",
+        "restriction": "Demander la limitation du traitement de vos données (art. 18 RGPD)",
+        "objection": "Vous opposer au traitement de vos données (art. 21 RGPD)",
+        "portability": "Recevoir vos données dans un format structuré (art. 20 RGPD)",
+        "complaint": "Déposer une plainte auprès d'une autorité de contrôle (art. 77 RGPD)"
+      }
+    },
+    "section4": {
+      "title": "4. Inscription et Compte Utilisateur",
+      "intro": "Lors de l'inscription sur notre plateforme, nous collectons les données personnelles suivantes :",
+      "data": {
+        "name": "Nom et prénom",
+        "email": "Adresse e-mail",
+        "password": "Mot de passe (stocké chiffré)",
+        "professional": "Informations professionnelles (facultatif)",
+        "documents": "CV et documents de candidature (pour les chercheurs d'emploi)"
+      },
+      "legal": "Le traitement est basé sur votre consentement (art. 6, para. 1, point a) du RGPD) et pour l'exécution du contrat (art. 6, para. 1, point b) du RGPD)."
+    },
+    "section5": {
+      "title": "5. Processus de Candidature",
+      "intro": "Lorsque vous postulez pour un poste, nous traitons vos données de candidature dans le but de mener le processus de candidature. Cela comprend :",
+      "data": {
+        "cv": "CV et lettre de motivation",
+        "certificates": "Certificats et preuves de qualifications",
+        "contact": "Coordonnées",
+        "career": "Parcours professionnel"
+      },
+      "legal": "La base juridique est l'article 6, paragraphe 1, point b) du RGPD en conjonction avec l'article 26 du BDSG. Vos données seront supprimées après la conclusion du processus de candidature, sauf si vous avez consenti à un stockage ultérieur."
+    },
+    "section6": {
+      "title": "6. Divulgation de Données",
+      "intro": "La divulgation de vos données personnelles à des tiers n'a lieu que si :",
+      "conditions": {
+        "consent": "Vous avez expressément consenti (art. 6, para. 1, point a) du RGPD)",
+        "contract": "Cela est nécessaire pour l'exécution du contrat (art. 6, para. 1, point b) du RGPD)",
+        "legal": "Il existe une obligation légale (art. 6, para. 1, point c) du RGPD)",
+        "claims": "Cela est nécessaire pour faire valoir des droits légaux (art. 6, para. 1, point f) du RGPD)"
+      }
+    },
+    "section7": {
+      "title": "7. Utilisation d'Outils d'Analyse",
+      "analytics": {
+        "title": "Google Analytics",
+        "description1": "Ce site web utilise les fonctionnalités du service d'analyse web Google Analytics. Le fournisseur est Google Ireland Limited. Google Analytics utilise des cookies. Les informations générées par le cookie sur votre utilisation de ce site web sont généralement transmises à un serveur de Google aux États-Unis et y sont stockées.",
+        "description2": "Le stockage des cookies Google Analytics et l'utilisation de cet outil d'analyse sont basés sur l'article 6, paragraphe 1, point f) du RGPD. Vous pouvez empêcher le stockage des cookies en configurant votre logiciel de navigation en conséquence."
+      }
+    },
+    "section8": {
+      "title": "8. Sécurité des Données",
+      "ssl": "Nous utilisons la procédure SSL (Secure Socket Layer) largement utilisée lors de la visite du site web en conjonction avec le niveau de cryptage le plus élevé pris en charge par votre navigateur.",
+      "measures": "De plus, nous mettons en œuvre des mesures de sécurité techniques et organisationnelles appropriées pour protéger vos données contre la manipulation accidentelle ou intentionnelle, la perte partielle ou totale, la destruction ou l'accès non autorisé par des tiers."
+    },
+    "section9": {
+      "title": "9. Durée de Conservation",
+      "description": "Nous ne stockons les données personnelles que pendant la durée nécessaire aux fins pour lesquelles elles ont été collectées ou comme requis par les périodes de conservation légales. Après l'expiration de l'objectif respectif ou de ces périodes, les données correspondantes sont systématiquement supprimées conformément aux dispositions légales."
+    },
+    "section10": {
+      "title": "10. Contact",
+      "intro": "Pour toute question concernant la protection des données, vous pouvez nous contacter à tout moment :",
+      "company": "CareerWave GmbH",
+      "officer": "Délégué à la Protection des Données",
+      "street": "Rue Exemple 123",
+      "city": "10115 Berlin",
+      "email": "datenschutz@careerwave.de",
+      "phone": "+49 (0) 30 1234567"
+    }
+  },
+  "terms": {
+    "title": "Conditions Générales d'Utilisation",
+    "lastUpdated": "Dernière mise à jour : 12 janvier 2025",
+    "section1": {
+      "title": "1. Champ d'Application",
+      "intro": "Ces Conditions Générales d'Utilisation (CGU) s'appliquent à tous les contrats entre CareerWave GmbH (ci-après « CareerWave » ou « Fournisseur ») et les utilisateurs de la plateforme www.careerwave.de.",
+      "acceptance": "En vous inscrivant sur la plateforme, vous acceptez ces CGU. Les conditions divergentes de l'utilisateur ne sont pas reconnues, à moins que CareerWave ne consente expressément par écrit à leur application."
+    },
+    "section2": {
+      "title": "2. Description des Services",
+      "intro": "CareerWave exploite une plateforme en ligne pour l'intermédiation de main-d'œuvre et d'offres d'emploi. La plateforme permet :",
+      "services": {
+        "jobSearch": "Aux chercheurs d'emploi de rechercher des offres d'emploi appropriées",
+        "postJobs": "Aux employeurs de publier des annonces d'emploi",
+        "management": "La gestion des candidatures et des profils de candidats",
+        "communication": "La communication entre employeurs et candidats"
+      },
+      "scope": "L'étendue exacte des services résulte de l'adhésion ou du forfait respectivement choisi."
+    },
+    "section3": {
+      "title": "3. Inscription et Compte Utilisateur",
+      "subsection1": {
+        "title": "3.1 Conditions d'Inscription",
+        "description": "L'inscription n'est autorisée qu'aux personnes physiques ayant atteint l'âge de 18 ans. Les entreprises peuvent s'inscrire en tant qu'employeurs."
+      },
+      "subsection2": {
+        "title": "3.2 Obligation de Véracité",
+        "description": "L'utilisateur s'engage à fournir des informations véridiques, complètes et actuelles lors de l'inscription. Les fausses informations autorisent CareerWave à bloquer ou supprimer immédiatement le compte utilisateur."
+      },
+      "subsection3": {
+        "title": "3.3 Données d'Accès",
+        "description": "L'utilisateur est responsable de la confidentialité de ses données d'accès. En cas de suspicion d'abus, CareerWave doit être informé immédiatement."
+      }
+    },
+    "section4": {
+      "title": "4. Conditions d'Utilisation",
+      "intro": "Lors de l'utilisation de la plateforme, ce qui suit est interdit :",
+      "prohibited": {
+        "illegal": "Publication de contenus illégaux, harcelants ou offensants",
+        "spam": "Envoi de spam ou de messages non sollicités",
+        "scraping": "Utilisation de systèmes automatisés pour l'extraction de données (scraping)",
+        "bypass": "Contournement des mesures de protection techniques",
+        "sharing": "Partage des données d'accès avec des tiers",
+        "fakeJobs": "Publication de fausses annonces d'emploi",
+        "discrimination": "Discrimination fondée sur le sexe, l'âge, l'origine, etc."
+      }
+    },
+    "section5": {
+      "title": "5. Prix et Paiement",
+      "subsection1": {
+        "title": "5.1 Utilisation Gratuite",
+        "description": "Les fonctions de base de la plateforme pour les chercheurs d'emploi sont gratuites. Les employeurs peuvent réserver des forfaits payants."
+      },
+      "subsection2": {
+        "title": "5.2 Services Payants",
+        "description": "Les prix actuels des services payants sont consultables sur le site web sous /pricing. Tous les prix s'entendent hors TVA légale."
+      },
+      "subsection3": {
+        "title": "5.3 Conditions de Paiement",
+        "description": "Le paiement s'effectue au choix par carte de crédit, PayPal ou prélèvement SEPA. Pour les abonnements, le débit est automatique à chaque date de facturation."
+      }
+    },
+    "section6": {
+      "title": "6. Durée du Contrat et Résiliation",
+      "subsection1": {
+        "title": "6.1 Comptes Gratuits",
+        "description": "Les comptes utilisateurs gratuits peuvent être résiliés à tout moment sans préavis."
+      },
+      "subsection2": {
+        "title": "6.2 Abonnements Payants",
+        "description": "Les abonnements payants ont une durée minimale d'un mois (pour le paiement mensuel) ou d'un an (pour le paiement annuel). La résiliation doit intervenir au plus tard 30 jours avant la fin de la période respective, sinon le contrat se renouvelle automatiquement pour la même durée."
+      },
+      "subsection3": {
+        "title": "6.3 Résiliation Extraordinaire",
+        "description": "Le droit de résiliation extraordinaire pour motif important demeure inchangé. Un motif important existe notamment en cas de violation de ces CGU."
+      }
+    },
+    "section7": {
+      "title": "7. Responsabilité",
+      "subsection1": {
+        "title": "7.1 Limitation de Responsabilité",
+        "description": "CareerWave est responsable sans limitation pour les dommages résultant d'une atteinte à la vie, au corps ou à la santé, ainsi que pour les dommages fondés sur une intention ou une négligence grave."
+      },
+      "subsection2": {
+        "title": "7.2 Contenus de Tiers",
+        "description": "CareerWave n'assume aucune responsabilité quant à l'exactitude et l'exhaustivité des annonces d'emploi, des profils de candidats et autres contenus publiés par les utilisateurs."
+      },
+      "subsection3": {
+        "title": "7.3 Disponibilité Technique",
+        "description": "CareerWave s'efforce d'assurer une disponibilité de la plateforme aussi ininterrompue que possible, mais ne peut le garantir. Les travaux de maintenance seront annoncés dans la mesure du possible."
+      }
+    },
+    "section8": {
+      "title": "8. Droits d'Auteur",
+      "content": "Tous les contenus de la plateforme (textes, images, graphiques, design) sont protégés par le droit d'auteur. Toute reproduction ou utilisation sans le consentement exprès de CareerWave n'est pas autorisée.",
+      "license": "En téléchargeant des contenus, l'utilisateur accorde à CareerWave un droit d'utilisation non exclusif et mondial pour utiliser et publier les contenus dans le cadre de la plateforme."
+    },
+    "section9": {
+      "title": "9. Modifications des CGU",
+      "description": "CareerWave se réserve le droit de modifier ces CGU à tout moment. Les modifications seront communiquées aux utilisateurs par e-mail. Si l'utilisateur ne s'y oppose pas dans les 14 jours, les nouvelles CGU sont considérées comme acceptées."
+    },
+    "section10": {
+      "title": "10. Dispositions Finales",
+      "subsection1": {
+        "title": "10.1 Droit Applicable",
+        "description": "Le droit de la République fédérale d'Allemagne s'applique, à l'exclusion de la Convention de Vienne sur les contrats de vente internationale de marchandises."
+      },
+      "subsection2": {
+        "title": "10.2 Lieu de Juridiction",
+        "description": "Le lieu de juridiction pour tous les litiges découlant de ce contrat est Berlin, dans la mesure où l'utilisateur est un commerçant, une personne morale de droit public ou un patrimoine spécial de droit public."
+      },
+      "subsection3": {
+        "title": "10.3 Clause de Sauvegarde",
+        "description": "Si certaines dispositions de ces CGU sont ou deviennent inefficaces, cela n'affecte pas la validité des autres dispositions."
+      }
+    },
+    "section11": {
+      "title": "11. Contact",
+      "company": "CareerWave GmbH",
+      "street": "Rue Exemple 123",
+      "city": "10115 Berlin",
+      "email": "legal@careerwave.de",
+      "phone": "+49 (0) 30 1234567"
+    }
+  },
+  "imprint": {
+    "title": "Mentions Légales",
+    "subtitle": "Informations conformément à l'article 5 TMG",
+    "companyInfo": {
+      "title": "Informations sur l'Entreprise",
+      "companyName": "Nom de l'Entreprise",
+      "address": "Adresse",
+      "register": "Registre du Commerce",
+      "registerCourt": "Tribunal d'Instance de Berlin-Charlottenburg",
+      "registerNumber": "HRB 123456 B",
+      "vatId": "N° TVA",
+      "vatNumber": "DE123456789"
+    },
+    "contact": {
+      "title": "Contact",
+      "phone": "Téléphone",
+      "email": "E-mail",
+      "website": "Site Web"
+    },
+    "management": {
+      "title": "Direction Générale Autorisée",
+      "ceo": {
+        "name": "Dr. Sarah Müller",
+        "role": "PDG & Fondatrice"
+      },
+      "cto": {
+        "name": "Michael Schmidt",
+        "role": "CTO & Fondateur"
+      }
+    },
+    "authority": {
+      "title": "Autorité de Surveillance",
+      "name": "Agence Fédérale pour l'Emploi",
+      "street": "Rue de Ratisbonne 104",
+      "city": "90478 Nuremberg"
+    },
+    "disclaimer": {
+      "title": "Clause de Non-Responsabilité",
+      "content": {
+        "title": "Responsabilité pour le Contenu",
+        "description": "En tant que fournisseur de services, nous sommes responsables de notre propre contenu sur ces pages conformément à l'article 7, paragraphe 1 du TMG, conformément aux lois générales. Cependant, conformément aux articles 8 à 10 du TMG, en tant que fournisseur de services, nous ne sommes pas obligés de surveiller les informations tierces transmises ou stockées ou de rechercher des circonstances indiquant une activité illégale."
+      },
+      "links": {
+        "title": "Responsabilité pour les Liens",
+        "description": "Notre offre contient des liens vers des sites web externes de tiers sur le contenu desquels nous n'avons aucune influence. Par conséquent, nous ne pouvons assumer aucune responsabilité pour ce contenu tiers. Le fournisseur ou l'exploitant respectif des pages est toujours responsable du contenu des pages liées."
+      },
+      "copyright": {
+        "title": "Droits d'Auteur",
+        "description": "Le contenu et les œuvres créés par les exploitants du site sur ces pages sont soumis au droit d'auteur allemand. La reproduction, le traitement, la distribution et toute forme d'exploitation en dehors des limites du droit d'auteur nécessitent le consentement écrit de l'auteur ou du créateur respectif."
+      },
+      "dispute": {
+        "title": "Règlement des Litiges",
+        "description": "La Commission européenne fournit une plateforme de règlement des litiges en ligne (RLL) : https://ec.europa.eu/consumers/odr. Vous trouverez notre adresse e-mail ci-dessus dans les mentions légales.",
+        "participation": "Nous ne sommes ni disposés ni obligés de participer à des procédures de règlement des litiges devant un organisme de médiation des consommateurs."
+      }
+    },
+    "credits": {
+      "title": "Crédits Images et Remerciements",
+      "icons": "Icônes et graphiques : Représentation propre",
+      "photos": "Photos : Unsplash, Pexels (licences voir plateforme respective)",
+      "fonts": "Polices : Google Fonts (licences open-source)"
+    }
+  },
+  "cookies": {
+    "title": "Politique des Cookies",
+    "lastUpdated": "Dernière mise à jour : 12 janvier 2025",
+    "intro": {
+      "title": "Que sont les Cookies ?",
+      "description1": "Les cookies sont de petits fichiers texte qui sont stockés sur votre appareil lorsque vous visitez un site web. Ils nous aident à rendre le site web plus efficace, à améliorer votre expérience utilisateur et à collecter des informations sur l'utilisation du site web.",
+      "description2": "Les cookies peuvent être stockés de manière permanente (cookies persistants) ou temporairement (cookies de session). Ils sont définis soit directement par nous (cookies first-party) soit par des tiers (cookies third-party)."
+    },
+    "categories": {
+      "title": "Catégories de Cookies",
+      "necessary": {
+        "title": "Cookies Nécessaires",
+        "description": "Ces cookies sont requis pour les fonctions de base du site web et ne peuvent pas être désactivés.",
+        "examples": {
+          "session": "Cookies de session pour l'authentification",
+          "security": "Cookies de sécurité pour prévenir les attaques CSRF",
+          "settings": "Paramètres des cookies",
+          "language": "Préférences linguistiques"
+        },
+        "info": "ℹ️ Ces cookies sont techniquement nécessaires et ne peuvent pas être désactivés."
+      },
+      "functional": {
+        "title": "Cookies Fonctionnels",
+        "description": "Ces cookies permettent des fonctionnalités étendues et la personnalisation.",
+        "examples": {
+          "filters": "Filtres de recherche enregistrés",
+          "preferences": "Paramètres d'affichage préférés",
+          "chat": "Fonctions de chat",
+          "favorites": "Liste de souhaits et favoris"
+        }
+      },
+      "analytics": {
+        "title": "Cookies Analytiques",
+        "description": "Ces cookies nous aident à comprendre comment les visiteurs interagissent avec le site web.",
+        "examples": {
+          "ga": "Google Analytics",
+          "pageviews": "Pages vues et durée d'utilisation",
+          "clicks": "Comportement de clic",
+          "performance": "Métriques de performance"
+        }
+      },
+      "marketing": {
+        "title": "Cookies Marketing",
+        "description": "Ces cookies sont utilisés pour rendre la publicité plus pertinente pour vous.",
+        "examples": {
+          "facebook": "Facebook Pixel",
+          "googleAds": "Suivi Google Ads",
+          "retargeting": "Cookies de reciblage",
+          "conversion": "Suivi des conversions"
+        }
+      }
+    },
+    "settings": {
+      "title": "Vos Paramètres de Cookies",
+      "description": "Vous pouvez ajuster ou retirer votre consentement à tout moment.",
+      "acceptAll": "✓ Tout Accepter",
+      "saveSettings": "Enregistrer les Paramètres"
+    },
+    "additionalInfo": {
+      "title": "Informations Supplémentaires",
+      "management": {
+        "title": "Comment Gérer les Cookies",
+        "intro": "Vous pouvez gérer et supprimer les cookies dans les paramètres de votre navigateur :",
+        "browsers": {
+          "chrome": "Chrome : Paramètres → Confidentialité et sécurité → Cookies",
+          "firefox": "Firefox : Paramètres → Vie privée et sécurité → Cookies",
+          "safari": "Safari : Paramètres → Confidentialité → Cookies",
+          "edge": "Edge : Paramètres → Cookies et autorisations de site"
+        }
+      },
+      "dnt": {
+        "title": "Do Not Track (DNT)",
+        "description": "Nous respectons les signaux Do-Not-Track. Si vous avez activé DNT dans votre navigateur, nous ne définissons pas de cookies de suivi."
+      },
+      "lifespan": {
+        "title": "Durée de Vie des Cookies",
+        "intro": "La durée de vie des cookies varie :",
+        "types": {
+          "session": "Cookies de session : Supprimés à la fermeture du navigateur",
+          "persistent": "Cookies persistants : Restent stockés pendant une période définie (maximum 2 ans)"
+        }
+      },
+      "contact": {
+        "title": "Contact",
+        "intro": "Pour toute question concernant notre politique des cookies, vous pouvez nous contacter :",
+        "email": "E-mail : privacy@careerwave.de",
+        "phone": "Téléphone : +49 (0) 30 1234567"
+      }
+    }
+  },
+  "home": {
+    "brand": "CareerWave",
+    "hero": {
+      "title": "Trouvez votre",
+      "titleHighlight": "Emploi de Rêve",
+      "subtitle": "La plateforme moderne pour le développement de carrière et le recrutement"
+    },
+    "auth": {
+      "login": "Se Connecter",
+      "register": "S'inscrire"
+    },
+    "loggedIn": {
+      "welcome": "Bon retour",
+      "roles": {
+        "admin": "👑 Administrateur",
+        "employer": "🏢 Employeur",
+        "candidate": "👤 Candidat"
+      },
+      "quickLinks": {
+        "jobs": {
+          "title": "Offres d'Emploi",
+          "description": "Parcourir les emplois"
+        },
+        "adminPanel": {
+          "title": "Panneau Admin",
+          "description": "Gérer le système"
+        },
+        "logout": {
+          "title": "Déconnexion",
+          "description": "Se déconnecter en toute sécurité"
+        }
+      }
+    },
+    "features": {
+      "jobs": {
+        "title": "Des Milliers d'Emplois",
+        "description": "Accès aux offres d'emploi actuelles dans divers secteurs"
+      },
+      "ai": {
+        "title": "Support IA",
+        "description": "Recommandations d'emploi intelligentes et création automatique de candidatures"
+      },
+      "contact": {
+        "title": "Contact Direct",
+        "description": "Communication directe avec les employeurs et candidature rapide"
+      }
+    }
   }
 }

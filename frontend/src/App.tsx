@@ -27,6 +27,7 @@ import Contact from './pages/Contact';
 import FAQ from './pages/FAQ';
 import Community from './pages/Community';
 import About from './pages/About';
+import AIAssistant from './pages/AIAssistant';
 import Blog from './pages/Blog';
 import Careers from './pages/Careers';
 import Press from './pages/Press';
@@ -37,6 +38,7 @@ import Cookies from './pages/Cookies';
 import AdminRoute from './routes/AdminRoute';
 import EmployerRoute from './routes/EmployerRoute';
 import CandidateRoute from './routes/CandidateRoute';
+import ProtectedRoute from './routes/ProtectedRoute';
 import ForbiddenPage from './pages/Errors/ForbiddenPage';
 import { useAuthStore } from './store/authStore';
 
@@ -101,30 +103,35 @@ function App() {
           <Route path="/*" element={
             <Layout>
               <Routes>
+                {/* Completely Public Pages */}
                 <Route path="/" element={<Home />} />
                 <Route path="/jobs" element={<JobSearchPage />} />
                 <Route path="/jobs/:hashId" element={<JobDetailPage />} />
-                <Route path="/applications" element={<Applications />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/settings" element={<Settings />} />
+                <Route path="/about" element={<About />} />
                 <Route path="/career-tips" element={<CareerTips />} />
-                <Route path="/post-job" element={<PostJob />} />
-                <Route path="/find-candidates" element={<FindCandidates />} />
                 <Route path="/pricing" element={<Pricing />} />
-                <Route path="/company-profile" element={<CompanyProfile />} />
-                <Route path="/help" element={<Help />} />
-                <Route path="/contact" element={<Contact />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/community" element={<Community />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/careers" element={<Careers />} />
                 <Route path="/press" element={<Press />} />
+                <Route path="/careers" element={<Careers />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/help" element={<Help />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/imprint" element={<Imprint />} />
                 <Route path="/cookies" element={<Cookies />} />
                 <Route path="/companies" element={<CompanyProfile />} />
+                <Route path="/contact" element={<Contact />} />
+                
+                {/* Protected Routes - Require Login */}
+                <Route path="/applications" element={<ProtectedRoute><Applications /></ProtectedRoute>} />
+                <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+                <Route path="/post-job" element={<ProtectedRoute><PostJob /></ProtectedRoute>} />
+                <Route path="/find-candidates" element={<ProtectedRoute><FindCandidates /></ProtectedRoute>} />
+                <Route path="/company-profile" element={<ProtectedRoute><CompanyProfile /></ProtectedRoute>} />
+                <Route path="/ai-assistant" element={<ProtectedRoute><AIAssistant /></ProtectedRoute>} />
+                
                 <Route path="/forbidden" element={<ForbiddenPage />} />
               </Routes>
             </Layout>

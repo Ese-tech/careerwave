@@ -21,218 +21,218 @@ const CareerTips: React.FC = () => {
   const careerTips: CareerTip[] = [
     {
       id: 1,
-      category: 'Bewerbung',
-      title: 'Der perfekte Lebenslauf',
-      description: 'So gestaltest du einen Lebenslauf, der überzeugt',
+      category: t('careerTips.categories.application'),
+      title: t('careerTips.tips.resume.title'),
+      description: t('careerTips.tips.resume.description'),
       icon: '📄',
-      readTime: '5 Min.',
+      readTime: t('careerTips.tips.resume.readTime'),
       tips: [
-        'Halte deinen Lebenslauf auf maximal 2 Seiten',
-        'Verwende eine klare, professionelle Struktur',
-        'Beginne mit deinen aktuellsten Erfahrungen (reverse chronologisch)',
-        'Quantifiziere deine Erfolge mit konkreten Zahlen und Ergebnissen',
-        'Passe deinen Lebenslauf für jede Stelle individuell an',
-        'Verwende Aktionsverben wie "entwickelt", "implementiert", "geleitet"',
-        'Achte auf perfekte Rechtschreibung und Grammatik',
-        'Füge relevante Keywords aus der Stellenausschreibung ein'
+        t('careerTips.tips.resume.tip1'),
+        t('careerTips.tips.resume.tip2'),
+        t('careerTips.tips.resume.tip3'),
+        t('careerTips.tips.resume.tip4'),
+        t('careerTips.tips.resume.tip5'),
+        t('careerTips.tips.resume.tip6'),
+        t('careerTips.tips.resume.tip7'),
+        t('careerTips.tips.resume.tip8')
       ]
     },
     {
       id: 2,
-      category: 'Bewerbung',
-      title: 'Das überzeugende Anschreiben',
-      description: 'Wie du mit deinem Anschreiben herausstichst',
+      category: t('careerTips.categories.application'),
+      title: t('careerTips.tips.coverLetter.title'),
+      description: t('careerTips.tips.coverLetter.description'),
       icon: '✉️',
-      readTime: '6 Min.',
+      readTime: t('careerTips.tips.coverLetter.readTime'),
       tips: [
-        'Beginne mit einer starken Einleitung, die Interesse weckt',
-        'Zeige echte Begeisterung für die Position und das Unternehmen',
-        'Erkläre konkret, warum du perfekt für die Stelle bist',
-        'Vermeide Standard-Floskeln und Wiederholungen aus dem Lebenslauf',
-        'Adressiere spezifische Anforderungen aus der Stellenausschreibung',
-        'Erzähle eine kurze Geschichte über relevante Erfolge',
-        'Schließe mit einem klaren Call-to-Action',
-        'Halte das Anschreiben auf maximal eine Seite'
+        t('careerTips.tips.coverLetter.tip1'),
+        t('careerTips.tips.coverLetter.tip2'),
+        t('careerTips.tips.coverLetter.tip3'),
+        t('careerTips.tips.coverLetter.tip4'),
+        t('careerTips.tips.coverLetter.tip5'),
+        t('careerTips.tips.coverLetter.tip6'),
+        t('careerTips.tips.coverLetter.tip7'),
+        t('careerTips.tips.coverLetter.tip8')
       ]
     },
     {
       id: 3,
-      category: 'Vorstellungsgespräch',
-      title: 'Vorbereitung auf das Interview',
-      description: 'Mit der richtigen Vorbereitung zum Erfolg',
+      category: t('careerTips.categories.interview'),
+      title: t('careerTips.tips.interviewPrep.title'),
+      description: t('careerTips.tips.interviewPrep.description'),
       icon: '🎯',
-      readTime: '8 Min.',
+      readTime: t('careerTips.tips.interviewPrep.readTime'),
       tips: [
-        'Recherchiere gründlich über das Unternehmen und die Branche',
-        'Bereite Antworten auf häufige Fragen vor (STAR-Methode)',
-        'Übe deine Selbstpräsentation (2-3 Minuten)',
-        'Bereite eigene Fragen an den Interviewer vor',
-        'Kleide dich angemessen und professionell',
-        'Plane deine Anreise mit genügend Zeitpuffer',
-        'Bringe mehrere Kopien deines Lebenslaufs mit',
-        'Übe mit Freunden oder vor dem Spiegel'
+        t('careerTips.tips.interviewPrep.tip1'),
+        t('careerTips.tips.interviewPrep.tip2'),
+        t('careerTips.tips.interviewPrep.tip3'),
+        t('careerTips.tips.interviewPrep.tip4'),
+        t('careerTips.tips.interviewPrep.tip5'),
+        t('careerTips.tips.interviewPrep.tip6'),
+        t('careerTips.tips.interviewPrep.tip7'),
+        t('careerTips.tips.interviewPrep.tip8')
       ]
     },
     {
       id: 4,
-      category: 'Vorstellungsgespräch',
-      title: 'Körpersprache und Auftreten',
-      description: 'Der erste Eindruck zählt',
+      category: t('careerTips.categories.interview'),
+      title: t('careerTips.tips.bodyLanguage.title'),
+      description: t('careerTips.tips.bodyLanguage.description'),
       icon: '🤝',
-      readTime: '4 Min.',
+      readTime: t('careerTips.tips.bodyLanguage.readTime'),
       tips: [
-        'Gib einen festen, selbstbewussten Händedruck',
-        'Halte Augenkontakt, aber starre nicht',
-        'Achte auf eine aufrechte, offene Körperhaltung',
-        'Lächle authentisch und zeige positive Energie',
-        'Vermeide nervöse Gesten wie Fingertrommeln',
-        'Sprich klar und in angemessenem Tempo',
-        'Zeige aktives Zuhören durch Nicken und Nachfragen',
-        'Bleibe auch unter Stress ruhig und professionell'
+        t('careerTips.tips.bodyLanguage.tip1'),
+        t('careerTips.tips.bodyLanguage.tip2'),
+        t('careerTips.tips.bodyLanguage.tip3'),
+        t('careerTips.tips.bodyLanguage.tip4'),
+        t('careerTips.tips.bodyLanguage.tip5'),
+        t('careerTips.tips.bodyLanguage.tip6'),
+        t('careerTips.tips.bodyLanguage.tip7'),
+        t('careerTips.tips.bodyLanguage.tip8')
       ]
     },
     {
       id: 5,
-      category: 'Gehaltsverhandlung',
-      title: 'Erfolgreich verhandeln',
-      description: 'So bekommst du, was du verdienst',
+      category: t('careerTips.categories.salary'),
+      title: t('careerTips.tips.negotiation.title'),
+      description: t('careerTips.tips.negotiation.description'),
       icon: '💰',
-      readTime: '7 Min.',
+      readTime: t('careerTips.tips.negotiation.readTime'),
       tips: [
-        'Recherchiere vorher Marktgehälter für deine Position',
-        'Warte auf das richtige Timing (nach Jobangebot)',
-        'Nenne zuerst eine Gehaltsspanne statt einer fixen Zahl',
-        'Begründe deine Forderung mit konkreten Qualifikationen',
-        'Verhandle das Gesamtpaket (Bonus, Benefits, Weiterbildung)',
-        'Bleibe freundlich und professionell, aber bestimmt',
-        'Sei bereit zu kompromittieren, aber kenne deine Untergrenze',
-        'Lasse dir das Angebot schriftlich geben'
+        t('careerTips.tips.negotiation.tip1'),
+        t('careerTips.tips.negotiation.tip2'),
+        t('careerTips.tips.negotiation.tip3'),
+        t('careerTips.tips.negotiation.tip4'),
+        t('careerTips.tips.negotiation.tip5'),
+        t('careerTips.tips.negotiation.tip6'),
+        t('careerTips.tips.negotiation.tip7'),
+        t('careerTips.tips.negotiation.tip8')
       ]
     },
     {
       id: 6,
-      category: 'Karriereentwicklung',
-      title: 'Networking richtig gemacht',
-      description: 'Baue ein wertvolles berufliches Netzwerk auf',
+      category: t('careerTips.categories.development'),
+      title: t('careerTips.tips.networking.title'),
+      description: t('careerTips.tips.networking.description'),
       icon: '🌐',
-      readTime: '6 Min.',
+      readTime: t('careerTips.tips.networking.readTime'),
       tips: [
-        'Pflege dein LinkedIn-Profil professionell und aktuell',
-        'Besuche Branchen-Events und Meetups',
-        'Biete anderen Mehrwert, bevor du um Hilfe bittest',
-        'Bleibe authentisch und zeige echtes Interesse',
-        'Follow-up nach neuen Kontakten innerhalb von 24 Stunden',
-        'Teile relevante Inhalte und zeige deine Expertise',
-        'Pflege bestehende Kontakte regelmäßig',
-        'Nutze Alumni-Netzwerke und Fachgruppen'
+        t('careerTips.tips.networking.tip1'),
+        t('careerTips.tips.networking.tip2'),
+        t('careerTips.tips.networking.tip3'),
+        t('careerTips.tips.networking.tip4'),
+        t('careerTips.tips.networking.tip5'),
+        t('careerTips.tips.networking.tip6'),
+        t('careerTips.tips.networking.tip7'),
+        t('careerTips.tips.networking.tip8')
       ]
     },
     {
       id: 7,
-      category: 'Karriereentwicklung',
-      title: 'Weiterbildung und Skills',
-      description: 'Bleibe am Puls der Zeit',
+      category: t('careerTips.categories.development'),
+      title: t('careerTips.tips.skills.title'),
+      description: t('careerTips.tips.skills.description'),
       icon: '📚',
-      readTime: '5 Min.',
+      readTime: t('careerTips.tips.skills.readTime'),
       tips: [
-        'Identifiziere gefragte Skills in deiner Branche',
-        'Nutze Online-Lernplattformen (Coursera, Udemy, LinkedIn Learning)',
-        'Besuche Konferenzen und Workshops',
-        'Lies Fachbücher und -artikel regelmäßig',
-        'Arbeite an Side-Projects zur Praxis',
-        'Hole dir Zertifizierungen für wichtige Qualifikationen',
-        'Lerne von Mentoren und erfahrenen Kollegen',
-        'Dokumentiere deine Lernfortschritte im Portfolio'
+        t('careerTips.tips.skills.tip1'),
+        t('careerTips.tips.skills.tip2'),
+        t('careerTips.tips.skills.tip3'),
+        t('careerTips.tips.skills.tip4'),
+        t('careerTips.tips.skills.tip5'),
+        t('careerTips.tips.skills.tip6'),
+        t('careerTips.tips.skills.tip7'),
+        t('careerTips.tips.skills.tip8')
       ]
     },
     {
       id: 8,
-      category: 'Soft Skills',
-      title: 'Kommunikation am Arbeitsplatz',
-      description: 'Effektiv kommunizieren im Job',
+      category: t('careerTips.categories.softSkills'),
+      title: t('careerTips.tips.communication.title'),
+      description: t('careerTips.tips.communication.description'),
       icon: '💬',
-      readTime: '5 Min.',
+      readTime: t('careerTips.tips.communication.readTime'),
       tips: [
-        'Höre aktiv zu, bevor du antwortest',
-        'Kommuniziere klar und präzise',
-        'Passe deinen Kommunikationsstil dem Empfänger an',
-        'Gib konstruktives Feedback statt Kritik',
-        'Nutze "Ich"-Botschaften statt Vorwürfe',
-        'Dokumentiere wichtige Absprachen schriftlich',
-        'Sei in Meetings vorbereitet und punktgenau',
-        'Lerne, auch unangenehme Themen professionell anzusprechen'
+        t('careerTips.tips.communication.tip1'),
+        t('careerTips.tips.communication.tip2'),
+        t('careerTips.tips.communication.tip3'),
+        t('careerTips.tips.communication.tip4'),
+        t('careerTips.tips.communication.tip5'),
+        t('careerTips.tips.communication.tip6'),
+        t('careerTips.tips.communication.tip7'),
+        t('careerTips.tips.communication.tip8')
       ]
     },
     {
       id: 9,
-      category: 'Soft Skills',
-      title: 'Zeitmanagement und Produktivität',
-      description: 'Arbeite smarter, nicht härter',
+      category: t('careerTips.categories.softSkills'),
+      title: t('careerTips.tips.timeManagement.title'),
+      description: t('careerTips.tips.timeManagement.description'),
       icon: '⏰',
-      readTime: '6 Min.',
+      readTime: t('careerTips.tips.timeManagement.readTime'),
       tips: [
-        'Nutze die Pomodoro-Technik (25 Min. Fokus, 5 Min. Pause)',
-        'Priorisiere nach Eisenhower-Matrix (wichtig vs. dringend)',
-        'Plane deinen Tag am Abend vorher',
-        'Blockiere Fokuszeit in deinem Kalender',
-        'Eliminiere Ablenkungen (Handy, Notifications)',
-        'Delegiere, was andere besser können',
-        'Sage Nein zu unwichtigen Aufgaben',
-        'Reflektiere regelmäßig deine Arbeitsweise'
+        t('careerTips.tips.timeManagement.tip1'),
+        t('careerTips.tips.timeManagement.tip2'),
+        t('careerTips.tips.timeManagement.tip3'),
+        t('careerTips.tips.timeManagement.tip4'),
+        t('careerTips.tips.timeManagement.tip5'),
+        t('careerTips.tips.timeManagement.tip6'),
+        t('careerTips.tips.timeManagement.tip7'),
+        t('careerTips.tips.timeManagement.tip8')
       ]
     },
     {
       id: 10,
-      category: 'Work-Life-Balance',
-      title: 'Burnout vermeiden',
-      description: 'Achte auf deine mentale Gesundheit',
+      category: t('careerTips.categories.workLife'),
+      title: t('careerTips.tips.burnout.title'),
+      description: t('careerTips.tips.burnout.description'),
       icon: '🧘',
-      readTime: '7 Min.',
+      readTime: t('careerTips.tips.burnout.readTime'),
       tips: [
-        'Setze klare Grenzen zwischen Arbeit und Privatleben',
-        'Nimm dir regelmäßig Pausen während des Arbeitstags',
-        'Praktiziere Achtsamkeit und Meditation',
-        'Treibe regelmäßig Sport als Ausgleich',
-        'Sprich offen über Stress mit Vorgesetzten',
-        'Nutze deinen Urlaub vollständig',
-        'Entwickle Hobbys außerhalb der Arbeit',
-        'Suche professionelle Hilfe, wenn nötig'
+        t('careerTips.tips.burnout.tip1'),
+        t('careerTips.tips.burnout.tip2'),
+        t('careerTips.tips.burnout.tip3'),
+        t('careerTips.tips.burnout.tip4'),
+        t('careerTips.tips.burnout.tip5'),
+        t('careerTips.tips.burnout.tip6'),
+        t('careerTips.tips.burnout.tip7'),
+        t('careerTips.tips.burnout.tip8')
       ]
     },
     {
       id: 11,
-      category: 'Remote Work',
-      title: 'Erfolgreich im Homeoffice',
-      description: 'Produktiv von zu Hause arbeiten',
+      category: t('careerTips.categories.remote'),
+      title: t('careerTips.tips.homeOffice.title'),
+      description: t('careerTips.tips.homeOffice.description'),
       icon: '🏠',
-      readTime: '5 Min.',
+      readTime: t('careerTips.tips.homeOffice.readTime'),
       tips: [
-        'Richte einen dedizierten Arbeitsplatz ein',
-        'Halte feste Arbeitszeiten ein',
-        'Kleide dich wie für das Büro',
-        'Nutze Video-Calls für persönlichen Kontakt',
-        'Kommuniziere proaktiv mit dem Team',
-        'Mache regelmäßige Pausen und Bewegung',
-        'Investiere in gute Technik (Headset, Monitor, Stuhl)',
-        'Trenne räumlich und zeitlich Arbeit und Freizeit'
+        t('careerTips.tips.homeOffice.tip1'),
+        t('careerTips.tips.homeOffice.tip2'),
+        t('careerTips.tips.homeOffice.tip3'),
+        t('careerTips.tips.homeOffice.tip4'),
+        t('careerTips.tips.homeOffice.tip5'),
+        t('careerTips.tips.homeOffice.tip6'),
+        t('careerTips.tips.homeOffice.tip7'),
+        t('careerTips.tips.homeOffice.tip8')
       ]
     },
     {
       id: 12,
-      category: 'Führung',
-      title: 'Erste Schritte als Führungskraft',
-      description: 'So meisterst du die neue Rolle',
+      category: t('careerTips.categories.leadership'),
+      title: t('careerTips.tips.leadership.title'),
+      description: t('careerTips.tips.leadership.description'),
       icon: '👔',
-      readTime: '8 Min.',
+      readTime: t('careerTips.tips.leadership.readTime'),
       tips: [
-        'Höre zunächst mehr zu, als dass du sprichst',
-        'Baue Vertrauen durch Authentizität auf',
-        'Führe regelmäßige 1:1 Gespräche mit Mitarbeitern',
-        'Gib klare Ziele und Erwartungen vor',
-        'Delegiere Verantwortung und vertraue deinem Team',
-        'Sei ein Vorbild in Arbeitsethik und Werten',
-        'Investiere in die Entwicklung deiner Mitarbeiter',
-        'Lerne aus Fehlern und sei offen für Feedback'
+        t('careerTips.tips.leadership.tip1'),
+        t('careerTips.tips.leadership.tip2'),
+        t('careerTips.tips.leadership.tip3'),
+        t('careerTips.tips.leadership.tip4'),
+        t('careerTips.tips.leadership.tip5'),
+        t('careerTips.tips.leadership.tip6'),
+        t('careerTips.tips.leadership.tip7'),
+        t('careerTips.tips.leadership.tip8')
       ]
     }
   ];
@@ -245,28 +245,28 @@ const CareerTips: React.FC = () => {
 
   const getCategoryColor = (category: string) => {
     const colors: Record<string, string> = {
-      'Bewerbung': 'bg-blue-50 text-blue-700 border border-blue-200',
-      'Vorstellungsgespräch': 'bg-purple-50 text-purple-700 border border-purple-200',
-      'Gehaltsverhandlung': 'bg-green-50 text-green-700 border border-green-200',
-      'Karriereentwicklung': 'bg-orange-50 text-orange-700 border border-orange-200',
-      'Soft Skills': 'bg-pink-50 text-pink-700 border border-pink-200',
-      'Work-Life-Balance': 'bg-teal-50 text-teal-700 border border-teal-200',
-      'Remote Work': 'bg-indigo-50 text-indigo-700 border border-indigo-200',
-      'Führung': 'bg-red-50 text-red-700 border border-red-200'
+      [t('careerTips.categories.application')]: 'bg-blue-50 text-blue-700 border border-blue-200',
+      [t('careerTips.categories.interview')]: 'bg-purple-50 text-purple-700 border border-purple-200',
+      [t('careerTips.categories.salary')]: 'bg-green-50 text-green-700 border border-green-200',
+      [t('careerTips.categories.development')]: 'bg-orange-50 text-orange-700 border border-orange-200',
+      [t('careerTips.categories.softSkills')]: 'bg-pink-50 text-pink-700 border border-pink-200',
+      [t('careerTips.categories.workLife')]: 'bg-teal-50 text-teal-700 border border-teal-200',
+      [t('careerTips.categories.remote')]: 'bg-indigo-50 text-indigo-700 border border-indigo-200',
+      [t('careerTips.categories.leadership')]: 'bg-red-50 text-red-700 border border-red-200'
     };
     return colors[category] || 'bg-gray-50 text-gray-700 border border-gray-200';
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#2C6C8B]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
         <div className="mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-3">
-            Karriere-Tipps
+            {t('careerTips.title')}
           </h1>
           <p className="text-lg text-gray-600">
-            Wertvolle Ratschläge für deine berufliche Entwicklung
+            {t('careerTips.subtitle')}
           </p>
         </div>
 
@@ -280,10 +280,10 @@ const CareerTips: React.FC = () => {
                 className={`px-6 py-3 rounded-lg font-semibold transition-all border-2 ${
                   selectedCategory === category
                     ? 'bg-teal-600 text-zinc-500 border-teal-600 shadow-lg hover:bg-teal-700 hover:border-teal-700'
-                    : 'bg-white text-gray-500 border-gray-400 hover:bg-teal-50 hover:border-teal-600 hover:text-teal-700'
+                    : 'bg-white dark:bg-[#BCD4E6] text-gray-500 border-gray-400 hover:bg-teal-50 hover:border-teal-600 hover:text-teal-700'
                 }`}
               >
-                {category === 'all' ? '🌟 Alle' : category}
+                {category === 'all' ? `🌟 ${t('careerTips.all')}` : category}
               </button>
             ))}
           </div>
@@ -292,7 +292,7 @@ const CareerTips: React.FC = () => {
         {/* Stats */}
         <div className="mb-8">
           <p className="text-sm text-gray-600">
-            <span className="font-semibold text-teal-600">{filteredTips.length}</span> Tipps gefunden
+            <span className="font-semibold text-teal-600">{filteredTips.length}</span> {t('careerTips.found')}
           </p>
         </div>
 
@@ -301,7 +301,7 @@ const CareerTips: React.FC = () => {
           {filteredTips.map(tip => (
             <Card 
               key={tip.id}
-              className="p-6 hover:shadow-lg transition-shadow rounded-xl border border-gray-200 bg-white"
+              className="p-6 hover:shadow-lg transition-shadow rounded-xl border border-gray-200 bg-white dark:bg-[#BCD4E6]"
             >
               {/* Header */}
               <div className="flex items-start justify-between mb-4">
@@ -321,7 +321,7 @@ const CareerTips: React.FC = () => {
                 {tip.description}
               </p>
               <p className="text-xs text-gray-500 mb-4">
-                ⏱️ Lesezeit: {tip.readTime}
+                ⏱️ {t('careerTips.readTime')}: {tip.readTime}
               </p>
 
               {/* Tips List */}
@@ -347,7 +347,7 @@ const CareerTips: React.FC = () => {
                     : 'bg-teal-600 text-gray-500 border-teal-600 hover:bg-teal-700 hover:border-teal-700 shadow-md'
                 }`}
               >
-                {expandedTip === tip.id ? '▲ Weniger anzeigen' : '▼ Mehr erfahren'}
+                {expandedTip === tip.id ? `▲ ${t('careerTips.showLess')}` : `▼ ${t('careerTips.showMore')}`}
               </button>
             </Card>
           ))}

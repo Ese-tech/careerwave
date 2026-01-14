@@ -73,25 +73,25 @@ const JobSearchPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 dark:bg-[#2C6C8B]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-5xl font-bold text-gray-900 dark:text-slate-900 mb-4">
             {t('jobs.searchJobs')}
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-slate-800">
             {t('jobs.findDreamJob')}
           </p>
         </div>
 
         {/* Search Form */}
-        <Card className="mb-12 p-8 shadow-xl border border-gray-100 rounded-2xl bg-white">
+        <Card className="mb-12 p-8 shadow-xl border-gray-100 dark:border-gray-600 rounded-2xl">
           <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <Input
                 type="text"
-                placeholder="Was? (z.B. Developer, Designer...)"
+                placeholder={t('jobs.whatPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="h-14 text-lg px-6 rounded-xl border-2 border-gray-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all"
@@ -100,7 +100,7 @@ const JobSearchPage: React.FC = () => {
             <div className="flex-1">
               <Input
                 type="text"
-                placeholder="Wo? (z.B. Berlin, München...)"
+                placeholder={t('jobs.wherePlaceholder')}
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 className="h-14 text-lg px-6 rounded-xl border-2 border-gray-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all"
@@ -113,11 +113,11 @@ const JobSearchPage: React.FC = () => {
             >
               {loading ? (
                 <span className="flex items-center gap-2">
-                  <span className="animate-spin">🔄</span> Suche...
+                  <span className="animate-spin">🔄</span> {t('jobs.searching')}
                 </span>
               ) : (
                 <span className="flex items-center gap-2">
-                  🔍 Suchen
+                  🔍 {t('jobs.search')}
                 </span>
               )}
             </Button>
@@ -127,7 +127,7 @@ const JobSearchPage: React.FC = () => {
               disabled={loading}
               className="h-14 bg-linear-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-8 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
             >
-              Zurücksetzen
+              {t('jobs.reset')}
             </Button>
           </form>
         </Card>
@@ -138,7 +138,7 @@ const JobSearchPage: React.FC = () => {
             <div className="flex items-center gap-3">
               <span className="text-3xl">⚠️</span>
               <div>
-                <p className="font-bold text-lg">Fehler</p>
+                <p className="font-bold text-lg">{t('jobs.error')}</p>
                 <p>{error}</p>
               </div>
             </div>
@@ -148,16 +148,16 @@ const JobSearchPage: React.FC = () => {
         {/* Results Count */}
         {allJobs.length > 0 && !loading && (
           <div className="mb-6 flex justify-between items-center">
-            <p className="text-lg text-gray-700">
-              <span className="font-bold text-teal-600">{allJobs.length}</span> Jobs gefunden
+            <p className="text-lg text-gray-700 dark:text-slate-900">
+              <span className="font-bold text-teal-600">{allJobs.length}</span> {t('jobs.jobsFound')}
               {totalPages > 1 && (
-                <span className="text-gray-500 ml-2">
-                  • Seite {currentPage} von {totalPages}
+                <span className="text-gray-500 dark:text-slate-800 ml-2">
+                  • {t('jobs.page')} {currentPage} {t('jobs.of')} {totalPages}
                 </span>
               )}
             </p>
-            <p className="text-sm text-gray-500">
-              Zeige {startIndex + 1} - {Math.min(endIndex, allJobs.length)} von {allJobs.length}
+            <p className="text-sm text-gray-500 dark:text-slate-800">
+              {t('jobs.showing')} {startIndex + 1} - {Math.min(endIndex, allJobs.length)} {t('jobs.of')} {allJobs.length}
             </p>
           </div>
         )}
@@ -165,20 +165,20 @@ const JobSearchPage: React.FC = () => {
         {/* Results */}
         <div className="grid gap-6">
           {allJobs.length === 0 && !loading && (
-            <Card className="p-12 text-center rounded-2xl border border-gray-200 bg-white shadow-lg">
+            <Card className="p-12 text-center rounded-2xl border-gray-200 dark:border-gray-600 shadow-lg">
               <div className="text-6xl mb-4">🔍</div>
-              <p className="text-xl text-gray-600">
-                {searchTerm || location ? 'Keine Jobs gefunden.' : 'Starten Sie eine Suche um Jobs zu finden.'}
+              <p className="text-xl text-gray-600 dark:text-slate-900">
+                {searchTerm || location ? t('jobs.noJobsFound') : t('jobs.startSearching')}
               </p>
             </Card>
           )}
 
         {jobs.map((job) => (
-          <Card key={job.id || job.hashId} className="p-8 hover:shadow-2xl transition-all transform hover:scale-[1.02] rounded-2xl border border-gray-100 bg-white">
+          <Card key={job.id || job.hashId} className="p-8 hover:shadow-2xl transition-all transform hover:scale-[1.02] rounded-2xl border-gray-100 dark:border-gray-600">
             <div className="flex justify-between items-start gap-6">
               <div className="flex-1">
                 {/* Job Title */}
-                <h2 className="text-3xl font-bold text-gray-900 mb-4 hover:text-teal-600 transition-colors cursor-pointer"
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-slate-900 mb-4 hover:text-teal-600 dark:hover:text-teal-700 transition-colors cursor-pointer"
                     onClick={() => navigate(`/jobs/${job.id || job.hashId}`)}>
                   {job.title || job.titel}
                 </h2>
@@ -189,8 +189,8 @@ const JobSearchPage: React.FC = () => {
                     <span className="text-2xl">🏢</span>
                   </div>
                   <div>
-                    <p className="text-lg font-semibold text-gray-800">
-                      {job.company?.display_name || job.arbeitgeber || 'Nicht angegeben'}
+                    <p className="text-lg font-semibold text-gray-800 dark:text-slate-900">
+                      {job.company?.display_name || job.arbeitgeber || t('jobs.notSpecified')}
                     </p>
                   </div>
                 </div>
@@ -228,7 +228,7 @@ const JobSearchPage: React.FC = () => {
                   {/* Contract Type */}
                   {(job.contract_type || job.befristung) && (
                     <span className="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
-                      📋 {job.contract_type === 'permanent' ? 'Festanstellung' : job.contract_type || job.befristung}
+                      📋 {job.contract_type === 'permanent' ? t('jobs.permanentPosition') : job.contract_type || job.befristung}
                     </span>
                   )}
 
@@ -242,8 +242,8 @@ const JobSearchPage: React.FC = () => {
 
                 {/* Description Preview */}
                 {(job.description || job.stellenbeschreibung) && (
-                  <div className="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-100">
-                    <p className="text-gray-700 line-clamp-2 leading-relaxed">
+                  <div className="mt-4 p-4 bg-gray-50 dark:bg-[#2C6C8B] rounded-xl border border-gray-100 dark:border-gray-600">
+                    <p className="text-gray-700 dark:text-slate-100 line-clamp-2 leading-relaxed">
                       {(job.description || job.stellenbeschreibung || '').substring(0, 200)}...
                     </p>
                   </div>
@@ -253,8 +253,8 @@ const JobSearchPage: React.FC = () => {
               {/* Right Side - Date & Button */}
               <div className="flex flex-col items-end gap-4">
                 <div className="text-right">
-                  <p className="text-sm text-gray-500 mb-1">Veröffentlicht</p>
-                  <p className="text-lg font-semibold text-gray-700">
+                  <p className="text-sm text-gray-500 dark:text-slate-800 mb-1">{t('jobs.published')}</p>
+                  <p className="text-lg font-semibold text-gray-700 dark:text-slate-900">
                     {formatDate(job.created || job.modifikationsTimestamp)}
                   </p>
                 </div>
@@ -262,7 +262,7 @@ const JobSearchPage: React.FC = () => {
                   onClick={() => navigate(`/jobs/${job.id || job.hashId}`)}
                   className="bg-linear-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                 >
-                  Details ansehen →
+                  {t('jobs.viewDetails')} →
                 </Button>
               </div>
             </div>

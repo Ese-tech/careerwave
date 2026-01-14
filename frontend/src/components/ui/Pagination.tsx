@@ -1,5 +1,5 @@
 // frontend/src/components/ui/Pagination.tsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface PaginationProps {
   currentPage: number;
@@ -14,6 +14,24 @@ export const Pagination: React.FC<PaginationProps> = ({
   onPageChange,
   className = ''
 }) => {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    
+    checkDarkMode();
+    
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    return () => observer.disconnect();
+  }, []);
+
   if (totalPages <= 1) return null;
 
   const getPageNumbers = () => {
@@ -58,8 +76,11 @@ export const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        style={{ backgroundColor: '#374151', color: 'white' }}
-        className="px-6 py-3 rounded-lg font-semibold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl border-2 border-gray-600"
+        className="px-6 py-3 rounded-lg font-semibold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl border-2 border-gray-600 dark:border-gray-500"
+        style={{ 
+          backgroundColor: isDark ? '#BCD4E6' : '#374151',
+          color: isDark ? '#0f172a' : 'white'
+        }}
       >
         ← Zurück
       </button>
@@ -71,7 +92,10 @@ export const Pagination: React.FC<PaginationProps> = ({
             return (
               <span
                 key={`ellipsis-${index}`}
-                className="px-4 py-3 text-gray-800 font-bold"
+                className="px-4 py-3 font-bold"
+                style={{ 
+                  color: isDark ? '#0f172a' : '#1f2937'
+                }}
               >
                 ...
               </span>
@@ -85,12 +109,15 @@ export const Pagination: React.FC<PaginationProps> = ({
             <button
               key={pageNumber}
               onClick={() => onPageChange(pageNumber)}
-              style={isActive ? {} : { backgroundColor: '#374151', color: 'white' }}
               className={`px-5 py-3 rounded-lg font-bold transition-all shadow-lg hover:shadow-xl border-2 ${
                 isActive
                   ? 'bg-linear-to-r from-teal-500 to-blue-600 text-white scale-110 border-teal-400'
-                  : 'border-gray-600 hover:opacity-90'
+                  : 'border-gray-600 dark:border-gray-500 hover:opacity-90'
               }`}
+              style={isActive ? {} : { 
+                backgroundColor: isDark ? '#BCD4E6' : '#374151',
+                color: isDark ? '#0f172a' : 'white'
+              }}
             >
               {pageNumber}
             </button>
@@ -102,8 +129,11 @@ export const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        style={{ backgroundColor: '#374151', color: 'white' }}
-        className="px-6 py-3 rounded-lg font-semibold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl border-2 border-gray-600"
+        className="px-6 py-3 rounded-lg font-semibold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl border-2 border-gray-600 dark:border-gray-500"
+        style={{ 
+          backgroundColor: isDark ? '#BCD4E6' : '#374151',
+          color: isDark ? '#0f172a' : 'white'
+        }}
       >
         Weiter →
       </button>
